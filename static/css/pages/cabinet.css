@@ -55,8 +55,8 @@
 }
 .cabinet__nav-link:hover,
 .cabinet__nav-link.is-active {
-  background: rgba(255,255,255,0.1);
-  color: var(--color-white);
+  background: var(--color-cream);
+  color: var(--color-dark);
 }
 .cabinet__nav-link--logout { color: rgba(145,3,23,0.8); margin-top: var(--sp-6); }
 .cabinet__nav-link--logout:hover { background: rgba(145,3,23,0.1); color: var(--color-red); }

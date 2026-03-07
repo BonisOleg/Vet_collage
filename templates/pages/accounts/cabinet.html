@@ -12,27 +12,29 @@
 {% if user.is_authenticated %}
 <div class="cabinet">
 
-  <aside class="cabinet__sidebar">
-    <div class="cabinet__user">
-      <div class="cabinet__avatar">
-        <img src="{% static 'images/account-icon.svg' %}" alt="{{ user.get_full_name }}" width="64" height="64">
-      </div>
-      <h2 class="cabinet__username">{{ user.get_full_name|default:user.email }}</h2>
-      <p class="cabinet__user-email">{{ user.email }}</p>
-    </div>
-
-    <nav class="cabinet__nav">
-      <a href="{% url 'accounts:cabinet' %}" class="cabinet__nav-link {% if not request.GET.tab or request.GET.tab == 'courses' %}is-active{% endif %}">Мій аккаунт</a>
-      <a href="?tab=profile" class="cabinet__nav-link {% if request.GET.tab == 'profile' %}is-active{% endif %}">Налаштування</a>
-      <a href="?tab=membership" class="cabinet__nav-link {% if request.GET.tab == 'membership' %}is-active{% endif %}">Членство</a>
-      <a href="?tab=courses" class="cabinet__nav-link {% if request.GET.tab == 'courses' %}is-active{% endif %}">Мої курси</a>
-      <a href="?tab=webinars" class="cabinet__nav-link {% if request.GET.tab == 'webinars' %}is-active{% endif %}">Мої Вебінари</a>
-      <a href="#" class="cabinet__nav-link">Історя покупок</a>
-      <a href="#" class="cabinet__nav-link">Ресурси</a>
-      <a href="#" class="cabinet__nav-link">Кар'єра</a>
-      <a href="{% url 'accounts:logout' %}" class="cabinet__nav-link cabinet__nav-link--logout">Вийти</a>
-    </nav>
-  </aside>
+  {% with tab=request.GET.tab %}
+  {% if not tab or tab == 'courses' %}
+    {% with sidebar_active='account' %}
+    {% include "components/cabinet_sidebar.html" %}
+    {% endwith %}
+  {% elif tab == 'profile' %}
+    {% with sidebar_active='profile' %}
+    {% include "components/cabinet_sidebar.html" %}
+    {% endwith %}
+  {% elif tab == 'membership' %}
+    {% with sidebar_active='membership' %}
+    {% include "components/cabinet_sidebar.html" %}
+    {% endwith %}
+  {% elif tab == 'webinars' %}
+    {% with sidebar_active='webinars' %}
+    {% include "components/cabinet_sidebar.html" %}
+    {% endwith %}
+  {% else %}
+    {% with sidebar_active='account' %}
+    {% include "components/cabinet_sidebar.html" %}
+    {% endwith %}
+  {% endif %}
+  {% endwith %}
 
   <main class="cabinet__main">
     {% if not request.GET.tab or request.GET.tab == 'courses' %}
@@ -98,7 +100,7 @@
           </div>
         </div>
 
-        <a href="{% url 'membership:index' %}" class="cabinet__membership-cta-btn">50 €/рік</a>
+        <a href="{% url 'membership:plans' %}" class="cabinet__membership-cta-btn">50 €/рік</a>
 
         <div class="cabinet__membership-bottom">
           <div class="cabinet__membership-bottom-block">
@@ -107,7 +109,7 @@
           <div class="cabinet__membership-bottom-block">
             <h3 class="cabinet__membership-bottom-heading">Знижки на освіту</h3>
             <p class="cabinet__membership-bottom-text">Користуйтеся спеціальними умовами на курси, сертифікаційні програми та інші освітні продукти.</p>
-            <a href="{% url 'membership:index' %}" class="cabinet__membership-join-btn">Приєднатися</a>
+            <a href="{% url 'membership:plans' %}" class="cabinet__membership-join-btn">Приєднатися</a>
           </div>
           <div class="cabinet__membership-bottom-block">
             <p class="cabinet__membership-bottom-text">Розширюйте свої горизонти в рамках нашої організації.</p>

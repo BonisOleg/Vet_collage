@@ -2,6 +2,146 @@
    MEMBERSHIP PAGE — Адаптивна верстка
    ═══════════════════════════════════════════════════════════════ */
 
+/* ─── Membership dashboard (/membership/ — особистий статус) ─── */
+.membership-dashboard {
+  padding: var(--sp-10) var(--sp-16);
+  background: var(--color-cream);
+}
+
+.membership-dashboard__block {
+  max-width: 560px;
+}
+
+.membership-dashboard__title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: var(--sp-6);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.membership-dashboard__status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.membership-dashboard__date {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-text);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-2);
+}
+
+.membership-dashboard__date:last-of-type {
+  margin-bottom: var(--sp-8);
+}
+
+.membership-dashboard__empty {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--color-text-light);
+  margin-bottom: var(--sp-6);
+}
+
+.membership-dashboard__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 32px;
+  border-radius: 50px;
+  background: var(--color-dark);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  font-weight: var(--fw-regular);
+  text-decoration: none;
+  transition: background var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.membership-dashboard__btn:hover {
+  background: var(--color-dark-hover);
+}
+
+@media (max-width: 1024px) {
+  .membership-dashboard {
+    padding: var(--sp-8) var(--sp-10);
+  }
+  .membership-dashboard__title {
+    font-size: clamp(28px, 5vw, 44px);
+  }
+}
+
+@media (max-width: 768px) {
+  .membership-dashboard {
+    padding: var(--sp-8) var(--pad-mobile);
+  }
+  .membership-dashboard__title {
+    margin-bottom: var(--sp-4);
+  }
+  .membership-dashboard__date:last-of-type {
+    margin-bottom: var(--sp-6);
+  }
+  .membership-dashboard__btn {
+    min-height: 48px;
+    padding: 0 24px;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .membership-dashboard__title {
+    font-size: 26px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .membership-dashboard__btn {
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px;
+  }
+  .cabinet--membership {
+    margin-top: max(160px, env(safe-area-inset-top, 0px) + 120px);
+  }
+}
+
+/* ─── Сайдбар сторінки Членство ─── */
+.cabinet--membership {
+  margin-top: 160px;
+}
+
+.cabinet--membership .cabinet__sidebar {
+  padding-top: var(--sp-8);
+  padding-right: var(--sp-6);
+  padding-bottom: var(--sp-6);
+  padding-left: var(--sp-6);
+  gap: var(--sp-6);
+  overflow-y: hidden;
+}
+
+.cabinet--membership .cabinet__nav-link--logout {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cabinet--membership .cabinet__nav-link--logout:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ─── Публічна сторінка тарифів (/membership/plans/) ─── */
 .membership-page {
   padding-top: 122px;
   padding-bottom: var(--sp-16);

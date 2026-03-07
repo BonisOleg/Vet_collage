@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Членство — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/cabinet.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cabinet cabinet--membership">
+
+  {% with sidebar_active='membership' %}
+  {% include "components/cabinet_sidebar.html" %}
+  {% endwith %}
+
+  <main class="cabinet__main membership-dashboard">
+    <div class="membership-dashboard__block">
+      {% if user.is_authenticated %}
+      <h1 class="membership-dashboard__title">
+        ЧЛЕНСТВО: {% if user_membership and user_membership.is_active %}АКТИВНЕ<span class="membership-dashboard__status-dot" aria-hidden="true"></span>{% else %}НЕАКТИВНЕ{% endif %}
+      </h1>
+
+      {% if user_membership %}
+        <p class="membership-dashboard__date">Дата початку членства: {{ user_membership.start_date|date:"d.m.y" }}</p>
+        <p class="membership-dashboard__date">Дата закінчення членства: {% if user_membership.end_date %}{{ user_membership.end_date|date:"d.m.y" }}{% else %}—{% endif %}</p>
+        <a href="{% url 'membership:plans' %}" class="membership-dashboard__btn">Продовжити</a>
+      {% else %}
+        <p class="membership-dashboard__empty">У вас немає активного членства.</p>
+        <a href="{% url 'membership:plans' %}" class="membership-dashboard__btn">Оформити</a>
+      {% endif %}
+      {% else %}
+      <h1 class="membership-dashboard__title">ЧЛЕНСТВО</h1>
+      <p class="membership-dashboard__empty">Увійдіть в акаунт, щоб переглянути статус членства.</p>
+      <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="membership-dashboard__btn">Увійти</a>
+      {% endif %}
+    </div>
+  </main>
+
+</div>
+{% endblock %}
