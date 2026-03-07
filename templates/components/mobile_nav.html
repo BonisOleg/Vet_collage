@@ -1,0 +1,31 @@
+{% load static %}
+<nav id="mobile-nav" class="mobile-nav" aria-label="Мобільна навігація" aria-hidden="true">
+  <button class="mobile-nav__close" aria-label="Закрити меню">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <div class="mobile-nav__logo">
+    <img src="{% static 'images/logo.svg' %}" alt="UCVN" class="mobile-nav__logo-img">
+  </div>
+
+  <ul class="mobile-nav__list">
+    <li><a href="{% url 'core:about' %}"       class="mobile-nav__link">ПРО НАС</a></li>
+    <li><a href="{% url 'courses:list' %}"     class="mobile-nav__link">КУРСИ</a></li>
+    <li><a href="{% url 'membership:index' %}" class="mobile-nav__link">ЧЛЕНСТВО</a></li>
+    <li><a href="{% url 'blog:list' %}"        class="mobile-nav__link">БЛОГ</a></li>
+    <li><a href="{% url 'webinars:list' %}"    class="mobile-nav__link">ПОСЛУГИ</a></li>
+    <li><a href="{% url 'core:contact' %}"     class="mobile-nav__link">КОНТАКТИ</a></li>
+  </ul>
+
+  <div class="mobile-nav__actions">
+    {% if user.is_authenticated %}
+      <a href="{% url 'accounts:cabinet' %}" class="btn btn-red">Мій кабінет</a>
+      <a href="{% url 'accounts:logout' %}"  class="btn btn-outline-red">Вийти</a>
+    {% else %}
+      <a href="{% url 'accounts:login' %}" class="btn btn-red">Увійти</a>
+      <a href="{% url 'accounts:register_step1' %}" class="btn btn-outline-red">Зареєструватись</a>
+    {% endif %}
+  </div>
+</nav>

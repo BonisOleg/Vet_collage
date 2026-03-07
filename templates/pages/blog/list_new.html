@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════ HERO BLOG ══════ -->
+<section class="hero-blog">
+  <div class="container">
+    <h1 class="hero-blog__heading">Блог</h1>
+    <p class="hero-blog__sub">Статті та матеріали від експертів</p>
+  </div>
+</section>
+
+<!-- ══════ ARTICLES ══════ -->
+<section class="blog-section">
+  <div class="container">
+    <div class="blog-layout">
+      
+      <!-- ARTICLES GRID -->
+      <div class="blog-layout__main">
+        <div class="articles-grid">
+          {% for article in articles %}
+            <article class="article-card">
+              {% if article.cover_image %}
+                <div class="article-card__image">
+                  <img src="{{ article.cover_image.url }}" alt="{{ article.title }}">
+                </div>
+              {% endif %}
+              <div class="article-card__content">
+                <div class="article-card__meta">
+                  <span class="article-card__category">{{ article.category }}</span>
+                  <span class="article-card__date">{{ article.published_date|date:"d.m.Y" }}</span>
+                </div>
+                <h3 class="article-card__title">{{ article.title }}</h3>
+                <p class="article-card__excerpt">{{ article.excerpt|truncatewords:25 }}</p>
+                <a href="{% url 'blog:detail' article.id %}" class="article-card__link">
+                  Читати далі →
+                </a>
+              </div>
+            </article>
+          {% empty %}
+            <div style="grid-column: 1/-1; text-align: center; padding: var(--sp-16); color: var(--color-text-light);">
+              <p>Статті незабаром</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="blog-layout__sidebar">
+        <!-- SEARCH -->
+        <div class="blog-widget">
+          <h3 class="blog-widget__title">Пошук</h3>
+          <form class="blog-search" method="get">
+            <input type="text" name="q" placeholder="Пошук..." class="blog-search__input">
+            <button type="submit" class="blog-search__btn">🔍</button>
+          </form>
+        </div>
+
+        <!-- CATEGORIES -->
+        <div class="blog-widget">
+          <h3 class="blog-widget__title">Категорії</h3>
+          <ul class="blog-categories">
+            <li><a href="?category=all" class="blog-categories__link">Всі статті</a></li>
+            <li><a href="?category=nutrition" class="blog-categories__link">Дієтологія</a></li>
+            <li><a href="?category=clinical" class="blog-categories__link">Клінічні випадки</a></li>
+            <li><a href="?category=research" class="blog-categories__link">Дослідження</a></li>
+            <li><a href="?category=tips" class="blog-categories__link">Поради</a></li>
+          </ul>
+        </div>
+
+        <!-- POPULAR POSTS -->
+        <div class="blog-widget">
+          <h3 class="blog-widget__title">Популярні</h3>
+          <ul class="blog-popular">
+            {% for popular in popular_articles %}
+              <li>
+                <a href="{% url 'blog:detail' popular.id %}" class="blog-popular__link">
+                  {{ popular.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

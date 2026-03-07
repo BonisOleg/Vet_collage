@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вебінари — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/webinars.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="webinars-page">
+
+  <div class="webinars-page__header container">
+    <h1 class="webinars-page__title">Вебінари</h1>
+    <p class="webinars-page__sub">Онлайн-навчання від провідних фахівців ветеринарної дієтології</p>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="webinars-toolbar container">
+    <button class="webinars-toolbar__filters">
+      Фільтри
+      <svg width="15" height="8" viewBox="0 0 15 8" fill="none"><path d="M1 1l6.5 6L14 1" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <div class="webinars-toolbar__sort">
+      Сортувати за
+      <svg width="18" height="0" viewBox="0 0 18 0" fill="none"></svg>
+    </div>
+  </div>
+
+  <!-- Webinars list -->
+  <div class="webinars-list container">
+    {% for webinar in webinars %}
+      <article class="webinar-item">
+        <div class="webinar-item__photo">
+          {% if webinar.cover_image %}
+            <img src="{{ webinar.cover_image.url }}" alt="{{ webinar.title }}" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="webinar-item__type">Вебінар</p>
+        <h2 class="webinar-item__title">{{ webinar.title }}</h2>
+        <p class="webinar-item__desc">{{ webinar.description|truncatewords:15 }}</p>
+        <div class="webinar-item__prices">
+          {% if webinar.original_price %}
+            <span class="webinar-item__price-old">€{{ webinar.original_price }}</span>
+          {% endif %}
+          <span class="webinar-item__price">€{{ webinar.price }}</span>
+        </div>
+        <a href="{% url 'webinars:detail' webinar.id %}" class="webinar-item__btn">Купити</a>
+      </article>
+    {% empty %}
+      <article class="webinar-item">
+        <div class="webinar-item__photo">
+          <img src="{% static 'images/webinar-photo-1.jpg' %}" alt="Нутриціологія" loading="lazy">
+        </div>
+        <p class="webinar-item__type">Вебінар</p>
+        <h2 class="webinar-item__title">Нутриціологія</h2>
+        <p class="webinar-item__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
+        <div class="webinar-item__prices">
+          <span class="webinar-item__price-old">€100</span>
+          <span class="webinar-item__price">€80</span>
+        </div>
+        <a href="{% url 'webinars:list' %}" class="webinar-item__btn">Купити</a>
+      </article>
+
+      <article class="webinar-item">
+        <div class="webinar-item__photo">
+          <img src="{% static 'images/webinar-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
+        </div>
+        <p class="webinar-item__type">Вебінар</p>
+        <h2 class="webinar-item__title">Нутриціологія</h2>
+        <p class="webinar-item__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
+        <div class="webinar-item__prices">
+          <span class="webinar-item__price-old">€100</span>
+          <span class="webinar-item__price">€80</span>
+        </div>
+        <a href="{% url 'webinars:list' %}" class="webinar-item__btn">Купити</a>
+      </article>
+
+      <article class="webinar-item">
+        <div class="webinar-item__photo">
+          <img src="{% static 'images/webinar-photo-3.jpg' %}" alt="Нутриціологія" loading="lazy">
+        </div>
+        <p class="webinar-item__type">Вебінар</p>
+        <h2 class="webinar-item__title">Нутриціологія</h2>
+        <p class="webinar-item__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
+        <div class="webinar-item__prices">
+          <span class="webinar-item__price-old">€100</span>
+          <span class="webinar-item__price">€80</span>
+        </div>
+        <a href="{% url 'webinars:list' %}" class="webinar-item__btn">Купити</a>
+      </article>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

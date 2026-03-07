@@ -1,0 +1,542 @@
+/* ════════════════════════════════════════
+   ABOUT PAGE — pixel-perfect from Figma
+   ════════════════════════════════════════ */
+
+/* ─── HERO ─── */
+/* Figma: white bg, heading "Про нас" 214px Sexsmith #f5f0ea on textured bg */
+
+.about-hero {
+  position: relative;
+  min-height: 60vh;
+  background: var(--color-white);
+  overflow: hidden;
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+}
+
+/* Вигнутий перехід у #2B2B18 внизу hero (Figma) */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 200%;
+  height: 120px;
+  background: var(--color-dark);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.about-hero__textures {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-hero__tex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+}
+
+.about-hero__tex--2 { opacity: 0.15; }
+
+.about-hero__ellipses {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.about-hero__el {
+  position: absolute;
+  width: 120%;
+  left: -10%;
+}
+
+.about-hero__el--top { top: -40%; opacity: 0.6; }
+.about-hero__el--bot { bottom: -50%; opacity: 0.5; }
+
+.about-hero__content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.about-hero__breadcrumb {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: var(--fw-medium);
+  color: rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.about-hero__breadcrumb span:last-child { color: var(--color-black); }
+
+/* "Про нас" — Figma: 214px Sexsmith */
+.about-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 15vw, 215px);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+}
+
+.about-hero__sub {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-dark);
+  margin-bottom: 32px;
+}
+
+.about-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 40px;
+  border-radius: 50px;
+  background: var(--color-cream);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: 24px;
+  text-transform: capitalize;
+  letter-spacing: -0.01em;
+  transition: all var(--ease);
+}
+
+.about-hero__btn:hover {
+  background: var(--color-dark);
+  color: var(--color-cream);
+}
+
+/* ─── TIMELINE ─── */
+/* Figma: центральна вертикальна лінія + роки по обидва боки */
+
+.timeline-section {
+  padding: 80px 0;
+  background: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 60px 0;
+}
+
+.timeline__line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline__line img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.timeline__item {
+  display: contents;
+}
+
+.timeline__item--left .timeline__year,
+.timeline__item--left .timeline__text,
+.timeline__item--left .timeline__photo {
+  grid-column: 1;
+}
+
+.timeline__item--right .timeline__year,
+.timeline__item--right .timeline__text,
+.timeline__item--right .timeline__photo {
+  grid-column: 3;
+}
+
+/* Роки — Figma: 112.8px Sexsmith, #3c3b23 */
+.timeline__year {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 113px);
+  font-weight: var(--fw-bold);
+  color: #3c3b23;
+  text-transform: capitalize;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
+  text-align: center;
+  margin-bottom: 12px;
+  align-self: end;
+}
+
+.timeline__item--left .timeline__year { text-align: right; }
+.timeline__item--right .timeline__year { text-align: left; }
+
+.timeline__text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.timeline__item--left .timeline__text { text-align: right; padding-right: 40px; }
+.timeline__item--right .timeline__text { text-align: left; padding-left: 40px; }
+
+.timeline__photo {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 2.4/1;
+  margin-bottom: 48px;
+}
+
+.timeline__item--left .timeline__photo { margin-right: 40px; }
+.timeline__item--right .timeline__photo { margin-left: 40px; }
+
+.timeline__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── ЦІННОСТІ ─── */
+/* Figma: bg #2b2b18 під карточками, cream cards */
+
+.values-section {
+  position: relative;
+  padding: 80px 0 0;
+  background: var(--color-white);
+}
+
+.values-section__dark-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: var(--color-dark);
+  z-index: 0;
+}
+
+.values-section .container { position: relative; z-index: 1; }
+
+/* "цінності, якими керується наша організація" — Figma: 77.8px Sexsmith, #f5f0ea */
+.values-section__heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 78px);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin-bottom: 64px;
+}
+
+.values-section__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 390px);
+  gap: 55px;
+  justify-content: center;
+  padding-bottom: 80px;
+}
+
+.values-card {
+  background: var(--color-cream);
+  border-radius: var(--radius-md);
+  padding: 33px 22px 30px;
+  min-height: 282px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.values-card__icon {
+  width: 70px;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.values-card__icon img { max-width: 100%; max-height: 100%; display: block; }
+
+.values-card__title {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin-bottom: 12px;
+}
+
+.values-card__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--color-black);
+}
+
+/* ─── ЗАСНОВНИКИ ─── */
+
+.founders-section {
+  padding: 80px 0;
+  background: var(--color-white);
+  overflow: hidden;
+  position: relative;
+}
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: 418px 524px;
+  gap: 122px;
+  justify-content: center;
+  align-items: start;
+}
+
+.founder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 21px;
+}
+
+/* Ім'я засновника — Figma: 77.8px Sexsmith, #f5f0ea */
+.founder-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 78px);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+}
+
+.founder-card__role {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  color: var(--color-dark);
+}
+
+.founder-card__photo {
+  width: 100%;
+  height: 448px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.founder-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.btn-founder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 40px;
+  border-radius: 50px;
+  background: var(--color-cream);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: 18px;
+  text-transform: capitalize;
+  transition: all var(--ease);
+}
+
+.btn-founder:hover { background: var(--color-dark); color: var(--color-cream); }
+
+/* ─── КОМАНДА ─── */
+
+.team-section {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.team-section__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.team-section__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+}
+
+.team-section .container { position: relative; z-index: 1; }
+
+.team-section__heading {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+/* "Наша команда..." — Figma: 77px Sexsmith */
+.team-section__heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 77px);
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.008em;
+  line-height: 1.0;
+  margin-bottom: 24px;
+}
+
+.team-section__sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.6;
+  max-width: 658px;
+  margin-inline: auto;
+  text-align: justify;
+}
+
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px;
+}
+
+.team-card {
+  background: var(--color-cream);
+  border: 1px solid var(--color-red);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: 503px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 31px 24px;
+  text-align: center;
+}
+
+.team-card__photo {
+  width: 328px;
+  height: 238px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.team-card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Figma: 60px Sexsmith */
+.team-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 60px);
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
+  margin-bottom: 8px;
+}
+
+.team-card__role {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-black);
+  font-weight: var(--fw-regular);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.team-card__bio {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 1024px) {
+  .values-section__cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .founders-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .team-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .timeline { grid-template-columns: 1fr; }
+  .timeline__line { display: none; }
+  .timeline__item--left .timeline__year,
+  .timeline__item--left .timeline__text,
+  .timeline__item--left .timeline__photo,
+  .timeline__item--right .timeline__year,
+  .timeline__item--right .timeline__text,
+  .timeline__item--right .timeline__photo {
+    grid-column: 1;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  .values-section__cards { grid-template-columns: 1fr; }
+  .founders-grid { grid-template-columns: 1fr; gap: 48px; }
+  .team-cards { grid-template-columns: 1fr; }
+  .team-card__photo { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .about-hero { padding-top: 80px; }
+  .about-hero__content { padding-top: 48px; }
+}
+
+/* iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .about-hero__title { -webkit-font-smoothing: antialiased; }
+  .about-hero__btn,
+  .btn-founder { -webkit-tap-highlight-color: transparent; }
+}

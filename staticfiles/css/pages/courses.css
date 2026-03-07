@@ -1,0 +1,177 @@
+/* COURSES PAGE — pixel-perfect from Figma */
+
+.courses-page {
+  background: var(--color-cream);
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+/* Toolbar — Figma: #f5f0ea bg */
+.courses-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--pad-desktop);
+  margin-bottom: 32px;
+  padding-top: 80px;
+}
+
+.courses-toolbar__filters {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.courses-toolbar__sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid var(--color-black);
+  border-radius: 45px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-black);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+/* Courses list */
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 47px;
+  padding: 0 var(--pad-desktop);
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+/* Course item — Figma: 286px wide card, bg cream */
+.course-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-item__photo {
+  width: 100%;
+  height: 314px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-gray-bg);
+  margin-bottom: 16px;
+}
+
+.course-item__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+
+.course-item:hover .course-item__photo img { transform: scale(1.03); }
+
+.course-item__type {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  color: rgba(0,0,0,0.5);
+  text-transform: capitalize;
+  margin-bottom: 6px;
+}
+
+/* Title — Figma: 30px Sexsmith, uppercase */
+.course-item__title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 30px);
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.course-item__desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 16px;
+}
+
+.course-item__price {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  color: var(--color-dark);
+  margin-bottom: 20px;
+}
+
+.course-item__actions {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.course-item__btn {
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  letter-spacing: -0.01em;
+  border-radius: 50px;
+  text-transform: capitalize;
+  transition: all var(--ease);
+  min-width: 140px;
+}
+
+/* "Стати членом" — Figma: bg #910317, white text */
+.course-item__btn--member {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.course-item__btn--member:hover { background: var(--color-red-hover); }
+
+/* "Купити" — Figma: border black, black text */
+.course-item__btn--buy {
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  background: transparent;
+}
+
+.course-item__btn--buy:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.course-item__btn--buy img { display: block; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .courses-toolbar { padding: 32px var(--pad-mobile) 0; }
+  .courses-list { padding: 0 var(--pad-mobile); }
+  .course-item__photo { height: 220px; }
+}
+
+/* iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .courses-page { padding-top: calc(80px + env(safe-area-inset-top, 0px)); }
+  .course-item__btn { -webkit-tap-highlight-color: transparent; }
+}

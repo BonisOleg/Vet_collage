@@ -1,0 +1,62 @@
+{% load static %}
+<!-- Figma: хедер, 1440×85px, logo+navigation+lang+account -->
+<header class="site-header">
+  <div class="site-header__inner">
+
+    <a href="{% url 'core:home' %}" class="site-header__logo" aria-label="UCVN — Головна">
+      <img src="{% static 'images/logo.svg' %}" alt="UCVN" class="site-header__logo-img">
+    </a>
+
+    <!-- Figma навігація: ПРО НАС / КУРСИ ▼ / ЧЛЕНСТВО / БЛОГ ▼ / ПОСЛУГИ / КОНТАКТИ -->
+    <nav class="site-header__nav" aria-label="Головна навігація">
+      <a href="{% url 'core:about' %}"       class="site-header__link">ПРО НАС</a>
+
+      <div class="site-header__dropdown">
+        <a href="{% url 'courses:list' %}"   class="site-header__link site-header__link--drop">
+          КУРСИ
+          <svg class="site-header__arrow" width="16" height="9" viewBox="0 0 16 9" fill="none">
+            <path d="M1 1l7 7 7-7" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+      </div>
+
+      <a href="{% url 'membership:index' %}" class="site-header__link">ЧЛЕНСТВО</a>
+
+      <div class="site-header__dropdown">
+        <a href="{% url 'blog:list' %}"      class="site-header__link site-header__link--drop">
+          БЛОГ
+          <svg class="site-header__arrow" width="16" height="9" viewBox="0 0 16 9" fill="none">
+            <path d="M1 1l7 7 7-7" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+      </div>
+
+      <a href="{% url 'webinars:list' %}"    class="site-header__link">ПОСЛУГИ</a>
+      <a href="{% url 'core:contact' %}"     class="site-header__link">КОНТАКТИ</a>
+    </nav>
+
+    <!-- Lang switcher + account -->
+    <div class="site-header__right">
+      <div class="site-header__lang">
+        <button class="site-header__lang-btn is-active" aria-label="Українська">UA</button>
+        <button class="site-header__lang-btn"           aria-label="English">EN</button>
+      </div>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'accounts:cabinet' %}" class="site-header__account" aria-label="Особистий кабінет">
+          <img src="{% static 'images/account-icon.svg' %}" alt="" width="33" height="36">
+        </a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="site-header__account" aria-label="Увійти">
+          <img src="{% static 'images/account-icon.svg' %}" alt="" width="33" height="36">
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Mobile burger -->
+    <button class="site-header__burger" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>

@@ -1,0 +1,24 @@
+{% for article in articles %}
+<a href="{% url 'blog:detail' article.slug %}" class="blog-card" style="display:grid; text-decoration:none; color:inherit;">
+  <div class="blog-card__image">
+    {% if article.cover %}
+      <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
+    {% else %}
+      <div style="width:100%; height:100%; background:var(--color-gray-light);"></div>
+    {% endif %}
+  </div>
+  <div>
+    {% if article.category %}
+      <span class="blog-card__tag">{{ article.category.name }}</span>
+    {% endif %}
+    <h2 class="blog-card__title">{{ article.title }}</h2>
+    {% if article.excerpt %}
+      <p style="margin-top:var(--space-3); font-size:var(--font-size-sm); color:var(--color-gray-mid);">
+        {{ article.excerpt|truncatechars:160 }}
+      </p>
+    {% endif %}
+  </div>
+</a>
+{% empty %}
+  <p style="color:var(--color-gray-mid);">Статей не знайдено</p>
+{% endfor %}

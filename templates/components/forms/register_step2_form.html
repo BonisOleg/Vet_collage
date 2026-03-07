@@ -1,0 +1,35 @@
+<form
+  method="post"
+  action="{% url 'accounts:register_step2' %}"
+  hx-post="{% url 'accounts:register_step2' %}"
+  hx-target="#modal-register-content"
+  hx-swap="innerHTML"
+>
+  {% csrf_token %}
+  <p class="label" style="color:var(--color-red); margin-bottom:var(--space-2);">Крок 2 / 2</p>
+  <h2 class="heading-sm" style="margin-bottom: var(--space-6);">Додаткова інформація</h2>
+
+  <div class="form-group" style="margin-bottom: var(--space-4);">
+    <label class="form-label" for="reg_phone">Телефон</label>
+    <input class="form-input" type="tel" id="reg_phone" name="phone"
+           placeholder="+380 XX XXX XX XX" autocomplete="tel">
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-4);">
+    <label class="form-label" for="reg_role">Вид діяльності</label>
+    <select class="form-input" id="reg_role" name="role" style="height:41px;">
+      <option value="">Оберіть…</option>
+      <option value="vet">Ветеринарний лікар</option>
+      <option value="student">Студент ветеринарного факультету</option>
+      <option value="owner">Власник домашньої тварини</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-6);">
+    <label class="form-label" for="reg_password2">Підтвердити пароль</label>
+    <input class="form-input" type="password" id="reg_password2" name="password2"
+           placeholder="Повторіть пароль" autocomplete="new-password" required>
+  </div>
+
+  <button type="submit" class="btn btn-red" style="width:100%;">Зареєструватись</button>
+</form>

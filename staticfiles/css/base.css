@@ -1,0 +1,229 @@
+/* ═══════════════════════════════════════════════════════════════
+   BASE — Global resets, fonts, utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Cormorant Garamond (replaces Sexsmith/ZT Formom) + Inter */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import 'tokens.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-white);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* ─── Container ─── */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--pad-desktop);
+}
+
+@media (max-width: 1024px) {
+  .container { padding-inline: 40px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding-inline: var(--pad-mobile); }
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--btn-h);
+  padding: 0 32px;
+  border-radius: var(--btn-radius);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-md);
+  font-weight: var(--fw-regular);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all var(--ease);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-red {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.btn-red:hover {
+  background: var(--color-red-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline-red {
+  background: transparent;
+  color: var(--color-red);
+  border: 1.5px solid var(--color-red);
+}
+
+.btn-outline-red:hover {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.btn-dark {
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.btn-dark:hover {
+  background: var(--color-dark-hover);
+}
+
+.btn-sm {
+  height: var(--btn-h-sm);
+  padding: 0 24px;
+  font-size: var(--fs-xs);
+}
+
+/* ─── Forms ─── */
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+
+.form-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input {
+  height: 50px;
+  padding: 0 16px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-body-md);
+  color: var(--color-text);
+  background: var(--color-white);
+  transition: border-color var(--ease);
+}
+
+.form-input:focus {
+  border-color: var(--color-red);
+}
+
+.form-textarea {
+  padding: 14px 16px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-body-md);
+  color: var(--color-text);
+  background: var(--color-white);
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color var(--ease);
+}
+
+.form-textarea:focus {
+  border-color: var(--color-red);
+}
+
+/* ─── Modal ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  z-index: var(--z-overlay);
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-6);
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-10);
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 24px;
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.modal__close:hover { color: var(--color-text); }
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-8);
+}
+
+/* Marquee styles moved to home1.css for page-specific control */
+
+/* ─── Utility ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ─── iOS Safari Fixes ─── */
+@supports (-webkit-touch-callout: none) {
+  .btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  input, textarea {
+    -webkit-appearance: none;
+    border-radius: var(--radius-md);
+  }
+}

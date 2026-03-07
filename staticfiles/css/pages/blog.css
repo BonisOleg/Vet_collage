@@ -1,0 +1,144 @@
+/* BLOG PAGE — pixel-perfect from Figma */
+
+.blog-page {
+  background: var(--color-cream);
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+.blog-page__header {
+  padding-top: 80px;
+  padding-bottom: 48px;
+  text-align: center;
+}
+
+/* Figma: Sexsmith display title */
+.blog-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 111px);
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
+  margin-bottom: 16px;
+}
+
+.blog-page__sub {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-text-light);
+}
+
+/* Cards grid — Figma: 302px wide, 4 in a row with 22px gap */
+.blog-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(286px, 302px));
+  gap: 22px;
+  justify-content: center;
+}
+
+.blog-article-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Photo — Figma: 302×314px, rounded-[5px] */
+.blog-article-card__photo {
+  width: 100%;
+  height: 314px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-gray-bg);
+  margin-bottom: 16px;
+}
+
+.blog-article-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+
+.blog-article-card:hover .blog-article-card__photo img { transform: scale(1.03); }
+
+.blog-article-card__date {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  color: rgba(0,0,0,0.5);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+/* Title — Figma: 30px Sexsmith, uppercase */
+.blog-article-card__title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blog-article-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+/* "Читати" button — Figma: bg #2b2b18, white, 40px height, pill */
+.blog-article-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 140px;
+  border-radius: 50px;
+  background: var(--color-dark);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  text-transform: capitalize;
+  letter-spacing: -0.01em;
+  transition: all var(--ease);
+}
+
+.blog-article-card__btn:hover {
+  background: var(--color-dark-hover);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blog-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .blog-article-card__title { font-size: 20px; white-space: normal; }
+}
+
+@media (max-width: 640px) {
+  .blog-page { padding-top: 80px; }
+  .blog-cards { grid-template-columns: 1fr; }
+  .blog-article-card__photo { height: 220px; }
+}
+
+/* iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .blog-article-card__btn { -webkit-tap-highlight-color: transparent; }
+}

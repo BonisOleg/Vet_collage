@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="blog-page">
+
+  <div class="blog-page__header container">
+    <h1 class="blog-page__title">Блог</h1>
+    <p class="blog-page__sub">Статті та матеріали від експертів у ветеринарній дієтології</p>
+  </div>
+
+  <!-- Карточки статей — Figma: 302px width, cream bg -->
+  <div class="blog-cards container">
+    {% for article in articles %}
+      <article class="blog-article-card">
+        <div class="blog-article-card__photo">
+          {% if article.cover_image %}
+            <img src="{{ article.cover_image.url }}" alt="{{ article.title }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'images/blog-card-photo.jpg' %}" alt="{{ article.title }}" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="blog-article-card__date">{{ article.published_date|date:"d.m.Y" }}</p>
+        <h2 class="blog-article-card__title">{{ article.title }}</h2>
+        <p class="blog-article-card__excerpt">{{ article.excerpt|truncatewords:20 }}</p>
+        <a href="{% url 'blog:detail' article.id %}" class="blog-article-card__btn">Читати</a>
+      </article>
+    {% empty %}
+      <!-- Placeholder з Figma дизайну -->
+      <article class="blog-article-card">
+        <div class="blog-article-card__photo">
+          <img src="{% static 'images/blog-card-photo.jpg' %}" alt="Про правильне харчування" loading="lazy">
+        </div>
+        <p class="blog-article-card__date">11.11.2024</p>
+        <h2 class="blog-article-card__title">Про правильне харчування</h2>
+        <p class="blog-article-card__excerpt">Стаття для тих, хто хоче дізнатись більше про здорове харчування для своїх тварин.</p>
+        <a href="{% url 'blog:list' %}" class="blog-article-card__btn">Читати</a>
+      </article>
+
+      <article class="blog-article-card">
+        <div class="blog-article-card__photo">
+          <img src="{% static 'images/blog-preview-1.jpg' %}" alt="Клінічні випадки" loading="lazy">
+        </div>
+        <p class="blog-article-card__date">01.10.2024</p>
+        <h2 class="blog-article-card__title">Клінічні випадки: успішні підходи</h2>
+        <p class="blog-article-card__excerpt">Розбір реальних клінічних ситуацій з практики ветеринарних дієтологів.</p>
+        <a href="{% url 'blog:list' %}" class="blog-article-card__btn">Читати</a>
+      </article>
+
+      <article class="blog-article-card">
+        <div class="blog-article-card__photo">
+          <img src="{% static 'images/blog-preview-2.jpg' %}" alt="Новини досліджень" loading="lazy">
+        </div>
+        <p class="blog-article-card__date">15.09.2024</p>
+        <h2 class="blog-article-card__title">Новини досліджень нутріціології</h2>
+        <p class="blog-article-card__excerpt">Найновіші дослідження у галузі ветеринарної нутріціології за 2024 рік.</p>
+        <a href="{% url 'blog:list' %}" class="blog-article-card__btn">Читати</a>
+      </article>
+
+      <article class="blog-article-card">
+        <div class="blog-article-card__photo">
+          <img src="{% static 'images/blog-preview-3.jpg' %}" alt="Поради власникам" loading="lazy">
+        </div>
+        <p class="blog-article-card__date">03.09.2024</p>
+        <h2 class="blog-article-card__title">Поради власникам домашніх тварин</h2>
+        <p class="blog-article-card__excerpt">Як правильно скласти раціон для котів та собак різного віку.</p>
+        <a href="{% url 'blog:list' %}" class="blog-article-card__btn">Читати</a>
+      </article>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

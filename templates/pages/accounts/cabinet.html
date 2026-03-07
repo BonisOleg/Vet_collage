@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Особистий кабінет — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/cabinet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="cabinet">
+
+  <aside class="cabinet__sidebar">
+    <div class="cabinet__user">
+      <div class="cabinet__avatar">
+        <img src="{% static 'images/account-icon.svg' %}" alt="{{ user.get_full_name }}" width="64" height="64">
+      </div>
+      <h2 class="cabinet__username">{{ user.get_full_name|default:user.email }}</h2>
+      <p class="cabinet__user-email">{{ user.email }}</p>
+    </div>
+
+    <nav class="cabinet__nav">
+      <a href="{% url 'accounts:cabinet' %}" class="cabinet__nav-link {% if not request.GET.tab or request.GET.tab == 'courses' %}is-active{% endif %}">Мій аккаунт</a>
+      <a href="?tab=profile" class="cabinet__nav-link {% if request.GET.tab == 'profile' %}is-active{% endif %}">Налаштування</a>
+      <a href="?tab=membership" class="cabinet__nav-link {% if request.GET.tab == 'membership' %}is-active{% endif %}">Членство</a>
+      <a href="?tab=courses" class="cabinet__nav-link {% if request.GET.tab == 'courses' %}is-active{% endif %}">Мої курси</a>
+      <a href="?tab=webinars" class="cabinet__nav-link {% if request.GET.tab == 'webinars' %}is-active{% endif %}">Мої Вебінари</a>
+      <a href="#" class="cabinet__nav-link">Історя покупок</a>
+      <a href="#" class="cabinet__nav-link">Ресурси</a>
+      <a href="#" class="cabinet__nav-link">Кар'єра</a>
+      <a href="{% url 'accounts:logout' %}" class="cabinet__nav-link cabinet__nav-link--logout">Вийти</a>
+    </nav>
+  </aside>
+
+  <main class="cabinet__main">
+    {% if not request.GET.tab or request.GET.tab == 'courses' %}
+      <div class="cabinet__section">
+        <h1 class="cabinet__section-title">Мої курси</h1>
+
+        {% if user_courses %}
+          <div class="cabinet__courses-grid">
+            {% for enrollment in user_courses %}
+              <div class="cabinet__course-card">
+                {% if enrollment.course.cover_image %}
+                  <div class="cabinet__course-photo">
+                    <img src="{{ enrollment.course.cover_image.url }}" alt="{{ enrollment.course.title }}" loading="lazy">
+                  </div>
+                {% endif %}
+                <h3 class="cabinet__course-title">{{ enrollment.course.title }}</h3>
+                <a href="{% url 'courses:detail' enrollment.course.id %}" class="cabinet__course-btn">Продовжити</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="cabinet__empty">
+            <p class="cabinet__empty-text">У вас ще немає жодного курсу</p>
+            <a href="{% url 'courses:list' %}" class="btn btn-red">Переглянути курси</a>
+          </div>
+        {% endif %}
+      </div>
+
+    {% elif request.GET.tab == 'webinars' %}
+      <div class="cabinet__section">
+        <h1 class="cabinet__section-title">Мої вебінари</h1>
+        <div class="cabinet__empty">
+          <p class="cabinet__empty-text">У вас ще немає жодного вебінару</p>
+          <a href="{% url 'webinars:list' %}" class="btn btn-red">Переглянути вебінари</a>
+        </div>
+      </div>
+
+    {% elif request.GET.tab == 'membership' %}
+      <div class="cabinet__section cabinet__membership">
+        <p class="cabinet__membership-intro">Приєднуйтесь до спільноти ветеринарних дієтологів. Членство доступне виключно для ветеринарних лікарів або студентів ветеринарного факультету.</p>
+
+        <div class="cabinet__membership-cards">
+          <div class="cabinet__membership-feature">
+            <span class="cabinet__membership-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+            </span>
+            <h2 class="cabinet__membership-feature-title">Ексклюзивні матеріали</h2>
+            <p class="cabinet__membership-feature-text">Отримуйте доступ до навчальних ресурсів, вебінарів і підтримки від експертів.</p>
+          </div>
+          <div class="cabinet__membership-feature">
+            <span class="cabinet__membership-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </span>
+            <h2 class="cabinet__membership-feature-title">КАР'ЄРНИЙ РОЗВИТОК</h2>
+            <p class="cabinet__membership-feature-text">Розширюйте свої професійні горизонти в рамках нашої організації.</p>
+          </div>
+          <div class="cabinet__membership-feature">
+            <span class="cabinet__membership-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-4 7-10V5l-7 4V5"/><path d="M14 21c3 0 7-4 7-10V5l-7 4V5"/></svg>
+            </span>
+            <h2 class="cabinet__membership-feature-title">нетворкінг</h2>
+            <p class="cabinet__membership-feature-text">Спілкуйтесь із колегами та експертами з усього світу і обмінюйтеся досвідом.</p>
+          </div>
+        </div>
+
+        <a href="{% url 'membership:index' %}" class="cabinet__membership-cta-btn">50 €/рік</a>
+
+        <div class="cabinet__membership-bottom">
+          <div class="cabinet__membership-bottom-block">
+            <p class="cabinet__membership-bottom-text">Отримуйте доступ до навчальних ресурсів, вебінарів і технічної підтримки від експертів.</p>
+          </div>
+          <div class="cabinet__membership-bottom-block">
+            <h3 class="cabinet__membership-bottom-heading">Знижки на освіту</h3>
+            <p class="cabinet__membership-bottom-text">Користуйтеся спеціальними умовами на курси, сертифікаційні програми та інші освітні продукти.</p>
+            <a href="{% url 'membership:index' %}" class="cabinet__membership-join-btn">Приєднатися</a>
+          </div>
+          <div class="cabinet__membership-bottom-block">
+            <p class="cabinet__membership-bottom-text">Розширюйте свої горизонти в рамках нашої організації.</p>
+            <div class="cabinet__membership-img-wrap">
+              <!-- Замінити на <img src="{% static 'images/membership-network.jpg' %}" alt=""> коли буде файл -->
+              <div class="cabinet__membership-img-placeholder" role="img" aria-label="Нетворкінг"></div>
+            </div>
+            <p class="cabinet__membership-bottom-text">Спілкуйтесь із колегами з усього світу під час заходів і обмінюйтеся досвідом.</p>
+          </div>
+        </div>
+      </div>
+
+    {% elif request.GET.tab == 'profile' %}
+      <div class="cabinet__section">
+        <h1 class="cabinet__section-title">Профіль</h1>
+        <form class="cabinet__profile-form" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="form-label">Ім'я</label>
+            <input type="text" class="form-input" name="first_name" value="{{ user.first_name }}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Прізвище</label>
+            <input type="text" class="form-input" name="last_name" value="{{ user.last_name }}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" value="{{ user.email }}" disabled>
+          </div>
+          <button type="submit" class="btn btn-dark" style="margin-top: 8px;">Зберегти</button>
+        </form>
+      </div>
+    {% endif %}
+
+  </main>
+
+</div>
+
+{% else %}
+<div class="cabinet-locked">
+  <h1 class="cabinet-locked__title">Доступ обмежений</h1>
+  <p class="cabinet-locked__sub">Будь ласка, увійдіть в систему</p>
+  <a href="{% url 'accounts:login' %}" class="btn btn-red">Увійти</a>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+<div>
+  <h2 class="heading-sm" style="margin-bottom:var(--space-8);">Мої вебінари</h2>
+  {% if user_webinars %}
+    <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+      {% for webinar in user_webinars %}
+      <div style="border:1px solid var(--color-gray-light); padding:var(--space-5); display:flex; justify-content:space-between; align-items:center; gap:var(--space-4);">
+        <div>
+          <p style="font-weight:var(--font-weight-semi);">{{ webinar.title }}</p>
+          {% if webinar.date %}
+          <p style="font-size:var(--font-size-sm); color:var(--color-gray-mid);">{{ webinar.date|date:"d.m.Y H:i" }}</p>
+          {% endif %}
+        </div>
+        <a href="{% url 'webinars:detail' webinar.slug %}" class="btn btn-dark btn-sm">Переглянути</a>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="text-align:center; padding:var(--space-20) 0; color:var(--color-gray-mid);">
+      <p class="body-lg" style="margin-bottom:var(--space-6);">У вас ще немає жодних вебінарів</p>
+      <a href="{% url 'webinars:list' %}" class="btn btn-red">Переглянути вебінари</a>
+    </div>
+  {% endif %}
+</div>

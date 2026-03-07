@@ -1,0 +1,44 @@
+{% load static %}
+
+<!-- Login Modal — Figma: cream card #f5f0ea, border black, rounded-[5px] -->
+<div id="modal-login" class="auth-modal-overlay" role="dialog" aria-modal="true" aria-label="Вхід в акаунт">
+  <div class="auth-modal">
+    <button class="auth-modal__close" data-modal-close aria-label="Закрити">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Figma: "ДОЛУЧАЙТЕСЬ ДО НАШОЇ СПІЛЬНОТИ" — Sexsmith 49.6px -->
+    <h2 class="auth-modal__title">Увійти в<br>акаунт</h2>
+    <p class="auth-modal__sub">Введіть ваші дані для входу</p>
+
+    <form class="auth-modal__form"
+          method="post"
+          action="{% url 'accounts:login' %}"
+          hx-post="{% url 'accounts:login' %}"
+          hx-target="#login-result"
+          hx-swap="innerHTML">
+      {% csrf_token %}
+      {% if request.GET.next %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
+      {% endif %}
+
+      <div class="auth-modal__field">
+        <input type="email" name="username" placeholder="Email" class="auth-modal__input" required autocomplete="email">
+      </div>
+
+      <div class="auth-modal__field">
+        <input type="password" name="password" placeholder="Пароль" class="auth-modal__input" required autocomplete="current-password">
+      </div>
+
+      <div id="login-result" aria-live="polite"></div>
+
+      <button type="submit" class="auth-modal__btn">Увійти</button>
+
+      <p class="auth-modal__switch">
+        Немає акаунту? <a href="{% url 'accounts:register_step1' %}" class="auth-modal__switch-link">Зареєструватись</a>
+      </p>
+    </form>
+  </div>
+</div>
