@@ -15,6 +15,20 @@
   align-items: center;
 }
 
+/* Вигнутий перехід у #2B2B18 внизу hero (Figma) */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 200%;
+  height: 120px;
+  background: var(--color-dark);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
 .about-hero__textures {
   position: absolute;
   inset: 0;
@@ -53,7 +67,7 @@
 
 .about-hero__content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   padding-top: 80px;
   padding-bottom: 80px;

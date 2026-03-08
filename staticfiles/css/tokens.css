@@ -10,6 +10,7 @@
   --color-black:       #000000;
   --color-text:        #000000;
   --color-text-light:  #444444;
+  --color-gray-mid:    #666666;
   --color-overlay:     rgba(0, 0, 0, 0.45);
   --color-border:      #e0e0e0;
 
@@ -37,6 +38,9 @@
   --fs-small:      15px;
   --fs-xs:         14px;
   --fs-nav:        20px;  /* From Figma: navigation links */
+  --font-size-xs:  var(--fs-xs);
+  --font-size-sm:  var(--fs-small);
+  --font-size-base: var(--fs-body-md);
 
   --fw-light:   300;
   --fw-regular: 400;
@@ -64,6 +68,14 @@
   --sp-20: 80px;
   --sp-24: 96px;
   --sp-32: 128px;
+
+  /* Space aliases (for templates) ─── */
+  --space-2:  var(--sp-2);
+  --space-3:  var(--sp-3);
+  --space-5:  var(--sp-5);
+  --space-6:  var(--sp-6);
+  --space-10: var(--sp-10);
+  --space-16: var(--sp-16);
 
   /* ─── Layout ─── */
   --container:       1440px;
