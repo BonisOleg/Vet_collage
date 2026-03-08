@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог для членів — UCVN{% endblock %}
+
+{% block body_class %}page-blog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="blog-hero" aria-label="Блог для членів" style="background-image: url('{% static 'images/blog-card-photo.jpg' %}');">
+  <div class="blog-hero__overlay" aria-hidden="true"></div>
+  <div class="container blog-hero__content">
+    <p class="blog-hero__breadcrumb">
+      <a href="{% url 'core:home' %}">Головна</a>
+      <span class="blog-hero__breadcrumb-sep"> &gt; </span>
+      <span>Блог</span>
+    </p>
+    <h1 class="blog-hero__title">Блог</h1>
+    <p class="blog-hero__sub">Ексклюзивні матеріали для членів</p>
+    <a href="#articles-vets" class="blog-hero__btn">Читати статті</a>
+  </div>
+</section>
+
+<section id="articles-vets" class="blog-section blog-section--vets">
+  <div class="container">
+    <div class="blog-section__head blog-section__head--vets">
+      <div class="blog-section__titles">
+        <h2 class="blog-section__title">ДЛЯ ВЕТЕРИНАРНИХ ЛІКАРІВ</h2>
+        <p class="blog-section__sub">*Тільки для членів</p>
+      </div>
+    </div>
+    <div class="blog-section__grid">
+      {% for article in articles %}
+        <article class="blog-article-card">
+          <div class="blog-article-card__photo">
+            {% if article.cover %}
+              <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-card-photo.jpg' %}" alt="{{ article.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <p class="blog-article-card__date">{% if article.published_at %}{{ article.published_at|date:"d.m.Y" }}{% endif %}</p>
+          <h3 class="blog-article-card__title">{{ article.title }}</h3>
+          <p class="blog-article-card__excerpt">{{ article.excerpt|truncatewords:20|default:"" }}</p>
+          <a href="{% url 'blog:detail' article.slug %}" class="blog-article-card__btn">Читати</a>
+        </article>
+      {% empty %}
+        <p class="blog-section__empty">Статей поки немає.</p>
+      {% endfor %}
+    </div>
+
+    {% if page_obj and page_obj.paginator.num_pages > 1 %}
+      <nav class="blog-pagination" aria-label="Пагінація">
+        <ul class="blog-pagination__list">
+          {% if page_obj.has_previous %}
+            <li><a href="{% url 'blog:list' %}?page={{ page_obj.previous_page_number }}" class="blog-pagination__link">Попередня</a></li>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+            <li>
+              {% if num == page_obj.number %}
+                <span class="blog-pagination__current" aria-current="page">{{ num }}</span>
+              {% else %}
+                <a href="{% url 'blog:list' %}?page={{ num }}" class="blog-pagination__link">{{ num }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li><a href="{% url 'blog:list' %}?page={{ page_obj.next_page_number }}" class="blog-pagination__link">Наступна</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
