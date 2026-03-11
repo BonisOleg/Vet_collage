@@ -16,7 +16,7 @@
 .services__texture {
   position: absolute;
   inset: 0;
-  background: url('/static/images/expertise-texture.jpg') center/cover;
+  background: url('/static/images/expertise-texture.webp') center/cover;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;
@@ -182,13 +182,13 @@
 }
 
 .consultation__tex--1 {
-  background-image: url('/static/images/hero-bg-texture-1.jpg');
+  background-image: url('/static/images/hero-bg-texture-1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
 
 .consultation__tex--2 {
-  background-image: url('/static/images/hero-bg-texture-2.jpg');
+  background-image: url('/static/images/hero-bg-texture-2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
@@ -286,7 +286,7 @@
 .edu-opportunities__texture {
   position: absolute;
   inset: 0;
-  background: url('/static/images/expertise-texture.jpg') center/cover;
+  background: url('/static/images/expertise-texture.webp') center/cover;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;
@@ -404,13 +404,13 @@
 }
 
 .reviews__tex--1 {
-  background-image: url('/static/images/hero-bg-texture-1.jpg');
+  background-image: url('/static/images/hero-bg-texture-1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
 
 .reviews__tex--2 {
-  background-image: url('/static/images/hero-bg-texture-2.jpg');
+  background-image: url('/static/images/hero-bg-texture-2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
@@ -601,7 +601,7 @@
 .blog-preview__texture {
   position: absolute;
   inset: 0;
-  background: url('/static/images/expertise-texture.jpg') center/cover;
+  background: url('/static/images/expertise-texture.webp') center/cover;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;

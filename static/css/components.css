@@ -238,13 +238,13 @@
 }
 
 .site-footer__tex--1 {
-  background-image: url('/static/images/footer/bg_1.png');
+  background-image: url('/static/images/footer/bg_1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
 
 .site-footer__tex--2 {
-  background-image: url('/static/images/footer/bg_2.png');
+  background-image: url('/static/images/footer/bg_2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }

@@ -28,14 +28,14 @@
 }
 
 .courses-section__tex--1 {
-  background-image: url('/static/images/hero-bg-texture-1.jpg');
+  background-image: url('/static/images/hero-bg-texture-1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
   top: -83px;
 }
 
 .courses-section__tex--2 {
-  background-image: url('/static/images/hero-bg-texture-2.jpg');
+  background-image: url('/static/images/hero-bg-texture-2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
   top: -77px;
@@ -198,14 +198,14 @@
 }
 
 .membership__tex--1 {
-  background-image: url('/static/images/hero-bg-texture-1.jpg');
+  background-image: url('/static/images/hero-bg-texture-1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
   top: -6px;
 }
 
 .membership__tex--2 {
-  background-image: url('/static/images/hero-bg-texture-2.jpg');
+  background-image: url('/static/images/hero-bg-texture-2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
@@ -514,13 +514,13 @@
 }
 
 .specialists__tex--1 {
-  background-image: url('/static/images/hero-bg-texture-1.jpg');
+  background-image: url('/static/images/hero-bg-texture-1.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }
 
 .specialists__tex--2 {
-  background-image: url('/static/images/hero-bg-texture-2.jpg');
+  background-image: url('/static/images/hero-bg-texture-2.webp');
   mix-blend-mode: multiply;
   opacity: 0.2;
 }

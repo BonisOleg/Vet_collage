@@ -218,7 +218,7 @@
 .mission__card-texture {
   position: absolute;
   inset: 0;
-  background: url('/static/images/hero-bg-texture-1.jpg') center/cover;
+  background: url('/static/images/hero-bg-texture-1.webp') center/cover;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;
@@ -320,7 +320,7 @@
 .expertise__texture {
   position: absolute;
   inset: 0;
-  background: url('/static/images/expertise-texture.jpg') center/cover;
+  background: url('/static/images/expertise-texture.webp') center/cover;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;

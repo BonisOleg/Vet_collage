@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<section class="blog-hero" aria-label="Блог" style="background-image: url('{% static 'images/blog-card-photo.jpg' %}');">
+<section class="blog-hero" aria-label="Блог">
   <div class="blog-hero__overlay" aria-hidden="true"></div>
   <div class="container blog-hero__content">
     <p class="blog-hero__breadcrumb">
@@ -38,9 +38,9 @@
             {% if card.slug and card.cover %}
               <img src="{{ card.cover.url }}" alt="{{ card.title }}" loading="lazy">
             {% elif card.slug %}
-              <img src="{% static 'images/blog-card-photo.jpg' %}" alt="{{ card.title }}" loading="lazy">
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ card.title }}" loading="lazy">
             {% else %}
-              <img src="{% static 'images/blog-owners-nutrition.jpg' %}" alt="{{ card.title }}" loading="lazy">
+              <img src="{% static 'images/blog-owners-nutrition.webp' %}" alt="{{ card.title }}" loading="lazy">
             {% endif %}
           </div>
           <p class="blog-article-card__date">{% if card.published_at %}{{ card.published_at|date:"d.m.Y" }}{% else %}11.11.2024{% endif %}</p>
@@ -73,9 +73,9 @@
             {% if card.slug and card.cover %}
               <img src="{{ card.cover.url }}" alt="{{ card.title }}" loading="lazy">
             {% elif card.slug %}
-              <img src="{% static 'images/blog-card-photo.jpg' %}" alt="{{ card.title }}" loading="lazy">
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ card.title }}" loading="lazy">
             {% else %}
-              <img src="{% static 'images/blog-owners-nutrition.jpg' %}" alt="{{ card.title }}" loading="lazy">
+              <img src="{% static 'images/blog-owners-nutrition.webp' %}" alt="{{ card.title }}" loading="lazy">
             {% endif %}
           </div>
           <p class="blog-article-card__date">{% if card.published_at %}{{ card.published_at|date:"d.m.Y" }}{% else %}11.11.2024{% endif %}</p>

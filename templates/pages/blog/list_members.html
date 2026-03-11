@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<section class="blog-hero" aria-label="Блог для членів" style="background-image: url('{% static 'images/blog-card-photo.jpg' %}');">
+<section class="blog-hero" aria-label="Блог для членів">
   <div class="blog-hero__overlay" aria-hidden="true"></div>
   <div class="container blog-hero__content">
     <p class="blog-hero__breadcrumb">
@@ -40,7 +40,7 @@
             {% if article.cover %}
               <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
             {% else %}
-              <img src="{% static 'images/blog-card-photo.jpg' %}" alt="{{ article.title }}" loading="lazy">
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ article.title }}" loading="lazy">
             {% endif %}
           </div>
           <p class="blog-article-card__date">{% if article.published_at %}{{ article.published_at|date:"d.m.Y" }}{% endif %}</p>
