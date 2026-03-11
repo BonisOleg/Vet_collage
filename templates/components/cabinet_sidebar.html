@@ -11,14 +11,14 @@
   {% endif %}
 
   <nav class="cabinet__nav">
-    <a href="{% url 'accounts:cabinet' %}" class="cabinet__nav-link {% if sidebar_active == 'account' %}is-active{% endif %}">Мій аккаунт</a>
+    <a href="{% url 'accounts:cabinet' %}" class="cabinet__nav-link {% if sidebar_active == 'account' or sidebar_active == 'courses' %}is-active{% endif %}">Мій аккаунт</a>
     <a href="{% url 'accounts:cabinet' %}?tab=profile" class="cabinet__nav-link {% if sidebar_active == 'profile' %}is-active{% endif %}">Налаштування</a>
-    <a href="{% url 'membership:index' %}" class="cabinet__nav-link {% if sidebar_active == 'membership' %}is-active{% endif %}">Членство</a>
+    <a href="{% url 'accounts:cabinet' %}?tab=membership" class="cabinet__nav-link {% if sidebar_active == 'membership' %}is-active{% endif %}">Членство</a>
     <a href="{% url 'accounts:cabinet' %}?tab=courses" class="cabinet__nav-link {% if sidebar_active == 'courses' %}is-active{% endif %}">Мої курси</a>
     <a href="{% url 'accounts:cabinet' %}?tab=webinars" class="cabinet__nav-link {% if sidebar_active == 'webinars' %}is-active{% endif %}">Мої вебінари</a>
-    <a href="#" class="cabinet__nav-link">Історія покупок</a>
-    <a href="#" class="cabinet__nav-link">Ресурси</a>
-    <a href="#" class="cabinet__nav-link">Кар'єра</a>
+    <a href="{% url 'accounts:cabinet' %}?tab=history" class="cabinet__nav-link {% if sidebar_active == 'history' %}is-active{% endif %}">Історія покупок</a>
+    <a href="{% url 'accounts:cabinet' %}?tab=resources" class="cabinet__nav-link {% if sidebar_active == 'resources' %}is-active{% endif %}">Ресурси</a>
+    <a href="{% url 'accounts:cabinet' %}?tab=settings" class="cabinet__nav-link {% if sidebar_active == 'settings' %}is-active{% endif %}">Зміна паролю</a>
     <a href="{% url 'accounts:logout' %}" class="cabinet__nav-link cabinet__nav-link--logout">Вийти</a>
   </nav>
 </aside>

@@ -182,6 +182,36 @@
     }
   });
 
+  // ─── FILTERS PANEL ───────────────────────────────────
+
+  const filtersPanel = document.getElementById('filters-panel');
+
+  function openFilters() {
+    if (!filtersPanel) return;
+    filtersPanel.hidden = false;
+    body.style.overflow = 'hidden';
+  }
+
+  function closeFilters() {
+    if (!filtersPanel) return;
+    filtersPanel.hidden = true;
+    body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-filters-open]').forEach(function(btn) {
+    btn.addEventListener('click', openFilters);
+  });
+
+  document.querySelectorAll('[data-filters-close]').forEach(function(btn) {
+    btn.addEventListener('click', closeFilters);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && filtersPanel && !filtersPanel.hidden) {
+      closeFilters();
+    }
+  });
+
   // ─── HTMX events ──────────────────────────────────────
 
   document.addEventListener('htmx:afterRequest', function(e) {

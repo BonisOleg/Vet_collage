@@ -84,12 +84,12 @@
 
 .about-hero__breadcrumb span:last-child { color: var(--color-black); }
 
-/* "Про нас" — Figma: 214px Sexsmith */
+/* "Про нас" — Figma: 214px Sexsmith Regular */
 .about-hero__title {
   font-family: var(--font-display);
   font-size: clamp(60px, 15vw, 215px);
-  font-weight: var(--fw-bold);
-  color: var(--color-dark);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
   text-transform: uppercase;
   line-height: 1.0;
   letter-spacing: -0.015em;
@@ -245,12 +245,12 @@
 
 .values-section .container { position: relative; z-index: 1; }
 
-/* "цінності, якими керується наша організація" — Figma: 77.8px Sexsmith, #f5f0ea */
+/* "цінності, якими керується наша організація" — Figma: 77.8px Sexsmith, чорний на білому фоні вгорі секції */
 .values-section__heading {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 78px);
-  font-weight: var(--fw-bold);
-  color: var(--color-dark);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
   text-transform: uppercase;
   text-align: center;
   letter-spacing: -0.01em;
@@ -330,12 +330,12 @@
   gap: 21px;
 }
 
-/* Ім'я засновника — Figma: 77.8px Sexsmith, #f5f0ea */
+/* Ім'я засновника — Figma: 77.8px Sexsmith Regular */
 .founder-card__name {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 78px);
-  font-weight: var(--fw-bold);
-  color: var(--color-dark);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
   text-transform: uppercase;
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -410,11 +410,11 @@
   margin-bottom: 64px;
 }
 
-/* "Наша команда..." — Figma: 77px Sexsmith */
+/* "Наша команда..." — Figma: 77px Sexsmith Regular */
 .team-section__heading h2 {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 77px);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-regular);
   color: var(--color-black);
   text-transform: uppercase;
   letter-spacing: -0.008em;
@@ -490,6 +490,35 @@
   color: var(--color-black);
   line-height: 1.4;
   text-align: center;
+}
+
+/* ─── ПАРТНЕРИ (Figma: 1440×488) ─── */
+
+.partners-section {
+  padding: 80px 0;
+  background: var(--color-white);
+}
+
+/* "партнери" — Figma: Sexsmith ~92px, uppercase */
+.partners-section__title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.4vw, 92px);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
+  margin-bottom: 64px;
+}
+
+.partners-section__logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
 }
 
 /* ─── RESPONSIVE ─── */

@@ -154,12 +154,12 @@
       {% for course in popular_courses %}
       <article class="course-card-home">
         <div class="course-card-home__photo">
-          {% if course.cover_image %}
-          <img src="{{ course.cover_image.url }}" alt="{{ course.title }}" loading="lazy">
+          {% if course.cover %}
+          <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
           {% endif %}
         </div>
         <h3 class="course-card-home__title">{{ course.title }}</h3>
-        <a href="{% url 'courses:detail' course.id %}" class="course-card-home__link">Подивитись деталі</a>
+        <a href="{% url 'courses:detail' course.slug %}" class="course-card-home__link">Подивитись деталі</a>
       </article>
       {% empty %}
       <article class="course-card-home">

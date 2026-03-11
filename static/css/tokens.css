@@ -34,6 +34,7 @@
   --fs-h3:         clamp(22px, 2.5vw, 36px);
   --fs-h4:         clamp(18px, 1.5vw, 24px);
   --fs-body:       18px;
+  --fs-body-lg:    20px;
   --fs-body-md:    16px;
   --fs-small:      15px;
   --fs-xs:         14px;

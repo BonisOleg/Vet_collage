@@ -1,0 +1,159 @@
+/* ════════════════════════════════════════
+   BLOG ARTICLE DETAIL — Figma blog layout
+   ════════════════════════════════════════ */
+
+.article-detail {
+  padding-block: var(--sp-16);
+}
+
+.article-detail__inner {
+  max-width: 800px;
+  margin-inline: auto;
+  padding-inline: var(--pad-desktop);
+}
+
+/* ─── Breadcrumb ─── */
+.article-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+  margin-bottom: var(--sp-8);
+  transition: color var(--ease);
+}
+
+.article-detail__back:hover {
+  color: var(--color-dark);
+}
+
+/* ─── Cover Image ─── */
+.article-detail__cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--sp-8);
+}
+
+.article-detail__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Meta ─── */
+.article-detail__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.article-detail__category {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  text-transform: uppercase;
+  color: var(--color-red);
+}
+
+.article-detail__date {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+}
+
+/* ─── Title ─── */
+.article-detail__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  line-height: var(--lh-heading);
+  margin-bottom: var(--sp-8);
+}
+
+/* ─── Content ─── */
+.article-detail__content {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--color-text);
+}
+
+.article-detail__content p {
+  margin-bottom: var(--sp-4);
+}
+
+.article-detail__content h2,
+.article-detail__content h3 {
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  margin-top: var(--sp-8);
+  margin-bottom: var(--sp-4);
+}
+
+.article-detail__content ul,
+.article-detail__content ol {
+  margin-bottom: var(--sp-4);
+  padding-left: var(--sp-6);
+}
+
+.article-detail__content li {
+  margin-bottom: var(--sp-2);
+}
+
+/* ─── Paywall / Membership CTA ─── */
+.article-detail__paywall {
+  text-align: center;
+  padding: var(--sp-16);
+  background: var(--color-cream);
+  border-radius: var(--radius-md);
+}
+
+.article-detail__paywall-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-4);
+}
+
+.article-detail__paywall-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-gray-mid);
+  margin-bottom: var(--sp-6);
+}
+
+/* ─── TABLET ─── */
+@media (max-width: 1024px) {
+  .article-detail__inner {
+    padding-inline: var(--sp-8);
+  }
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .article-detail {
+    padding-block: var(--sp-10);
+  }
+
+  .article-detail__inner {
+    padding-inline: var(--pad-mobile);
+  }
+
+  .article-detail__cover {
+    border-radius: 0;
+    margin-inline: calc(-1 * var(--pad-mobile));
+    margin-bottom: var(--sp-6);
+  }
+
+  .article-detail__paywall {
+    padding: var(--sp-8);
+  }
+}

@@ -20,6 +20,22 @@ class AboutView(TemplateView):
     template_name = 'pages/core/about.html'
 
 
+class PaymentSuccessView(TemplateView):
+    template_name = 'pages/payments/success.html'
+
+
+class PaymentFailureView(TemplateView):
+    template_name = 'pages/payments/failure.html'
+
+
+class PrivacyView(TemplateView):
+    template_name = 'pages/core/privacy.html'
+
+
+class CookiesView(TemplateView):
+    template_name = 'pages/core/cookies.html'
+
+
 def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
@@ -27,9 +43,10 @@ def contact_view(request):
         phone = request.POST.get('phone', '')
         message = request.POST.get('message', '')
 
-        if request.htmx if hasattr(request, 'htmx') else request.headers.get('HX-Request'):
+        is_htmx = hasattr(request, 'htmx') and request.htmx or request.headers.get('HX-Request')
+        if is_htmx:
             return HttpResponse(
-                '<p style="color:var(--color-dark); font-weight:600;">\u2713 \u0414\u044f\u043a\u0443\u0454\u043c\u043e! \u041c\u0438 \u0437\u0432\u02bc\u044f\u0436\u0435\u043c\u043e\u0441\u044c \u0437 \u0432\u0430\u043c\u0438 \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0438\u043c \u0447\u0430\u0441\u043e\u043c.</p>'
+                '<p class="auth-form__title">\u2713 \u0414\u044f\u043a\u0443\u0454\u043c\u043e! \u041c\u0438 \u0437\u0432\u02bc\u044f\u0436\u0435\u043c\u043e\u0441\u044c \u0437 \u0432\u0430\u043c\u0438 \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0438\u043c \u0447\u0430\u0441\u043e\u043c.</p>'
             )
         messages.success(request, 'Дякуємо за повідомлення!')
         return redirect('core:home')

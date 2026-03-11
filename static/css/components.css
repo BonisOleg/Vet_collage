@@ -622,3 +622,134 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* ════════════════════════════════════════
+   FILTERS PANEL — slide-out sidebar
+   Figma frame 335:1730
+   ════════════════════════════════════════ */
+
+.filters-panel {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+}
+
+.filters-panel[hidden] {
+  display: none;
+}
+
+.filters-panel__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  cursor: pointer;
+}
+
+.filters-panel__body {
+  position: relative;
+  width: 360px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--color-white);
+  padding: var(--sp-8) var(--sp-6);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.filters-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filters-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+}
+
+.filters-panel__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--sp-2);
+  color: var(--color-dark);
+  transition: color var(--ease);
+}
+
+.filters-panel__close:hover {
+  color: var(--color-red);
+}
+
+.filters-panel__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  flex: 1;
+}
+
+.filters-panel__group {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filters-panel__group-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  font-weight: var(--fw-semi);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-3);
+  display: block;
+}
+
+.filters-panel__option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.filters-panel__option:hover {
+  color: var(--color-red);
+}
+
+.filters-panel__option input[type="radio"],
+.filters-panel__option input[type="checkbox"] {
+  accent-color: var(--color-red);
+  width: 18px;
+  height: 18px;
+}
+
+.filters-panel__actions {
+  margin-top: auto;
+  display: flex;
+  gap: var(--sp-3);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.filters-panel__apply,
+.filters-panel__reset {
+  flex: 1;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .filters-panel__body {
+    width: 100%;
+    max-width: none;
+    padding: var(--sp-6) var(--pad-mobile);
+  }
+}

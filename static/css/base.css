@@ -226,6 +226,116 @@ input, textarea, select {
   white-space: nowrap;
 }
 
+/* ─── Auth Form (login/register/reset fragments) ─── */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.auth-form--centered {
+  align-items: center;
+  text-align: center;
+  padding: var(--sp-8) 0;
+}
+
+.auth-form__title {
+  font-family: var(--font-body);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semi);
+  color: var(--color-dark);
+  margin-bottom: var(--sp-2);
+}
+
+.auth-form__step {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  color: var(--color-red);
+  text-transform: uppercase;
+}
+
+.auth-form__hint {
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+  max-width: 300px;
+  margin-bottom: var(--sp-2);
+}
+
+.auth-form--centered .auth-form__hint {
+  margin-inline: auto;
+}
+
+.auth-form__error {
+  color: var(--color-red);
+  font-size: var(--fs-small);
+}
+
+.auth-form__forgot {
+  font-size: var(--fs-xs);
+  color: var(--color-red);
+  align-self: flex-end;
+  text-decoration: none;
+}
+
+.auth-form__submit {
+  width: 100%;
+  margin-top: var(--sp-2);
+}
+
+.auth-form__switch {
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--color-gray-mid);
+  margin-top: var(--sp-4);
+}
+
+.auth-form__switch-link {
+  color: var(--color-red);
+  font-weight: var(--fw-medium);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+}
+
+.auth-form__icon {
+  width: 64px;
+  height: 64px;
+  background: var(--color-cream);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-6);
+}
+
+.auth-form__select {
+  height: 41px;
+}
+
+/* Course card extras */
+.course-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-gray-bg);
+  aspect-ratio: 16 / 10;
+}
+
+.course-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--sp-4);
+}
+
+.courses-list__empty {
+  color: var(--color-gray-mid);
+}
+
 /* ─── iOS Safari Fixes ─── */
 @supports (-webkit-touch-callout: none) {
   .btn {

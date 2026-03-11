@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Політика конфіденційності — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="article-detail">
+  <div class="article-detail__inner">
+    <a href="{% url 'core:home' %}" class="article-detail__back">← На головну</a>
+
+    <h1 class="article-detail__title">Privacy Policy</h1>
+
+    <div class="article-detail__content">
+      <p>Ukrainian College of Veterinary Nutrition (UCVN) поважає вашу конфіденційність. Ця сторінка описує, як ми збираємо, використовуємо та захищаємо вашу особисту інформацію.</p>
+
+      <h2>Збір даних</h2>
+      <p>Ми збираємо лише ту інформацію, яку ви надаєте добровільно: ім'я, email, телефон — під час реєстрації, оформлення замовлення або підписки на розсилку.</p>
+
+      <h2>Використання даних</h2>
+      <p>Ваші дані використовуються виключно для надання послуг: доступ до курсів, вебінарів, членських матеріалів, а також для комунікації з вами.</p>
+
+      <h2>Захист даних</h2>
+      <p>Ми використовуємо сучасні засоби захисту для забезпечення безпеки ваших персональних даних. Ми не передаємо ваші дані третім особам без вашої згоди.</p>
+
+      <h2>Контакти</h2>
+      <p>З питань конфіденційності звертайтесь на <a href="mailto:info@ucvn.org">info@ucvn.org</a>.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

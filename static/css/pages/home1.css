@@ -79,9 +79,9 @@
 
 .hero__title-1 {
   font-family: var(--font-display);
-  font-size: 150px;
+  font-size: clamp(90px, 14.9vw, 215px);
   font-weight: var(--fw-regular);
-  line-height: 180px;
+  line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
   color: var(--color-black);
@@ -109,23 +109,21 @@
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: var(--fw-regular);
-  font-size: 94px;
-  line-height: 116px;
+  font-size: clamp(55px, 9.4vw, 135px);
+  line-height: 1.2;
   text-transform: lowercase;
   color: var(--color-red);
-  text-align: center;
-  width: 68px;
+  flex-shrink: 0;
 }
 
 .hero__nutrition {
   font-family: var(--font-accent);
   font-weight: var(--fw-regular);
-  font-size: 92px;
-  line-height: 114px;
+  font-size: clamp(54px, 9.1vw, 131px);
+  line-height: 1.2;
   text-transform: uppercase;
   color: var(--color-black);
-  text-align: center;
-  margin-left: 26px;
+  margin-left: clamp(16px, 2.6vw, 38px);
   white-space: nowrap;
 }
 

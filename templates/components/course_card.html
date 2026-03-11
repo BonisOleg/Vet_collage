@@ -3,7 +3,7 @@
     {% if course.cover %}
       <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
     {% else %}
-      <div style="width:100%; height:100%; background:var(--color-gray-light); aspect-ratio:16/10;"></div>
+      <div class="course-card__image-placeholder"></div>
     {% endif %}
   </div>
   <div class="course-card__body">
@@ -17,8 +17,8 @@
       {% endif %}
       <span>{{ course.get_level_display }}</span>
     </div>
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:var(--space-4);">
-      <span class="course-card__price">{{ course.price }} грн</span>
+    <div class="course-card__footer">
+      <span class="course-card__price">€{{ course.price }}</span>
       <a href="{% url 'courses:detail' course.slug %}" class="btn btn-red btn-sm">Детальніше</a>
     </div>
   </div>

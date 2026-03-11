@@ -66,7 +66,7 @@ def register_step2_view(request):
         is_htmx = request.headers.get('HX-Request')
         if is_htmx:
             response = HttpResponse(status=200)
-            response['HX-Redirect'] = '/cabinet/'
+            response['HX-Redirect'] = '/accounts/cabinet/'
             return response
         return redirect('accounts:cabinet')
 
@@ -90,5 +90,18 @@ class CabinetView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['active_tab'] = self.request.GET.get('tab', 'profile')
+        user = self.request.user
+        tab = self.request.GET.get('tab', 'courses')
+        ctx['active_tab'] = tab
+
+        ctx['user_courses'] = []
+        ctx['user_webinars'] = []
+        ctx['user_membership'] = None
+
+        if hasattr(user, 'membership'):
+            try:
+                ctx['user_membership'] = user.membership
+            except Exception:
+                pass
+
         return ctx

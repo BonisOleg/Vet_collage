@@ -3,37 +3,44 @@
 
 {% block title %}{{ webinar.title }} — UCVN{% endblock %}
 
-{% block content %}
-<div style="padding-block: var(--space-16);">
-  <div class="container" style="max-width:900px;">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/webinar-detail.css' %}">
+{% endblock %}
 
-    <a href="{% url 'webinars:list' %}" style="display:inline-flex; align-items:center; gap:var(--space-2); font-size:var(--font-size-sm); color:var(--color-gray-mid); margin-bottom:var(--space-8);">
+{% block content %}
+<section class="webinar-detail">
+  <div class="webinar-detail__inner">
+
+    <a href="{% url 'webinars:list' %}" class="webinar-detail__back">
       ← Назад до вебінарів
     </a>
 
     {% if webinar.cover %}
-    <div style="aspect-ratio:16/9; overflow:hidden; margin-bottom:var(--space-8);">
-      <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" style="width:100%; height:100%; object-fit:cover;">
+    <div class="webinar-detail__cover">
+      <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
     </div>
     {% endif %}
 
-    <span class="label" style="color:var(--color-red);">Вебінар</span>
-    <h1 class="heading-lg" style="margin-top:var(--space-3); margin-bottom:var(--space-6);">{{ webinar.title }}</h1>
+    <span class="webinar-detail__label">Вебінар</span>
+    <h1 class="webinar-detail__title">{{ webinar.title }}</h1>
 
-    <div style="display:flex; gap:var(--space-6); margin-bottom:var(--space-8); flex-wrap:wrap;">
+    <div class="webinar-detail__info">
       {% if webinar.date %}
-        <span style="font-size:var(--font-size-sm); color:var(--color-gray-mid);">📅 {{ webinar.date|date:"d.m.Y H:i" }}</span>
+        <span class="webinar-detail__date">📅 {{ webinar.date|date:"d.m.Y H:i" }}</span>
       {% endif %}
-      <span style="font-size:var(--font-size-sm); color:var(--color-gray-mid);">⏱ {{ webinar.duration_min }} хв</span>
-      <span style="font-size:var(--font-size-lg); font-weight:var(--font-weight-bold);">{{ webinar.price }} грн</span>
+      <span class="webinar-detail__duration">⏱ {{ webinar.duration_min }} хв</span>
+      <span class="webinar-detail__price">€{{ webinar.price }}</span>
     </div>
 
-    <div style="line-height:var(--line-height-loose); margin-bottom:var(--space-10);">
+    <div class="webinar-detail__description">
       {{ webinar.description|linebreaks }}
     </div>
 
-    <button class="btn btn-red" style="min-width:200px;">Придбати вебінар</button>
+    <div class="webinar-detail__actions">
+      <a href="{% url 'core:payment_success' %}" class="btn btn-red">Придбати вебінар</a>
+      <a href="{% url 'webinars:list' %}" class="btn btn-dark">Усі вебінари</a>
+    </div>
 
   </div>
-</div>
+</section>
 {% endblock %}

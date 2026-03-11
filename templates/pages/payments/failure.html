@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Помилка оплати — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/payment.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="payment-result">
+
+  <div class="payment-result__icon payment-result__icon--failure" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </div>
+
+  <h1 class="payment-result__title">Помилка оплати</h1>
+  <p class="payment-result__text">
+    На жаль, оплату не вдалося завершити. Спробуйте ще раз або зверніться до служби підтримки.
+  </p>
+
+  {% if error_message %}
+  <div class="payment-result__details">
+    <div class="payment-result__row">
+      <span class="payment-result__label">Причина</span>
+      <span class="payment-result__value">{{ error_message }}</span>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="payment-result__actions">
+    <a href="{{ retry_url|default:'/' }}" class="btn btn-red">Спробувати ще раз</a>
+    <a href="{% url 'core:contact' %}" class="btn btn-dark">Зв'язатися з нами</a>
+  </div>
+
+</section>
+{% endblock %}

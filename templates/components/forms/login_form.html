@@ -4,27 +4,26 @@
   hx-post="{% url 'accounts:login' %}"
   hx-target="#modal-login-content"
   hx-swap="innerHTML"
+  class="auth-form"
 >
   {% csrf_token %}
-  <h2 class="heading-sm" style="margin-bottom: var(--space-6);">Увійти в акаунт</h2>
+  <h2 class="auth-form__title">Увійти в акаунт</h2>
 
-  {% if form.non_field_errors %}
-    <div class="form-error" style="color:var(--color-red); margin-bottom:var(--space-4); font-size:var(--font-size-sm);">
-      {{ form.non_field_errors }}
-    </div>
+  {% if error %}
+    <div class="auth-form__error">{{ error }}</div>
   {% endif %}
 
-  <div class="form-group" style="margin-bottom: var(--space-4);">
+  <div class="form-group">
     <label class="form-label" for="id_username">Email</label>
     <input class="form-input" type="email" id="id_username" name="username"
            placeholder="your@email.com" autocomplete="email" required>
   </div>
 
-  <div class="form-group" style="margin-bottom: var(--space-6);">
+  <div class="form-group">
     <label class="form-label" for="id_password">Пароль</label>
     <input class="form-input" type="password" id="id_password" name="password"
            placeholder="••••••••" autocomplete="current-password" required>
-    <a href="#" style="font-size:var(--font-size-sm); color:var(--color-red); align-self:flex-end;"
+    <a href="#" class="auth-form__forgot"
        hx-get="{% url 'accounts:password_reset' %}"
        hx-target="#modal-login-content"
        hx-swap="innerHTML">
@@ -32,15 +31,12 @@
     </a>
   </div>
 
-  <button type="submit" class="btn btn-red" style="width:100%;">Увійти</button>
+  <button type="submit" class="btn btn-red auth-form__submit">Увійти</button>
 
-  <p style="margin-top:var(--space-5); text-align:center; font-size:var(--font-size-sm); color:var(--color-gray-mid);">
+  <p class="auth-form__switch">
     Немає акаунту?
-    <button type="button" style="color:var(--color-red); font-weight:var(--font-weight-medium);"
-            hx-get="{% url 'accounts:register_step1' %}"
-            hx-target="#modal-register-content"
-            hx-swap="innerHTML"
-            onclick="document.getElementById('modal-login').style.display='none'; document.getElementById('modal-register').style.display='flex'">
+    <button type="button" class="auth-form__switch-link"
+            data-modal-close data-modal-open="modal-register">
       Зареєструватись
     </button>
   </p>
