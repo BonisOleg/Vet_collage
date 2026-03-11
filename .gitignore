@@ -33,3 +33,4 @@ static/images/
 .vscode/
 *.swp
 *.swo
+staticfiles/

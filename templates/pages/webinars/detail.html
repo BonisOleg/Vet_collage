@@ -26,18 +26,55 @@
 
     <div class="webinar-detail__info">
       {% if webinar.date %}
-        <span class="webinar-detail__date">📅 {{ webinar.date|date:"d.m.Y H:i" }}</span>
+        <span class="webinar-detail__date">{{ webinar.date|date:"d.m.Y H:i" }}</span>
       {% endif %}
-      <span class="webinar-detail__duration">⏱ {{ webinar.duration_min }} хв</span>
-      <span class="webinar-detail__price">€{{ webinar.price }}</span>
+      <span class="webinar-detail__duration">{{ webinar.duration_min }} хв</span>
+      {% if not webinar.is_free %}
+        <span class="webinar-detail__price">{{ webinar.price }} грн</span>
+      {% else %}
+        <span class="webinar-detail__price webinar-detail__price--free">Безкоштовно</span>
+      {% endif %}
     </div>
+
+    {% if webinar.speaker %}
+    <div class="webinar-detail__speaker">
+      <span class="webinar-detail__speaker-label">Спікер:</span>
+      <span>{{ webinar.speaker.get_full_name|default:webinar.speaker.username }}</span>
+    </div>
+    {% endif %}
 
     <div class="webinar-detail__description">
       {{ webinar.description|linebreaks }}
     </div>
 
     <div class="webinar-detail__actions">
-      <a href="{% url 'core:payment_success' %}" class="btn btn-red">Придбати вебінар</a>
+      {% if is_registered %}
+        {% if webinar.has_recording %}
+          <a href="{% url 'webinars:watch' webinar.slug %}" class="btn btn-red">
+            Дивитись запис
+          </a>
+        {% else %}
+          <span class="btn btn-dark btn--disabled">Запис ще не доступний</span>
+        {% endif %}
+      {% elif webinar.is_free %}
+        {% if webinar.has_recording %}
+          <a href="{% url 'webinars:watch' webinar.slug %}" class="btn btn-red">
+            Дивитись безкоштовно
+          </a>
+        {% endif %}
+      {% elif user.is_authenticated %}
+        <button
+          type="button"
+          class="btn btn-red"
+          data-checkout
+          data-order-type="webinar"
+          data-item-id="{{ webinar.pk }}"
+        >Придбати вебінар — {{ webinar.price }} грн</button>
+      {% else %}
+        <button type="button" class="btn btn-red" data-modal-open="modal-login">
+          Увійдіть, щоб придбати
+        </button>
+      {% endif %}
       <a href="{% url 'webinars:list' %}" class="btn btn-dark">Усі вебінари</a>
     </div>
 

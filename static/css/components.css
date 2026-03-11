@@ -133,6 +133,17 @@
   transform-origin: center;
 }
 
+/* ─── DARK HERO header override (courses, webinars pages) ─── */
+
+.body--dark-hero .site-header__link,
+.body--dark-hero .site-header__lang-btn,
+.body--dark-hero .site-header__arrow {
+  color: var(--color-cream);
+}
+.body--dark-hero .site-header__link:hover { color: var(--color-red); }
+.body--dark-hero .site-header__lang-btn.is-active { color: var(--color-cream); }
+.body--dark-hero .site-header__burger span { background: var(--color-cream); }
+
 /* ─── MOBILE NAV ─── */
 
 .mobile-nav {

@@ -106,8 +106,38 @@
   margin-bottom: var(--sp-2);
 }
 
+/* ─── Author ─── */
+.article-detail__author {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-text);
+}
+
+/* ─── Content preview (paywall truncated) ─── */
+.article-detail__content--preview {
+  position: relative;
+  max-height: 200px;
+  overflow: hidden;
+}
+
 /* ─── Paywall / Membership CTA ─── */
 .article-detail__paywall {
+  position: relative;
+  margin-top: calc(-1 * var(--sp-8));
+  padding-top: var(--sp-16);
+}
+
+.article-detail__paywall-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg, #fff));
+  pointer-events: none;
+}
+
+.article-detail__paywall-card {
   text-align: center;
   padding: var(--sp-16);
   background: var(--color-cream);
@@ -128,6 +158,55 @@
   font-size: var(--fs-body-md);
   color: var(--color-gray-mid);
   margin-bottom: var(--sp-6);
+}
+
+/* ─── Related Articles ─── */
+.article-detail__related {
+  margin-top: var(--sp-16);
+  border-top: 1px solid var(--color-border, #e0e0e0);
+  padding-top: var(--sp-8);
+}
+
+.article-detail__related-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--sp-6);
+}
+
+.article-detail__related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-4);
+}
+
+.article-detail__related-card {
+  display: block;
+  padding: var(--sp-4);
+  background: var(--color-cream, #f5f0ea);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: opacity var(--ease);
+}
+
+.article-detail__related-card:hover {
+  opacity: 0.8;
+}
+
+.article-detail__related-name {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semi);
+  color: var(--color-dark);
+  margin-bottom: var(--sp-2);
+}
+
+.article-detail__related-date {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--color-gray-mid);
 }
 
 /* ─── TABLET ─── */

@@ -23,15 +23,15 @@
         <h1 class="cabinet__section-title">Мої курси</h1>
         {% if user_courses %}
           <div class="cabinet__grid">
-            {% for enrollment in user_courses %}
+            {% for course in user_courses %}
               <div class="cabinet__card">
-                {% if enrollment.course.cover %}
+                {% if course.cover %}
                   <div class="cabinet__card-photo">
-                    <img src="{{ enrollment.course.cover.url }}" alt="{{ enrollment.course.title }}" loading="lazy">
+                    <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
                   </div>
                 {% endif %}
-                <h3 class="cabinet__card-title">{{ enrollment.course.title }}</h3>
-                <a href="{% url 'courses:detail' enrollment.course.slug %}" class="cabinet__card-btn btn btn-dark">Продовжити</a>
+                <h3 class="cabinet__card-title">{{ course.title }}</h3>
+                <a href="{% url 'courses:detail' course.slug %}" class="cabinet__card-btn btn btn-dark">Продовжити</a>
               </div>
             {% endfor %}
           </div>
@@ -120,9 +120,8 @@
     {% elif active_tab == 'profile' %}
       <div class="cabinet__section">
         <h1 class="cabinet__section-title">Мій акаунт</h1>
-        <form class="cabinet__profile-form" method="post" action="{% url 'accounts:cabinet' %}">
+        <form class="cabinet__profile-form" method="post" action="{% url 'accounts:profile_update' %}">
           {% csrf_token %}
-          <input type="hidden" name="action" value="update_profile">
           <div class="cabinet__form-fields">
             <div class="form-group">
               <label class="form-label">Ім'я</label>
@@ -159,9 +158,18 @@
               </tr>
             </thead>
             <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>{{ order.created_at|date:"d.m.Y" }}</td>
+                <td>{{ order.item_title }}</td>
+                <td>{{ order.amount }} {{ order.currency }}</td>
+                <td>{{ order.get_status_display }}</td>
+              </tr>
+              {% empty %}
               <tr>
                 <td colspan="4" class="cabinet__table-empty">Немає жодних покупок</td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -189,9 +197,16 @@
     {% elif active_tab == 'settings' %}
       <div class="cabinet__section">
         <h1 class="cabinet__section-title">Зміна паролю</h1>
-        <form class="cabinet__profile-form" method="post" action="{% url 'accounts:cabinet' %}">
+        <form
+          class="cabinet__profile-form"
+          method="post"
+          action="{% url 'accounts:password_change' %}"
+          hx-post="{% url 'accounts:password_change' %}"
+          hx-target="#password-change-result"
+          hx-swap="innerHTML"
+        >
           {% csrf_token %}
-          <input type="hidden" name="action" value="change_password">
+          <div id="password-change-result"></div>
           <div class="cabinet__form-fields">
             <div class="form-group">
               <label class="form-label">Поточний пароль</label>

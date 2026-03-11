@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ lesson.title }} — {{ course.title }} — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/course-detail.css' %}">
+{% endblock %}
+
+{% block extra_js_head %}
+<script src="//assets.mediadelivery.net/playerjs/playerjs-latest.min.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<section class="lesson-page">
+  <div class="lesson-page__layout">
+
+    <aside class="lesson-sidebar" data-lesson-sidebar>
+      <div class="lesson-sidebar__header">
+        <a href="{% url 'courses:detail' course.slug %}" class="lesson-sidebar__back">
+          ← {{ course.title }}
+        </a>
+      </div>
+      <nav class="lesson-sidebar__nav">
+        {% for l in lessons %}
+        <a
+          href="{% url 'courses:lesson' course.slug l.slug %}"
+          class="lesson-sidebar__item {% if l.pk == lesson.pk %}lesson-sidebar__item--active{% endif %}"
+          {% if not is_enrolled and not l.is_preview %}aria-disabled="true"{% endif %}
+        >
+          <span class="lesson-sidebar__order">{{ l.order }}</span>
+          <span class="lesson-sidebar__title">{{ l.title }}</span>
+          {% if l.duration_seconds %}
+          <span class="lesson-sidebar__duration">{{ l.duration_seconds|floatformat:"0" }}с</span>
+          {% endif %}
+          {% if l.is_preview %}
+          <span class="lesson-sidebar__badge">Перегляд</span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </nav>
+    </aside>
+
+    <div class="lesson-content">
+      {% if video_embed_url %}
+        {% include "components/video_player.html" with video_url=video_embed_url title=lesson.title %}
+      {% else %}
+        <div class="lesson-content__placeholder">
+          <p>Відео для цього уроку ще не завантажено</p>
+        </div>
+      {% endif %}
+
+      <div class="lesson-content__info">
+        <h1 class="lesson-content__title">{{ lesson.title }}</h1>
+        {% if lesson.description %}
+        <div class="lesson-content__description">
+          {{ lesson.description|linebreaks }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="lesson-content__nav">
+        {% if prev_lesson %}
+        <a href="{% url 'courses:lesson' course.slug prev_lesson.slug %}" class="btn btn-dark">
+          ← Попередній урок
+        </a>
+        {% endif %}
+        {% if next_lesson %}
+        <a href="{% url 'courses:lesson' course.slug next_lesson.slug %}" class="btn btn-red">
+          Наступний урок →
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

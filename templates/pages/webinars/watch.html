@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ webinar.title }} — Запис — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/webinar-detail.css' %}">
+{% endblock %}
+
+{% block extra_js_head %}
+<script src="//assets.mediadelivery.net/playerjs/playerjs-latest.min.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<section class="webinar-watch">
+  <div class="webinar-watch__inner">
+
+    <a href="{% url 'webinars:detail' webinar.slug %}" class="webinar-detail__back">
+      ← Назад до вебінару
+    </a>
+
+    {% if video_embed_url %}
+      {% include "components/video_player.html" with video_url=video_embed_url title=webinar.title %}
+    {% else %}
+      <div class="webinar-watch__placeholder">
+        <p>Запис вебінару ще не доступний</p>
+      </div>
+    {% endif %}
+
+    <div class="webinar-watch__info">
+      <h1 class="webinar-watch__title">{{ webinar.title }}</h1>
+      <div class="webinar-watch__meta">
+        {% if webinar.date %}
+          <span>{{ webinar.date|date:"d.m.Y" }}</span>
+        {% endif %}
+        <span>{{ webinar.duration_min }} хв</span>
+      </div>
+      {% if webinar.description %}
+      <div class="webinar-watch__description">
+        {{ webinar.description|linebreaks }}
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

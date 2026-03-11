@@ -1,14 +1,5 @@
 /* WEBINARS PAGE — pixel-perfect from Figma */
 
-/* ─── HEADER override: cream text on dark hero ─── */
-.body--dark-hero .site-header__link,
-.body--dark-hero .site-header__lang-btn,
-.body--dark-hero .site-header__arrow {
-  color: var(--color-cream);
-}
-.body--dark-hero .site-header__link:hover { color: var(--color-red); }
-.body--dark-hero .site-header__burger span { background: var(--color-cream); }
-
 /* ─── HERO (Figma: 1440×727, library/statue photo) ─── */
 
 .webinars-hero {

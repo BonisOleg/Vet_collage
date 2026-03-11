@@ -1,5 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
+
+User = get_user_model()
 
 
 class Webinar(models.Model):
@@ -11,8 +14,22 @@ class Webinar(models.Model):
     date = models.DateTimeField('Дата проведення', null=True, blank=True)
     duration_min = models.PositiveIntegerField('Тривалість (хв)', default=60)
     is_active = models.BooleanField('Активний', default=True)
+    is_free = models.BooleanField('Безкоштовний', default=False)
     requires_membership = models.BooleanField('Тільки для членів', default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    speaker = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='webinars_as_speaker', verbose_name='Спікер',
+    )
+    bunny_library_id = models.CharField(
+        'Bunny Library ID', max_length=100, blank=True,
+        help_text='ID бібліотеки Bunny.net Stream',
+    )
+    bunny_video_id = models.CharField(
+        'Bunny Video ID', max_length=100, blank=True,
+        help_text='GUID відео-запису вебінару в Bunny.net Stream',
+    )
 
     class Meta:
         verbose_name = 'Вебінар'
@@ -26,3 +43,27 @@ class Webinar(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def has_recording(self) -> bool:
+        return bool(self.bunny_video_id)
+
+
+class WebinarRegistration(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='webinar_registrations',
+        verbose_name='Користувач',
+    )
+    webinar = models.ForeignKey(
+        Webinar, on_delete=models.CASCADE, related_name='registrations',
+        verbose_name='Вебінар',
+    )
+    created_at = models.DateTimeField('Дата реєстрації', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Реєстрація на вебінар'
+        verbose_name_plural = 'Реєстрації на вебінари'
+        unique_together = ['user', 'webinar']
+
+    def __str__(self):
+        return f'{self.user} → {self.webinar.title}'

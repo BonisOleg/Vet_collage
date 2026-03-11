@@ -212,12 +212,93 @@
     }
   });
 
+  // ─── STRIPE CHECKOUT ─────────────────────────────────
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-checkout]');
+    if (!btn) return;
+    e.preventDefault();
+
+    var orderType = btn.getAttribute('data-order-type');
+    var itemId = btn.getAttribute('data-item-id');
+    if (!orderType || !itemId) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Обробка...';
+
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (!csrfToken) {
+      var meta = document.querySelector('body');
+      var hxHeaders = meta ? meta.getAttribute('hx-headers') : '';
+      try {
+        csrfToken = JSON.parse(hxHeaders)['X-CSRFToken'];
+      } catch (_) {
+        csrfToken = '';
+      }
+    } else {
+      csrfToken = csrfToken.value;
+    }
+
+    var formData = new FormData();
+    formData.append('order_type', orderType);
+    formData.append('item_id', itemId);
+
+    fetch('/payments/checkout/', {
+      method: 'POST',
+      headers: { 'X-CSRFToken': csrfToken },
+      body: formData,
+    })
+    .then(function(resp) { return resp.json(); })
+    .then(function(data) {
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Помилка. Спробуйте ще раз';
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Помилка мережі';
+    });
+  });
+
+  // ─── BUNNY.NET VIDEO PLAYER (Player.js) ─────────────
+
+  function initVideoPlayer() {
+    var iframe = document.getElementById('bunny-stream-embed');
+    if (!iframe || typeof playerjs === 'undefined') return;
+
+    var player = new playerjs.Player(iframe);
+
+    player.on('ready', function() {
+      var container = iframe.closest('[data-video-player]');
+      if (container) {
+        container.classList.add('video-player--ready');
+      }
+    });
+
+    player.on('ended', function() {
+      var nextBtn = document.querySelector('.lesson-content__nav .btn-red');
+      if (nextBtn) {
+        nextBtn.classList.add('btn--pulse');
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initVideoPlayer, 500);
+    });
+  } else {
+    setTimeout(initVideoPlayer, 500);
+  }
+
   // ─── HTMX events ──────────────────────────────────────
 
   document.addEventListener('htmx:afterRequest', function(e) {
-    // Close modals after successful login/register
     if (e.detail.successful) {
-      const form = e.detail.elt;
+      var form = e.detail.elt;
       if (form.closest('.auth-modal')) {
         setTimeout(function() {
           closeAllModals();

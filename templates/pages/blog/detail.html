@@ -28,6 +28,9 @@
       {% if article.published_at %}
         <span class="article-detail__date">{{ article.published_at|date:"d.m.Y" }}</span>
       {% endif %}
+      {% if article.author %}
+        <span class="article-detail__author">{{ article.author.get_full_name|default:article.author.username }}</span>
+      {% endif %}
     </div>
 
     <h1 class="article-detail__title">{{ article.title }}</h1>
@@ -37,13 +40,35 @@
         {{ article.content|linebreaks }}
       </div>
     {% else %}
-      <div class="article-detail__paywall">
-        <h2 class="article-detail__paywall-title">Ця стаття доступна тільки для членів</h2>
-        <p class="article-detail__paywall-text">
-          Оформіть членство, щоб отримати доступ до всіх матеріалів
-        </p>
-        <a href="{% url 'membership:index' %}" class="btn btn-red">Оформити членство</a>
+      <div class="article-detail__content article-detail__content--preview" data-paywall-preview>
+        {{ content_preview|linebreaks }}
       </div>
+      <div class="article-detail__paywall" data-paywall>
+        <div class="article-detail__paywall-overlay"></div>
+        <div class="article-detail__paywall-card">
+          <h2 class="article-detail__paywall-title">Ця стаття доступна тільки для членів</h2>
+          <p class="article-detail__paywall-text">
+            Оформіть членство, щоб отримати доступ до всіх ексклюзивних матеріалів
+          </p>
+          <a href="{% url 'membership:index' %}" class="btn btn-red">Оформити членство</a>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if related_articles %}
+    <div class="article-detail__related">
+      <h2 class="article-detail__related-title">Схожі статті</h2>
+      <div class="article-detail__related-grid">
+        {% for related in related_articles %}
+        <a href="{% url 'blog:detail' related.slug %}" class="article-detail__related-card">
+          <span class="article-detail__related-name">{{ related.title }}</span>
+          {% if related.published_at %}
+          <span class="article-detail__related-date">{{ related.published_at|date:"d.m.Y" }}</span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
 
   </div>

@@ -20,7 +20,7 @@
 
 .blog-hero {
   position: relative;
-  height: 400px;
+  min-height: 500px;
   background-color: var(--color-dark);
   background-size: cover;
   background-position: center;
@@ -28,6 +28,7 @@
   align-items: center;
   justify-content: center;
   padding-top: 122px;
+  padding-bottom: 60px;
   overflow: hidden;
 }
 

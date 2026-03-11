@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,6 +29,7 @@ INSTALLED_APPS = [
     'membership',
     'blog',
     'accounts',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -90,3 +94,23 @@ AUTH_USER_MODEL = 'auth.User'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/cabinet/'
 LOGOUT_REDIRECT_URL = '/'
+
+# --- Stripe ---
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
+
+# --- Bunny.net Stream ---
+BUNNY_API_KEY = os.environ.get('BUNNY_API_KEY', '')
+BUNNY_LIBRARY_ID = os.environ.get('BUNNY_LIBRARY_ID', '')
+BUNNY_CDN_HOSTNAME = os.environ.get('BUNNY_CDN_HOSTNAME', '')
+BUNNY_TOKEN_AUTH_KEY = os.environ.get('BUNNY_TOKEN_AUTH_KEY', '')
+
+# --- Email (Gmail SMTP) ---
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)

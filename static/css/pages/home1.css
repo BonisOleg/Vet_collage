@@ -113,6 +113,7 @@
   line-height: 1.2;
   text-transform: lowercase;
   color: var(--color-red);
+  text-align: center;
   flex-shrink: 0;
 }
 
@@ -123,6 +124,7 @@
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--color-black);
+  text-align: center;
   margin-left: clamp(16px, 2.6vw, 38px);
   white-space: nowrap;
 }
