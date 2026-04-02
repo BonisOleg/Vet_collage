@@ -1,0 +1,61 @@
+{% load static %}
+<aside class="filters-panel" id="filters-panel" aria-label="Фільтри" hidden>
+  <div class="filters-panel__backdrop" data-filters-close></div>
+  <div class="filters-panel__body">
+
+    <div class="filters-panel__header">
+      <h2 class="filters-panel__title">Фільтри</h2>
+      <button type="button" class="filters-panel__close" data-filters-close aria-label="Закрити фільтри">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <form class="filters-panel__form" method="get">
+      {% if categories %}
+      <fieldset class="filters-panel__group">
+        <legend class="filters-panel__group-title">Категорія</legend>
+        <label class="filters-panel__option">
+          <input type="radio" name="category" value="" {% if not active_category %}checked{% endif %}>
+          <span>Всі</span>
+        </label>
+        {% for cat in categories %}
+        <label class="filters-panel__option">
+          <input type="radio" name="category" value="{{ cat.slug }}" {% if active_category == cat.slug %}checked{% endif %}>
+          <span>{{ cat.name }}</span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      {% endif %}
+
+      {% if levels %}
+      <fieldset class="filters-panel__group">
+        <legend class="filters-panel__group-title">Рівень</legend>
+        {% for value, label in levels %}
+        <label class="filters-panel__option">
+          <input type="radio" name="level" value="{{ value }}" {% if active_level == value %}checked{% endif %}>
+          <span>{{ label }}</span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      {% endif %}
+
+      {% if sort_options %}
+      <fieldset class="filters-panel__group">
+        <legend class="filters-panel__group-title">Сортувати за</legend>
+        {% for value, label in sort_options %}
+        <label class="filters-panel__option">
+          <input type="radio" name="sort" value="{{ value }}" {% if active_sort == value or forloop.first and not active_sort %}checked{% endif %}>
+          <span>{{ label }}</span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      {% endif %}
+
+      <div class="filters-panel__actions">
+        <button type="submit" class="btn btn-red filters-panel__apply">Застосувати</button>
+        <a href="{{ request.path }}" class="btn btn-dark filters-panel__reset">Скинути</a>
+      </div>
+    </form>
+
+  </div>
+</aside>

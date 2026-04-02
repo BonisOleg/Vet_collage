@@ -1,0 +1,41 @@
+{% load static %}
+<aside class="cabinet__sidebar">
+
+  <nav class="cabinet__nav">
+    <a href="{% url 'accounts:cabinet' %}"
+       class="cabinet__nav-link {% if sidebar_active == 'account' or sidebar_active == 'courses' %}cabinet__nav-link--active{% endif %}">
+      Мій акаунт
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=profile"
+       class="cabinet__nav-link {% if sidebar_active == 'profile' %}cabinet__nav-link--active{% endif %}">
+      Налаштування
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=membership"
+       class="cabinet__nav-link {% if sidebar_active == 'membership' %}cabinet__nav-link--active{% endif %}">
+      Членство
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=courses"
+       class="cabinet__nav-link">
+      Мої курси
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=webinars"
+       class="cabinet__nav-link {% if sidebar_active == 'webinars' %}cabinet__nav-link--active{% endif %}">
+      Мої вебінари
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=history"
+       class="cabinet__nav-link {% if sidebar_active == 'history' %}cabinet__nav-link--active{% endif %}">
+      Історія покупок
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=resources"
+       class="cabinet__nav-link {% if sidebar_active == 'resources' %}cabinet__nav-link--active{% endif %}">
+      Ресурси
+    </a>
+    <a href="{% url 'accounts:cabinet' %}?tab=career"
+       class="cabinet__nav-link {% if sidebar_active == 'career' %}cabinet__nav-link--active{% endif %}">
+      Карʼєра
+    </a>
+  </nav>
+
+  <a href="{% url 'accounts:logout' %}" class="cabinet__logout">Вийти</a>
+
+</aside>

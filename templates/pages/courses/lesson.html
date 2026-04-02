@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ lesson.title }} — {{ course.title }} — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/course-learning.css' %}">
+{% endblock %}
+
+{% block extra_js_head %}
+<script src="//assets.mediadelivery.net/playerjs/playerjs-latest.min.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="lrn-page">
+
+  {# ── Course name label ── #}
+  <p class="lrn-course-title">{{ course.title }}</p>
+
+  {# ── Top bar: progress | prev nav | next nav ── #}
+  <div class="lrn-top-bar lrn-top-bar--lesson">
+
+    <div class="lrn-progress-card">
+      <span class="lrn-progress-label">Мій Прогрес: <strong>{{ progress_percent|default:"0" }}%</strong></span>
+      <div class="lrn-progress-track">
+        <div class="lrn-progress-fill" style="width: {{ progress_percent|default:0 }}%"></div>
+      </div>
+    </div>
+
+    {# Prev card #}
+    {% if prev_lesson %}
+    <a href="{% url 'courses:lesson' course.slug prev_lesson.slug %}"
+       class="lrn-nav-card lrn-nav-card--prev"
+       aria-label="Попередній урок: {{ prev_lesson.title }}">
+      <span class="lrn-nav-card__chevron" aria-hidden="true">
+        <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="lrn-nav-card__body">
+        <span class="lrn-nav-card__title">{{ prev_lesson.title }}</span>
+        <span class="lrn-nav-card__sub">{{ course.title }}</span>
+      </div>
+    </a>
+    {% else %}
+    <a href="{% url 'courses:overview' course.slug %}"
+       class="lrn-nav-card lrn-nav-card--prev"
+       aria-label="Повернутись до ознайомлення">
+      <span class="lrn-nav-card__chevron" aria-hidden="true">
+        <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="lrn-nav-card__body">
+        <span class="lrn-nav-card__title">Початок</span>
+        <span class="lrn-nav-card__sub">Ознайомлення</span>
+      </div>
+    </a>
+    {% endif %}
+
+    {# Next card #}
+    {% if next_lesson %}
+    <a href="{% url 'courses:lesson' course.slug next_lesson.slug %}"
+       class="lrn-nav-card lrn-nav-card--next"
+       aria-label="Наступний урок: {{ next_lesson.title }}">
+      <div class="lrn-nav-card__body">
+        <span class="lrn-nav-card__title">{{ next_lesson.title }}</span>
+        <span class="lrn-nav-card__sub">{{ course.title }}</span>
+      </div>
+      <span class="lrn-nav-card__chevron" aria-hidden="true">
+        <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    {% else %}
+    <div class="lrn-nav-card lrn-nav-card--placeholder" aria-hidden="true"></div>
+    {% endif %}
+
+  </div>{# /lrn-top-bar #}
+
+  {# ── Main: sidebar + content ── #}
+  <div class="lrn-main">
+
+    <aside class="lrn-sidebar" aria-label="Програма курсу">
+      {% include "pages/courses/partials/course_program.html" with course=course lessons=lessons current_lesson=lesson is_overview=False is_enrolled=is_enrolled %}
+    </aside>
+
+    <main class="lrn-content">
+
+      <div class="lrn-content-banner">
+        <h1 class="lrn-content-banner__title">{{ lesson.title }}</h1>
+      </div>
+
+      {# ── Video player ── #}
+      {% if video_embed_url %}
+      <div class="lrn-video-wrap">
+        {% include "components/video_player.html" with video_url=video_embed_url title=lesson.title %}
+      </div>
+      {% else %}
+      <div class="lrn-video-placeholder" role="img" aria-label="Відео для цього уроку ще не завантажено">
+        <div class="lrn-video-placeholder__play" aria-hidden="true">
+          <svg viewBox="0 0 28 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 3.5l18 10.5L6 24.5V3.5z"/>
+          </svg>
+        </div>
+      </div>
+      {% endif %}
+
+      {# ── Lesson description ── #}
+      {% if lesson.description %}
+      <div class="lrn-overview-body">
+        {{ lesson.description|linebreaks }}
+      </div>
+      {% endif %}
+
+      {# ── Bottom navigation ── #}
+      <div class="lrn-bottom-bar lrn-bottom-bar--lesson">
+
+        {% if prev_lesson %}
+        <a href="{% url 'courses:lesson' course.slug prev_lesson.slug %}"
+           class="lrn-nav-card lrn-nav-card--prev">
+          <span class="lrn-nav-card__chevron" aria-hidden="true">
+            <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div class="lrn-nav-card__body">
+            <span class="lrn-nav-card__title">{{ prev_lesson.title }}</span>
+            <span class="lrn-nav-card__sub">{{ course.title }}</span>
+          </div>
+        </a>
+        {% else %}
+        <a href="{% url 'courses:overview' course.slug %}"
+           class="lrn-nav-card lrn-nav-card--prev">
+          <span class="lrn-nav-card__chevron" aria-hidden="true">
+            <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div class="lrn-nav-card__body">
+            <span class="lrn-nav-card__title">Початок</span>
+            <span class="lrn-nav-card__sub">Ознайомлення</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if next_lesson %}
+        <a href="{% url 'courses:lesson' course.slug next_lesson.slug %}"
+           class="lrn-nav-card lrn-nav-card--next">
+          <div class="lrn-nav-card__body">
+            <span class="lrn-nav-card__title">{{ next_lesson.title }}</span>
+            <span class="lrn-nav-card__sub">{{ course.title }}</span>
+          </div>
+          <span class="lrn-nav-card__chevron" aria-hidden="true">
+            <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+        {% else %}
+        <div class="lrn-nav-card lrn-nav-card--placeholder" aria-hidden="true"></div>
+        {% endif %}
+
+      </div>{# /lrn-bottom-bar #}
+
+    </main>
+  </div>{# /lrn-main #}
+
+</div>{# /lrn-page #}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  /* Module accordion toggle */
+  document.querySelectorAll('[data-module-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var module = btn.closest('[data-module]');
+      var expanded = module.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+</script>
+{% endblock %}

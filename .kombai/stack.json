@@ -1,0 +1,8 @@
+// Kombai Tech Stack Configuration
+// Each value must be a string or an array of strings.
+// Example: "Framework": "Vite" or "Project Type": ["React", "Vue"]
+{
+  "HTTP Server Framework": "Django",
+  "CSS Implementation": "Vanilla CSS",
+  "Project Type": "Vanilla JS"
+}

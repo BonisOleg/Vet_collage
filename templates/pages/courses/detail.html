@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ course.title }} — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/course-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="course-detail">
+  <div class="course-detail__inner">
+
+    <a href="{% url 'courses:list' %}" class="course-detail__back">
+      ← Назад до курсів
+    </a>
+
+    {% if course.cover %}
+    <div class="course-detail__cover">
+      <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
+    </div>
+    {% endif %}
+
+    <div class="course-detail__meta">
+      {% if course.category %}
+        <span class="course-detail__category">{{ course.category.name }}</span>
+      {% endif %}
+      <span class="course-detail__level">{{ course.get_level_display }}</span>
+    </div>
+
+    <h1 class="course-detail__title">{{ course.title }}</h1>
+
+    <div class="course-detail__info">
+      {% if course.duration_hours %}
+        <span class="course-detail__duration">{{ course.duration_hours }} год</span>
+      {% endif %}
+      {% if course.lesson_count %}
+        <span class="course-detail__lessons-count">{{ course.lesson_count }} уроків</span>
+      {% endif %}
+      <span class="course-detail__price">{{ course.price }} грн</span>
+    </div>
+
+    {% if course.instructor %}
+    <div class="course-detail__instructor">
+      <span class="course-detail__instructor-label">Лектор:</span>
+      <span>{{ course.instructor.get_full_name|default:course.instructor.username }}</span>
+    </div>
+    {% endif %}
+
+    <div class="course-detail__description">
+      {{ course.description|linebreaks }}
+    </div>
+
+    {% if course.what_you_learn %}
+    <div class="course-detail__learn">
+      <h2 class="course-detail__learn-title">Чому ви навчитесь</h2>
+      <ul class="course-detail__learn-list">
+        {% for item in course.what_you_learn %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if lessons %}
+    <div class="course-detail__curriculum">
+      <h2 class="course-detail__curriculum-title">Програма курсу</h2>
+      <div class="course-detail__lesson-list">
+        {% for lesson in lessons %}
+        <div class="course-detail__lesson-item">
+          <span class="course-detail__lesson-order">{{ lesson.order }}</span>
+          <span class="course-detail__lesson-title">{{ lesson.title }}</span>
+          {% if lesson.duration_seconds %}
+          <span class="course-detail__lesson-duration">
+            {{ lesson.duration_seconds|floatformat:"0" }}с
+          </span>
+          {% endif %}
+          {% if lesson.is_preview %}
+          <a href="{% url 'courses:lesson' course.slug lesson.slug %}" class="course-detail__lesson-preview">
+            Перегляд
+          </a>
+          {% elif is_enrolled %}
+          <a href="{% url 'courses:lesson' course.slug lesson.slug %}" class="course-detail__lesson-link">
+            Дивитись
+          </a>
+          {% else %}
+          <span class="course-detail__lesson-locked">🔒</span>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="course-detail__actions">
+      {% if is_enrolled %}
+        {% if lessons %}
+          <a href="{% url 'courses:lesson' course.slug lessons.0.slug %}" class="btn btn-red">
+            Почати навчання
+          </a>
+        {% endif %}
+      {% elif user.is_authenticated %}
+        <button
+          type="button"
+          class="btn btn-red"
+          data-checkout
+          data-order-type="course"
+          data-item-id="{{ course.pk }}"
+        >Придбати курс — {{ course.price }} грн</button>
+      {% else %}
+        <button type="button" class="btn btn-red" data-modal-open="modal-login">
+          Увійдіть, щоб придбати
+        </button>
+      {% endif %}
+      <a href="{% url 'courses:list' %}" class="btn btn-dark">Усі курси</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

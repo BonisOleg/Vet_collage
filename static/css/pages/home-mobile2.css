@@ -1,0 +1,466 @@
+/* ════════════════════════════════════════════════════════════════
+   HOME PAGE MOBILE — pixel-perfect from Figma (mobile 390px)
+   Part 2: Membership, Specialists, Services, Consultation,
+           Edu, Reviews, Blog, iOS Safari
+   Figma node IDs referenced for each section
+   ════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* ─── ЧЛЕНСТВО ─── Figma 268:12498, 390×2018px */
+  .membership {
+    padding: 58px 0 60px;
+  }
+
+  .membership__bg-text { font-size: 60px; }
+  .membership__head { margin-bottom: 36px; }
+  .membership__title { font-size: 54px; }
+
+  .membership__subtitle {
+    font-size: 14px;
+    max-width: 299px;
+    margin-inline: auto;
+    line-height: 1.35;
+  }
+
+  .membership__features {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 27px;
+    max-width: 345px;
+    margin-inline: auto;
+  }
+
+  .membership__feature {
+    min-height: 207px;
+    padding: 29px 26px 26px;
+  }
+
+  .membership__feature-icon {
+    width: 70px;
+    height: 67px;
+    margin-bottom: 16px;
+  }
+
+  .membership__feature-title { font-size: 16px; }
+  .membership__feature-text { font-size: 14px; }
+
+  .membership__price-bar {
+    height: 67px;
+    border-radius: 80px;
+    margin-bottom: 27px;
+    margin-inline: auto;
+    max-width: 344px;
+  }
+
+  .membership__price { font-size: 50px; }
+
+  .membership__cards {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-width: 345px;
+    margin-inline: auto;
+  }
+
+  .membership__card { min-height: 252px; }
+  .membership__card--cream { padding: 24px 21px; min-height: 252px; }
+  .membership__card--cta { padding: 24px 21px; min-height: 226px; }
+  .membership__card--photo { min-height: 117px; }
+
+  .membership__card .btn {
+    width: 177px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .membership__card-stack {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .membership__card--cream-sm { padding: 30px 48px; min-height: 113px; }
+  .membership__card--photo-sm { min-height: 147px; }
+  .membership__card--dark-sm { min-height: 112px; padding: 22px 44px; }
+  .membership__card--dark-sm p { font-size: 14px; }
+
+
+  /* ─── RED LINE ─── */
+  .red-line { height: 20px; }
+
+
+  /* ─── СПЕЦІАЛІСТИ ─── Figma 268:12751, 390×958px */
+  /* Cards keep slight rotation per Figma */
+  .specialists {
+    padding: 64px 0;
+    min-height: 958px;
+  }
+
+  .specialists__bg-text { font-size: 68px; }
+
+  .specialists__title {
+    font-size: 54px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .specialists__cards {
+    grid-template-columns: 1fr;
+    gap: 0;
+    justify-items: center;
+  }
+
+  .specialists__card--left .specialists__card-inner {
+    transform: rotate(-5.33deg);
+    width: 303px;
+    height: auto;
+    min-height: 210px;
+    padding: 24px 22px;
+    border-width: 0.865px;
+    border-radius: 4px;
+  }
+
+  .specialists__card--center {
+    width: 325px;
+    min-height: 245px;
+    padding: 24px 22px;
+    transform: rotate(4.63deg);
+  }
+
+  .specialists__card--right .specialists__card-inner {
+    transform: rotate(-4.24deg);
+    width: 327px;
+    height: auto;
+    min-height: 285px;
+    padding: 24px 22px;
+    border-width: 0.934px;
+    border-radius: 5px;
+  }
+
+  .specialists__card-role {
+    font-size: 15px;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .specialists__card-role--white {
+    font-size: 15px;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .specialists__card-text {
+    font-size: 15px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    text-align: justify;
+  }
+  .specialists__card-text--white {
+    font-size: 15px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    text-align: justify;
+  }
+
+
+  /* ─── ПОСЛУГИ ─── Figma 271:12904, 390×1695px */
+  .services {
+    padding: 64px 0 80px;
+  }
+
+  .services__title {
+    font-size: 54px;
+    margin-bottom: 32px;
+  }
+
+  .services__row {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .services__card { width: 100%; padding: 24px 19px; }
+  .services__card--basic-desc,
+  .services__card--pro-desc { min-height: 200px; }
+  .services__card--price { min-height: 304px; }
+
+  .services__row--bottom > .services__card:first-child,
+  .services__row--bottom > .services__card:last-child { width: 100%; }
+
+  .services__photo { width: 100%; }
+  .services__row--top .services__photo,
+  .services__row--bottom .services__photo { width: 100%; }
+
+  .services__num { font-size: 17px; }
+  .services__type,
+  .services__price-name { font-size: 40px; }
+  .services__desc { font-size: 16px; }
+  .services__price-list { font-size: 16px; }
+  .services__price-note { font-size: 14px; }
+
+  .services__photo {
+    flex: none;
+    height: 206px;
+    width: 100%;
+  }
+
+  .services__btn {
+    width: 166px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+
+  /* ─── КОНСУЛЬТАЦІЯ ─── Figma 271:12947, 390×844px */
+  .consultation {
+    grid-template-columns: 1fr;
+    min-height: 844px;
+  }
+
+  .consultation__photo {
+    order: 2;
+    width: 100%;
+    margin: 0;
+    min-height: 290px;
+    height: 290px;
+    border-radius: 5px;
+  }
+
+  .consultation__form-wrap {
+    padding: 64px var(--pad-mobile) 28px;
+    order: 1;
+  }
+
+  .consultation__title {
+    font-size: 54px;
+    margin-bottom: 32px;
+    line-height: 1.02;
+  }
+
+  .consultation__form { gap: 16px; }
+
+  .consultation__input,
+  .consultation__textarea {
+    height: 41px;
+    width: 342px;
+    max-width: 100%;
+    font-size: 16px;
+    padding: 0 22px;
+    border-radius: 45px;
+  }
+
+  .consultation__textarea {
+    height: 68px;
+    padding: 12px 22px;
+    border-radius: 45px;
+  }
+
+  .consultation__submit {
+    width: 176px;
+    height: 40px;
+    font-size: 16px;
+    margin-top: 12px;
+  }
+
+
+  /* ─── ОСВІТНІ МОЖЛИВОСТІ ─── Figma 271:12982, 390×664px */
+  .edu-opportunities {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .edu-opportunities__photo { display: none; }
+
+  .edu-opportunities__content {
+    width: 100%;
+    padding: 64px var(--pad-mobile) 56px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .edu-opportunities__label {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .edu-opportunities__title-top {
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .edu-opportunities__portrait-wrap {
+    width: 246px;
+    height: 243px;
+    margin-bottom: 20px;
+  }
+
+  .edu-opportunities__title-bottom {
+    font-size: 44px;
+    line-height: 1.05;
+  }
+
+
+  /* ─── ВІДГУКИ ─── Figma 271:12996, 390×1156px */
+  .reviews { padding: 56px 0 48px; min-height: auto; }
+
+  .reviews__inner {
+    flex-direction: column;
+    padding-top: 0;
+  }
+
+  .reviews__aside {
+    width: 100%;
+    padding-top: 0;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .reviews__aside-text {
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .reviews__main { margin-left: 0; }
+
+  .reviews__heading { margin-bottom: 16px; }
+
+  .reviews__title {
+    font-size: 48px;
+    text-align: center;
+    line-height: 1.05;
+  }
+
+  .reviews__desc {
+    margin-left: 0;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .reviews__carousel-wrap {
+    overflow: hidden;
+    margin-inline: 0;
+    margin-bottom: 28px;
+  }
+
+  .reviews__grid {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .review-card {
+    flex: 0 0 100%;
+    min-height: auto;
+    padding: 28px 20px 24px;
+  }
+
+  .review-card__name { font-size: 40px; line-height: 1.1; margin-bottom: 10px; }
+  .review-card__text { font-size: 14px; line-height: 1.5; }
+
+  .reviews__bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .reviews__btn-outline {
+    width: 176px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .reviews__controls { gap: 8px; }
+
+  .reviews__arrow { width: 57px; height: 57px; }
+
+
+  /* ─── БЛОГ ─── Figma 271:13065, 390×930px */
+  .blog-preview { padding: 56px 0 48px; min-height: auto; }
+
+  .blog-preview__top {
+    padding-top: 0;
+    margin-bottom: 24px;
+    gap: 0;
+  }
+
+  .blog-preview__title {
+    font-size: 40px;
+    line-height: 1.1;
+    text-align: left;
+  }
+
+  .blog-preview__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .blog-preview__btn {
+    width: 176px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .blog-preview__controls { gap: 8px; }
+
+  .blog-preview__arrow { width: 57px; height: 57px; }
+
+  .blog-preview__carousel-wrap {
+    overflow: hidden;
+    margin-inline: 0;
+    margin-bottom: 28px;
+  }
+
+  .blog-preview__grid {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .blog-card {
+    flex: 0 0 100%;
+    min-height: auto;
+  }
+
+  .blog-card__photo {
+    width: calc(100% - 32px);
+    height: 180px;
+    margin: 20px auto 0;
+  }
+
+  .blog-card__body { padding: 20px 16px 20px; }
+
+  .blog-card__title { font-size: 18px; line-height: 1.3; }
+
+  .blog-card__text { font-size: 14px; line-height: 1.5; }
+
+  .blog-preview__banner { height: 200px; border-radius: 5px; }
+}
+
+
+/* ─── iOS Safari ─── */
+@supports (-webkit-touch-callout: none) {
+  .hero { min-height: -webkit-fill-available; }
+
+  .consultation__input,
+  .consultation__textarea {
+    -webkit-appearance: none;
+    border-radius: 45px;
+  }
+
+  .hero__btn,
+  .services__btn,
+  .membership__price-bar,
+  .consultation__submit {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .courses-section__carousel {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .site-footer {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+}

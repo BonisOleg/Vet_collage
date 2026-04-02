@@ -1,0 +1,15 @@
+<div>
+  <h2 class="heading-sm" style="margin-bottom:var(--space-8);">Мої курси</h2>
+  {% if user_courses %}
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:var(--space-6);">
+      {% for course in user_courses %}
+        {% include "components/course_card.html" with course=course %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="text-align:center; padding:var(--space-20) 0; color:var(--color-gray-mid);">
+      <p class="body-lg" style="margin-bottom:var(--space-6);">У вас ще немає жодних курсів</p>
+      <a href="{% url 'courses:list' %}" class="btn btn-red">Переглянути курси</a>
+    </div>
+  {% endif %}
+</div>

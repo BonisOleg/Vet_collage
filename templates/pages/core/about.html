@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Про нас — UCVN{% endblock %}
+{% block body_class %}body--dark-hero page-about{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════ HERO ══════ -->
+<section class="about-hero">
+  <div class="about-hero__textures" aria-hidden="true">
+    <img src="{% static 'images/about-bg-texture-1.webp' %}" alt="" class="about-hero__tex about-hero__tex--1" loading="eager">
+    <img src="{% static 'images/about-bg-texture-2.webp' %}" alt="" class="about-hero__tex about-hero__tex--2" loading="eager">
+  </div>
+
+  <div class="container about-hero__content">
+    <p class="about-hero__breadcrumb">
+      <span>Головна</span> › <span>про нас</span>
+    </p>
+    <h1 class="about-hero__title">Про нас</h1>
+    <p class="about-hero__sub">Детальніше про нашу організацію та її цінності</p>
+    <a href="{% url 'courses:list' %}" class="btn about-hero__btn">Всі Курси</a>
+  </div>
+</section>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="timeline">
+
+      <!-- Центральна лінія (позиціонована абсолютно) -->
+      <div class="timeline__line-col" aria-hidden="true">
+        <img src="{% static 'images/about-timeline-line.webp' %}" alt="" class="timeline__line-img">
+        <span class="timeline__dot" style="top:12%"></span>
+        <span class="timeline__dot" style="top:37%"></span>
+        <span class="timeline__dot" style="top:63%"></span>
+        <span class="timeline__dot" style="top:88%"></span>
+      </div>
+
+      <!-- 2018 (ліво) -->
+      <div class="timeline__row">
+        <div class="timeline__cell timeline__cell--left">
+          <div class="timeline__year">2018</div>
+          <p class="timeline__text">Засновано Ukrainian College of Veterinary Nutrition, першу організацію в Україні з доказової ветеринарної дієтології.</p>
+          <div class="timeline__photo">
+            <img src="{% static 'images/about-timeline-photo-1.webp' %}" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="timeline__cell timeline__cell--empty" aria-hidden="true"></div>
+      </div>
+
+      <!-- 2020 (право) -->
+      <div class="timeline__row">
+        <div class="timeline__cell timeline__cell--empty" aria-hidden="true"></div>
+        <div class="timeline__cell timeline__cell--right">
+          <div class="timeline__year">2020</div>
+          <p class="timeline__text">Запущено перший онлайн-курс, який зібрав 200 студентів із різних куточків України.</p>
+          <div class="timeline__photo">
+            <img src="{% static 'images/about-timeline-photo-2.webp' %}" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2022 (ліво) -->
+      <div class="timeline__row">
+        <div class="timeline__cell timeline__cell--left">
+          <div class="timeline__year">2022</div>
+          <p class="timeline__text">Наша спільнота перевищила 1000 учасників, а платформа розширила функціонал для підтримки фахівців.</p>
+          <div class="timeline__photo">
+            <img src="{% static 'images/about-timeline-photo-3.webp' %}" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="timeline__cell timeline__cell--empty" aria-hidden="true"></div>
+      </div>
+
+      <!-- 2024 (право) -->
+      <div class="timeline__row">
+        <div class="timeline__cell timeline__cell--empty" aria-hidden="true"></div>
+        <div class="timeline__cell timeline__cell--right">
+          <div class="timeline__year">2024</div>
+          <p class="timeline__text">Проведено найбільшу конференцію з дієтології, що об'єднала міжнародних експертів галузі.</p>
+          <div class="timeline__photo">
+            <img src="{% static 'images/about-timeline-photo-4.webp' %}" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ЦІННОСТІ ══════ -->
+<section class="values-section">
+  <!-- Heading lives on the dark arch -->
+  <div class="values-section__arch">
+    <div class="container">
+      <h2 class="values-section__heading">
+        цінності, якими керується<br>наша організація
+      </h2>
+    </div>
+  </div>
+
+  <!-- Cards on dark bg below arch -->
+  <div class="values-section__body">
+    <div class="container">
+      <div class="values-cards">
+
+        <div class="values-card">
+          <div class="values-card__icon">
+            <img src="{% static 'images/about-value-icon-1.svg' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="values-card__title">Доказовість та лідерство</h3>
+          <p class="values-card__text">Ми дотримуємося принципів доказової медицини, надаючи нашим студентам і клієнтам лише перевірені та науково обґрунтовані знання. UCVN формує новий стандарт ветеринарної дієтології в Україні.</p>
+        </div>
+
+        <div class="values-card">
+          <div class="values-card__icon">
+            <img src="{% static 'images/about-value-icon-2.svg' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="values-card__title">Доступність</h3>
+          <p class="values-card__text">Усі наші навчальні програми та послуги доступні онлайн, що дозволяє кожному отримати якісну освіту та консультацію, незалежно від місця проживання чи обставин.</p>
+        </div>
+
+        <div class="values-card">
+          <div class="values-card__icon">
+            <img src="{% static 'images/about-value-icon-3.svg' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="values-card__title">Розвиток і партнерство</h3>
+          <p class="values-card__text">Ми підтримуємо професійний ріст наших членів і сприяємо формуванню спільноти ветеринарних дієтологів, яка обмінюється досвідом і разом вдосконалює стандарти.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ЗАСНОВНИКИ ══════ -->
+<section class="founders-section">
+  <div class="container">
+    <div class="founders-grid">
+
+      <div class="founder-card">
+        <h3 class="founder-card__name">Ткач Єгор Кирилович</h3>
+        <p class="founder-card__role">Засновник, голова наукової ради UCVN</p>
+        <div class="founder-card__photo">
+          <img src="{% static 'images/about-founder-1.webp' %}" alt="Ткач Єгор Кирилович" loading="lazy">
+        </div>
+        <a href="#" class="btn about-btn-founder">Детальніше</a>
+      </div>
+
+      <div class="founder-card">
+        <h3 class="founder-card__name">Довбиш Ксенія Миколаївна</h3>
+        <p class="founder-card__role">Голова наукової ради</p>
+        <div class="founder-card__photo">
+          <img src="{% static 'images/about-founder-2.webp' %}" alt="Довбиш Ксенія Миколаївна" loading="lazy">
+        </div>
+        <a href="#" class="btn about-btn-founder">Детальніше</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ КОМАНДА ══════ -->
+<section class="team-section">
+  <div class="team-section__bg-texture" aria-hidden="true">
+    <img src="{% static 'images/about-team-bg.webp' %}" alt="" loading="lazy">
+  </div>
+
+  <div class="container">
+    <div class="team-section__header">
+      <div class="team-section__heading-wrap">
+        <h2 class="team-section__heading">
+          Наша команда&nbsp;–<br>
+          це досвідчені&nbsp;професіонали,<br>
+          об'єднані спільною&nbsp;метою
+        </h2>
+        <p class="team-section__sub">
+          Ми працюємо з ентузіазмом, базуючись на багаторічному досвіді, сучасних дослідженнях та бажанні зробити вагомий внесок у розвиток галузі. Кожен із нас – експерт у своїй сфері, і разом ми створюємо простір для знань, підтримки та натхнення.
+        </p>
+      </div>
+      <div class="team-section__nav" aria-label="Навігація командою">
+        <button class="team-nav-btn" aria-label="Попередній">
+          <img src="{% static 'images/membership-arrow-left.svg' %}" alt="" aria-hidden="true">
+        </button>
+        <button class="team-nav-btn" aria-label="Наступний">
+          <img src="{% static 'images/membership-arrow-right.svg' %}" alt="" aria-hidden="true">
+        </button>
+      </div>
+    </div>
+
+    <div class="team-cards">
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="{% static 'images/about-team-1.webp' %}" alt="Олена Гончарук" loading="lazy">
+        </div>
+        <h3 class="team-card__name">Олена Гончарук</h3>
+        <p class="team-card__role">Науковий консультант</p>
+        <p class="team-card__bio">Експертка з 15-річним досвідом у ветеринарній дієтології, прихильниця доказової медицини та індивідуального підходу.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="{% static 'images/about-team-2.webp' %}" alt="Марія Коваленко" loading="lazy">
+        </div>
+        <h3 class="team-card__name">Марія Коваленко</h3>
+        <p class="team-card__role">Науковий консультант</p>
+        <p class="team-card__bio">Кандидат ветеринарних наук, автор науково-популярних статей про раціональне харчування домашніх тварин.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="{% static 'images/about-team-3.webp' %}" alt="Наталія Мельник" loading="lazy">
+        </div>
+        <h3 class="team-card__name">Наталія Мельник</h3>
+        <p class="team-card__role">Науковий консультант</p>
+        <p class="team-card__bio">Спеціаліст із нутрієнтології та функціональних розладів харчування у тварин із міжнародним досвідом.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SEPARATOR ══════ -->
+<section class="about-separator" aria-hidden="true">
+  <span class="about-separator__symbol">=</span>
+</section>
+
+<!-- ══════ ПАРТНЕРИ ══════ -->
+<section class="partners-section" aria-label="Партнери">
+  <div class="container">
+    <h2 class="partners-section__title">партнери</h2>
+    <div class="partners-section__logos" aria-label="Логотипи партнерів">
+    </div>
+  </div>
+</section>
+
+{% endblock %}

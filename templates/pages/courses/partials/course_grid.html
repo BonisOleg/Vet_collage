@@ -1,0 +1,5 @@
+{% for course in courses %}
+  {% include "components/course_card.html" with course=course %}
+{% empty %}
+  <p class="courses-list__empty">Курсів не знайдено</p>
+{% endfor %}

@@ -1,0 +1,236 @@
+/* ════════════════════════════════════════
+   WEBINAR DETAIL — Figma card style
+   ════════════════════════════════════════ */
+
+.webinar-detail {
+  padding-block: var(--sp-16);
+}
+
+.webinar-detail__inner {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: var(--pad-desktop);
+}
+
+/* ─── Breadcrumb ─── */
+.webinar-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+  margin-bottom: var(--sp-8);
+  transition: color var(--ease);
+}
+
+.webinar-detail__back:hover {
+  color: var(--color-dark);
+}
+
+/* ─── Cover Image ─── */
+.webinar-detail__cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--sp-8);
+}
+
+.webinar-detail__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Label ─── */
+.webinar-detail__label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  text-transform: uppercase;
+  color: var(--color-red);
+  display: inline-block;
+}
+
+/* ─── Title ─── */
+.webinar-detail__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  text-transform: uppercase;
+  line-height: var(--lh-heading);
+  margin-top: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+/* ─── Info Row (date + duration + price) ─── */
+.webinar-detail__info {
+  display: flex;
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-8);
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.webinar-detail__date,
+.webinar-detail__duration {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+}
+
+.webinar-detail__price {
+  font-family: var(--font-body);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+}
+
+/* ─── Description ─── */
+.webinar-detail__description {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--color-text);
+  margin-bottom: var(--sp-10);
+}
+
+.webinar-detail__description p {
+  margin-bottom: var(--sp-4);
+}
+
+/* ─── Actions ─── */
+.webinar-detail__actions {
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.webinar-detail__actions .btn {
+  min-width: 200px;
+  text-align: center;
+}
+
+/* ─── Speaker ─── */
+.webinar-detail__speaker {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  margin-bottom: var(--sp-4);
+  color: var(--color-text);
+}
+
+.webinar-detail__speaker-label {
+  font-weight: var(--fw-semi);
+}
+
+.webinar-detail__price--free {
+  color: var(--color-red);
+}
+
+.btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   WEBINAR WATCH PAGE
+   ════════════════════════════════════════ */
+
+.webinar-watch {
+  padding-block: var(--sp-8);
+}
+
+.webinar-watch__inner {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: var(--pad-desktop);
+}
+
+.webinar-watch__placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--color-dark);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-cream, #f5f0ea);
+  font-family: var(--font-body);
+  margin-bottom: var(--sp-6);
+}
+
+.webinar-watch__info {
+  margin-top: var(--sp-6);
+}
+
+.webinar-watch__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--sp-4);
+}
+
+.webinar-watch__meta {
+  display: flex;
+  gap: var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+  margin-bottom: var(--sp-6);
+}
+
+.webinar-watch__description {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--color-text);
+}
+
+/* ─── TABLET ─── */
+@media (max-width: 1024px) {
+  .webinar-detail__inner,
+  .webinar-watch__inner {
+    padding-inline: var(--sp-8);
+  }
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .webinar-detail {
+    padding-block: var(--sp-10);
+  }
+
+  .webinar-detail__inner {
+    padding-inline: var(--pad-mobile);
+  }
+
+  .webinar-detail__cover {
+    border-radius: 0;
+    margin-inline: calc(-1 * var(--pad-mobile));
+    margin-bottom: var(--sp-6);
+  }
+
+  .webinar-detail__info {
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .webinar-detail__actions {
+    flex-direction: column;
+  }
+
+  .webinar-detail__actions .btn {
+    width: 100%;
+  }
+
+  .webinar-watch {
+    padding-block: var(--sp-4);
+  }
+
+  .webinar-watch__inner {
+    padding-inline: var(--pad-mobile);
+  }
+}

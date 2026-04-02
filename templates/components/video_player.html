@@ -1,0 +1,17 @@
+{% comment %}
+Reusable Bunny.net Stream video player embed.
+Usage: {% include "components/video_player.html" with video_url=video_embed_url title="Назва" %}
+{% endcomment %}
+<div class="video-player" data-video-player>
+  <div class="video-player__wrapper">
+    <iframe
+      id="bunny-stream-embed"
+      src="{{ video_url }}"
+      loading="lazy"
+      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+      class="video-player__iframe"
+      title="{{ title|default:'Відео' }}"
+    ></iframe>
+  </div>
+</div>

@@ -1,0 +1,559 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}UCVN — Ukrainian College of Veterinary Nutrition{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home1.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/home2.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/home3.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/home-mobile1.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/home-mobile2.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════ HERO (1440×1024) ══════ -->
+<section class="hero" aria-label="Головна секція">
+  <div class="hero__textures" aria-hidden="true">
+    <img src="{% static 'images/hero-bg-texture-1.webp' %}" alt="" class="hero__tex hero__tex--1" loading="eager">
+    <img src="{% static 'images/hero-bg-texture-2.webp' %}" alt="" class="hero__tex hero__tex--2" loading="eager">
+  </div>
+
+  <div class="hero__photos" aria-hidden="true">
+    <div class="hero__photo hero__photo--1">
+      <img src="{% static 'images/hero-photo-1.webp' %}" alt="" loading="eager">
+    </div>
+    <div class="hero__photo hero__photo--2">
+      <img src="{% static 'images/hero-photo-2.webp' %}" alt="" loading="eager">
+    </div>
+  </div>
+
+  <div class="hero__heading-block">
+    <h1 class="hero__title-1">UKRAINIAN COLLEGE</h1>
+    <div class="hero__divider" aria-hidden="true"></div>
+    <div class="hero__title-2-row">
+      <span class="hero__of">of</span>
+      <span class="hero__nutrition">VETERINARY NUTRITION</span>
+    </div>
+
+    <p class="hero__sub">
+      Приватна незалежна організація, що об'єднує професіоналів у сфері ветеринарної дієтології та харчування тварин.
+    </p>
+    <a href="{% url 'membership:index' %}" class="hero__btn">Приєднатися</a>
+  </div>
+
+  <p class="hero__eyebrow">курси / вебінари / членство</p>
+</section>
+
+
+<!-- ══════ НАША МІСІЯ (1440×742) ══════ -->
+<section class="mission" aria-label="Наша місія">
+  <div class="mission__bg" aria-hidden="true">
+    <img src="{% static 'images/mission-bg.webp' %}" alt="" loading="lazy">
+  </div>
+
+  <div class="mission__card">
+    <div class="mission__card-texture" aria-hidden="true"></div>
+
+    <p class="mission__label">Доказова дієтологія для здоров'я тварин</p>
+    <h2 class="mission__heading">Наша місія</h2>
+
+    <div class="mission__stamp" aria-hidden="true">
+      <div class="mission__stamp-shadow"></div>
+      <img src="{% static 'images/mission-stamp.webp' %}" alt="">
+    </div>
+
+    <div class="mission__columns">
+      <p class="mission__text mission__text--left">
+        Нашою місією є поширення знань та популяризація доказової ветеринарної дієтології в Україні та за її межами. Ми прагнемо забезпечити власників домашніх улюбленців та ветеринарних спеціалістів не лише якісними та актуальними знаннями, а й практичними навичками, що відповідають сучасним стандартам.
+      </p>
+      <p class="mission__text mission__text--right">
+        Нашою метою є також надання висококваліфікованих консультацій з харчування тварин, щоб допомогти вирішити складні питання, пов'язані з правильним годуванням та підтриманням здоров'я домашніх улюбленців, сприяючи тим самим покращенню якості життя тварин.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ 3 КАРТКИ — ПРО НАС (1440×706) ══════ -->
+<section class="expertise" aria-label="Наші переваги">
+  <div class="expertise__texture" aria-hidden="true"></div>
+  <div class="expertise__lines" aria-hidden="true">
+    <span class="expertise__line"></span>
+    <span class="expertise__line"></span>
+  </div>
+
+  <div class="expertise__inner">
+    <article class="expertise__card">
+      <h3 class="expertise__card-title">Експертність</h3>
+      <div class="expertise__card-body">
+        <p class="expertise__card-text">Ми дотримуємося найвищих стандартів у навчанні, спираючись на доказову медицину, наукові дослідження та багаторічний досвід.</p>
+      </div>
+      <div class="expertise__card-photo">
+        <img src="{% static 'images/expertise-photo-1.webp' %}" alt="" loading="lazy">
+      </div>
+      <span class="expertise__card-num" aria-hidden="true">1</span>
+    </article>
+
+    <article class="expertise__card">
+      <h3 class="expertise__card-title">Інновації</h3>
+      <div class="expertise__card-body">
+        <p class="expertise__card-text">Ми впроваджуємо новітні методики та рішення у сфері ветеринарної дієтології, сприяючи інноваціям, відкриваючи нові можливості та підвищуючи стандарти.</p>
+      </div>
+      <div class="expertise__card-photo">
+        <img src="{% static 'images/expertise-photo-2.webp' %}" alt="" loading="lazy">
+      </div>
+      <span class="expertise__card-num" aria-hidden="true">2</span>
+    </article>
+
+    <article class="expertise__card">
+      <h3 class="expertise__card-title">Доступність</h3>
+      <div class="expertise__card-body">
+        <p class="expertise__card-text">Ми забезпечуємо отримання передових знань усім, хто прагне покращити якість життя своїх улюбленців чи пацієнтів за допомогою нашої онлайн платформи.</p>
+      </div>
+      <div class="expertise__card-photo expertise__card-photo--3">
+        <img src="{% static 'images/expertise-photo-3.webp' %}" alt="" loading="lazy">
+      </div>
+      <span class="expertise__card-num" aria-hidden="true">3</span>
+    </article>
+  </div>
+</section>
+
+
+<!-- ══════ MARQUEE 1 ══════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__text">courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars /&nbsp;</span>
+    <span class="marquee__text">courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars /&nbsp;</span>
+  </div>
+</div>
+
+
+<!-- ══════ ПОПУЛЯРНІ КУРСИ (1440×763) ══════ -->
+<section class="courses-section" aria-label="Популярні курси">
+  <div class="courses-section__textures" aria-hidden="true">
+    <div class="courses-section__tex courses-section__tex--1"></div>
+    <div class="courses-section__tex courses-section__tex--2"></div>
+  </div>
+  <div class="courses-section__bg-text" aria-hidden="true">популярні курси<br>популярні курси</div>
+
+  <div class="container">
+    <h2 class="courses-section__title">популярні курси</h2>
+
+    <div class="courses-section__controls">
+      <button class="courses-arrow" aria-label="Назад" data-carousel-prev>
+        <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+          <path d="M38 8H2M10 1L2 8l8 7" stroke="var(--color-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="courses-arrow" aria-label="Далі" data-carousel-next>
+        <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+          <path d="M2 8h36M30 1l8 7-8 7" stroke="var(--color-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="courses-section__carousel-wrap" data-carousel>
+      <div class="courses-section__track" data-carousel-track>
+        {% for course in popular_courses %}
+        <article class="course-card-home">
+          <div class="course-card-home__photo">
+            {% if course.cover %}
+            <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <h3 class="course-card-home__title">{{ course.title }}</h3>
+          <a href="{% url 'courses:detail' course.slug %}" class="course-card-home__link">Подивитись деталі</a>
+        </article>
+        {% empty %}
+        <article class="course-card-home">
+          <div class="course-card-home__photo">
+            <img src="{% static 'images/course-photo-1.webp' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="course-card-home__title">Нутриціологія у ветеринарній медицині</h3>
+          <a href="{% url 'courses:list' %}" class="course-card-home__link">Подивитись деталі</a>
+        </article>
+        <article class="course-card-home">
+          <div class="course-card-home__photo">
+            <img src="{% static 'images/course-photo-2.webp' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="course-card-home__title">Нутрітивна підтримка на різних етапах життя</h3>
+          <a href="{% url 'courses:list' %}" class="course-card-home__link">Подивитись деталі</a>
+        </article>
+        <article class="course-card-home">
+          <div class="course-card-home__photo">
+            <img src="{% static 'images/courses-photo-1.webp' %}" alt="" loading="lazy">
+          </div>
+          <h3 class="course-card-home__title">Клінічна ветеринарна дієтологія</h3>
+          <a href="{% url 'courses:list' %}" class="course-card-home__link">Подивитись деталі</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="courses-section__cta">
+      <a href="{% url 'courses:list' %}" class="btn btn-red">Всі курси</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ MARQUEE 2 ══════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__text">courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars /&nbsp;</span>
+    <span class="marquee__text">courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars / courses / webinars /&nbsp;</span>
+  </div>
+</div>
+
+
+<!-- ══════ ЧЛЕНСТВО (1440×1171) ══════ -->
+<section class="membership" aria-label="Членство">
+  <div class="membership__textures" aria-hidden="true">
+    <div class="membership__tex membership__tex--1"></div>
+    <div class="membership__tex membership__tex--2"></div>
+  </div>
+  <div class="membership__bg-text" aria-hidden="true">членство членство<br>членство членство<br>членство членство<br>членство членство<br>членство членство</div>
+
+
+  <div class="container membership__inner">
+    <div class="membership__head">
+      <h2 class="membership__title">членство</h2>
+      <p class="membership__subtitle">*виключно для ветеринарних лікарів або студентів ветеринарного факультету</p>
+    </div>
+
+    <div class="membership__features">
+      <div class="membership__feature">
+        <div class="membership__feature-icon">
+          <img src="{% static 'images/membership-icon-1.svg' %}" alt="" loading="lazy">
+        </div>
+        <h3 class="membership__feature-title">Ексклюзивні матеріали</h3>
+        <p class="membership__feature-text">Отримуйте доступ до навчальних ресурсів, вебінарів і підтримки від експертів.</p>
+      </div>
+      <div class="membership__feature">
+        <div class="membership__feature-icon">
+          <img src="{% static 'images/membership-icon-2.svg' %}" alt="" loading="lazy">
+        </div>
+        <h3 class="membership__feature-title">Кар'єрний розвиток</h3>
+        <p class="membership__feature-text">Розширюйте свої професійні горизонти в рамках нашої організації.</p>
+      </div>
+      <div class="membership__feature">
+        <div class="membership__feature-icon">
+          <img src="{% static 'images/membership-icon-3.svg' %}" alt="" loading="lazy">
+        </div>
+        <h3 class="membership__feature-title">Нетворкінг</h3>
+        <p class="membership__feature-text">Спілкуйтесь із колегами та експертами з усього світу і обмінюйтеся досвідом.</p>
+      </div>
+    </div>
+
+    <div class="membership__price-bar">
+      <span class="membership__price">50 €/рік</span>
+    </div>
+
+    <div class="membership__cards">
+      <div class="membership__card membership__card--cream">
+        <h3 class="membership__card-title">Ексклюзивні матеріали</h3>
+        <p class="membership__card-text">Отримуйте доступ до навчальних ресурсів, вебінарів і технічної підтримки від експертів.</p>
+      </div>
+      <div class="membership__card membership__card--cta">
+        <h3 class="membership__card-title">Знижки на освіту</h3>
+        <p class="membership__card-text">Користуйтеся спеціальними умовами на курси, сертифікаційні програми та інші освітні продукти.</p>
+        <a href="{% url 'membership:index' %}" class="btn btn-red">Приєднатися</a>
+      </div>
+      <div class="membership__card membership__card--photo">
+        <img src="{% static 'images/membership-photo.webp' %}" alt="" loading="lazy">
+      </div>
+      <div class="membership__card-stack">
+        <div class="membership__card--cream-sm">
+          <p>Розширюйте свої горизонти в рамках нашої організації.</p>
+        </div>
+        <div class="membership__card--photo-sm">
+          <img src="{% static 'images/membership-photo-2.webp' %}" alt="" loading="lazy">
+        </div>
+        <div class="membership__card--dark-sm">
+          <p>Спілкуйтесь із колегами з усього світу під час заходів і обмінюйтеся досвідом.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ RED LINE (20px) ══════ -->
+<div class="red-line" aria-hidden="true"></div>
+
+
+<!-- ══════ СПЕЦІАЛІСТИ (1440×717) ══════ -->
+<section class="specialists" aria-label="Спеціалісти UCVN">
+  <div class="specialists__textures" aria-hidden="true">
+    <div class="specialists__tex specialists__tex--1"></div>
+    <div class="specialists__tex specialists__tex--2"></div>
+  </div>
+  <div class="specialists__bg-text" aria-hidden="true">спеціалісти спец<br>спеціалісти спец<br>спеціалісти спец</div>
+
+  <div class="container">
+    <h2 class="specialists__title">Спеціалісти</h2>
+    <div class="specialists__cards">
+      <div class="specialists__card specialists__card--left">
+        <div class="specialists__card-inner">
+          <h3 class="specialists__card-role">Стажер UCVN</h3>
+          <p class="specialists__card-text">Стажер UCVN – це початківець у галузі ветеринарної дієтології, який проходить навчання та практику під керівництвом досвідчених фахівців UCVN. Стажери є майбутніми професіоналами, які розвиваються у рамках спільноти UCVN.</p>
+        </div>
+      </div>
+      <div class="specialists__card specialists__card--center">
+        <h3 class="specialists__card-role specialists__card-role--white">Експерт UCVN</h3>
+        <p class="specialists__card-text specialists__card-text--white">Експерт UCVN – це кваліфікований спеціаліст у сфері ветеринарної дієтології, який має значний досвід роботи з домашніми тваринами. Експерти UCVN постійно вдосконалюють свої знання, беручи участь у семінарах і конференціях.</p>
+      </div>
+      <div class="specialists__card specialists__card--right">
+        <div class="specialists__card-inner">
+          <h3 class="specialists__card-role">Провідний експерт UCVN</h3>
+          <p class="specialists__card-text">Провідний спеціаліст UCVN – це досвідчений фахівець у сфері ветеринарної дієтології, який володіє поглибленими знаннями та навичками. Вони беруть участь у розвитку інноваційних підходів до харчування тварин і залучаються до вирішення складних випадків. Провідні спеціалісти також сприяють навчанню та професійному розвитку інших членів спільноти UCVN.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ ПОСЛУГИ ТА ВАРТІСТЬ (1440×1018) ══════ -->
+<section class="services" aria-label="Послуги та вартість">
+  <div class="services__texture" aria-hidden="true"></div>
+  <div class="container">
+    <h2 class="services__title">послуги &amp; вартість</h2>
+
+    <div class="services__row services__row--top">
+      <div class="services__card services__card--basic-desc">
+        <span class="services__num">01</span>
+        <h3 class="services__type">Basic</h3>
+        <p class="services__desc">Консультація, яка допомагає загально оцінити харчування вашого улюбленця та отримати базові поради щодо його покращення без проведення підбору нового корму чи складних розрахунків, таких як складення домашнього раціону.</p>
+      </div>
+      <div class="services__card services__card--pro-desc">
+        <span class="services__num">02</span>
+        <h3 class="services__type">Pro</h3>
+        <p class="services__desc">Консультація, спрямована на детальну індивідуальну оцінку харчування вашого улюбленця. Під час консультації експерт може проводити складні розрахунки, такі як підбір нового корму чи розрахунок домашнього раціону.</p>
+      </div>
+      <div class="services__photo">
+        <img src="{% static 'images/services-row1-photo.webp' %}" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <div class="services__row services__row--bottom">
+      <div class="services__card services__card--price">
+        <span class="services__num">03</span>
+        <h3 class="services__price-name">basic</h3>
+        <div class="services__price-list">
+          <p>Вартість (грн):</p>
+          <p>Стажер 600/250</p>
+          <p>Експерт 900/500</p>
+          <p>Провідний 1200/600</p>
+          <p class="services__price-note">*Перша вартість це первинна консультація, друга - повторна.</p>
+        </div>
+        <a href="{% url 'core:contact' %}" class="services__btn">Зв'язатись</a>
+      </div>
+      <div class="services__photo">
+        <img src="{% static 'images/services-row2-photo.webp' %}" alt="" loading="lazy">
+      </div>
+      <div class="services__card services__card--price">
+        <span class="services__num">04</span>
+        <h3 class="services__price-name">Pro</h3>
+        <div class="services__price-list">
+          <p>Вартість (грн) :</p>
+          <p>Стажер 1200/400</p>
+          <p>Експерт 1800/600</p>
+          <p>Провідний 2400/800</p>
+          <p class="services__price-note">*Перша вартість це вартість консультації, друга вартість це додатковий інгредієнтний набір домашнього раціону чи підбір додаткового варіанту корму</p>
+        </div>
+        <a href="{% url 'core:contact' %}" class="services__btn">Зв'язатись</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ ЗАПИСАТИСЬ НА КОНСУЛЬТАЦІЮ (1440×609) ══════ -->
+<section class="consultation" aria-label="Записатись на консультацію">
+  <div class="consultation__textures" aria-hidden="true">
+    <div class="consultation__tex consultation__tex--1"></div>
+    <div class="consultation__tex consultation__tex--2"></div>
+  </div>
+  <div class="consultation__photo">
+    <img src="{% static 'images/consultation-left-photo.webp' %}" alt="" loading="lazy">
+  </div>
+  <div class="consultation__form-wrap">
+    <h2 class="consultation__title">записатись на консультацію</h2>
+    <div id="consultation-result" role="status" aria-live="polite"></div>
+    <form class="consultation__form"
+          hx-post="{% url 'core:contact' %}"
+          hx-target="#consultation-result"
+          hx-swap="innerHTML"
+          hx-disabled-elt="find [type=submit]"
+          hx-on::after-request="if(event.detail.successful) this.reset()"
+          novalidate>
+      {% csrf_token %}
+      <input type="text" name="website" class="consultation__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="text"  name="name"    class="consultation__input" placeholder="Ім'я та Прізвище" required minlength="2" autocomplete="name"  aria-label="Ім'я та Прізвище">
+      <input type="tel"   name="phone"   class="consultation__input" placeholder="Номер телефону"    autocomplete="tel"  aria-label="Номер телефону" pattern="[\+\d][\d\s\-\(\)]{6,19}">
+      <input type="email" name="email"   class="consultation__input" placeholder="Email"             required autocomplete="email" aria-label="Email">
+      <textarea name="message" class="consultation__textarea" placeholder="Напишіть ваш запит" aria-label="Ваш запит" rows="3"></textarea>
+      <button type="submit" class="btn btn-red consultation__submit">Відправити</button>
+    </form>
+  </div>
+</section>
+
+
+<!-- ══════ ОСВІТНІ МОЖЛИВОСТІ (1440×674) ══════ -->
+<section class="edu-opportunities" aria-label="Освітні можливості">
+  <div class="edu-opportunities__texture" aria-hidden="true"></div>
+  <div class="edu-opportunities__photo" aria-hidden="true">
+    <img src="{% static 'images/edu-bg-photo.webp' %}" alt="" loading="lazy">
+  </div>
+  <div class="edu-opportunities__content">
+    <p class="edu-opportunities__label">ОБИРАЮЧИ НАС ВИ ІНВЕСТУЄТЕ У СВІЙ РОЗВИТОК</p>
+    <h2 class="edu-opportunities__title-top">Освітні</h2>
+    <div class="edu-opportunities__portrait-wrap">
+      <img src="{% static 'images/edu-portrait.webp' %}" alt="" class="edu-opportunities__portrait" loading="lazy">
+      <img src="{% static 'images/mission-stamp.webp' %}" alt="" class="edu-opportunities__stamp" loading="lazy">
+    </div>
+    <h2 class="edu-opportunities__title-bottom">можливості для<br>вашого зростання.</h2>
+  </div>
+</section>
+
+
+<!-- ══════ ВІДГУКИ (1440×993) ══════ -->
+<section class="reviews" aria-label="Відгуки">
+  <div class="reviews__textures" aria-hidden="true">
+    <div class="reviews__tex reviews__tex--1"></div>
+    <div class="reviews__tex reviews__tex--2"></div>
+  </div>
+  <div class="reviews__bg-text" aria-hidden="true">курси курси курси<br>курси курси курси<br>курси курси курси</div>
+
+  <div class="container reviews__inner">
+    <div class="reviews__aside">
+      <p class="reviews__aside-text">НАШІ ВІДГУКИ,<br>ЯКІ ГОВОРЯТЬ<br>САМІ ЗА СЕБЕ</p>
+    </div>
+
+    <div class="reviews__main">
+      <div class="reviews__heading">
+        <h2 class="reviews__title">спробувавши наші курси</h2>
+        <h2 class="reviews__title">одного разу, ваше життя зміниться</h2>
+        <h2 class="reviews__title">на "до" та "після"</h2>
+      </div>
+      <p class="reviews__desc">Спробувавши наші курси один раз, ви відчуєте, як знання та підтримка змінюють ваше професійне життя назавжди.</p>
+
+      <div class="reviews__carousel-wrap" data-carousel>
+        <div class="reviews__grid" data-carousel-track>
+          <div class="review-card">
+            <div class="review-card__quote-icon" aria-hidden="true">
+              <svg width="69" height="69" viewBox="0 0 69 69" fill="none"><rect width="69" height="69" rx="4" fill="#F5F0EA"/><path d="M20 45c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H20V45zm22 0c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H42V45z" fill="#910317"/></svg>
+            </div>
+            <h3 class="review-card__name">Ірина</h3>
+            <p class="review-card__text">"Долучившись до курсів Ukrainian College of Veterinary Nutrition, я отримала не просто знання, а цілу спільноту однодумців та впевненість у своїх силах. Завдяки цьому я вже застосовую нові навички у своїй практиці, і результати перевершують очікування!"</p>
+          </div>
+          <div class="review-card">
+            <div class="review-card__quote-icon" aria-hidden="true">
+              <svg width="69" height="69" viewBox="0 0 69 69" fill="none"><rect width="69" height="69" rx="4" fill="#F5F0EA"/><path d="M20 45c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H20V45zm22 0c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H42V45z" fill="#910317"/></svg>
+            </div>
+            <h3 class="review-card__name">Олена</h3>
+            <p class="review-card__text">"Програма UCVN повністю змінила мій підхід до годування пацієнтів. Тепер я можу надавати обґрунтовані рекомендації, засновані на доказовій медицині. Дякую команді за якісний контент і підтримку!"</p>
+          </div>
+          <div class="review-card">
+            <div class="review-card__quote-icon" aria-hidden="true">
+              <svg width="69" height="69" viewBox="0 0 69 69" fill="none"><rect width="69" height="69" rx="4" fill="#F5F0EA"/><path d="M20 45c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H20V45zm22 0c0-8 4-15 12-18l2 4c-6 3-8 7-8 10h6v12H42V45z" fill="#910317"/></svg>
+            </div>
+            <h3 class="review-card__name">Марія</h3>
+            <p class="review-card__text">"Курс дав мені системне розуміння нутриціології. Матеріали подані доступно, а куратори завжди готові відповісти на запитання. Рекомендую всім, хто хоче розвиватися у цій галузі!"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews__bottom">
+        <a href="{% url 'courses:list' %}" class="reviews__btn-outline">Всі курси</a>
+        <div class="reviews__controls">
+          <button class="reviews__arrow" aria-label="Назад" data-carousel-prev>
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+              <path d="M38 8H2M10 1L2 8l8 7" stroke="var(--color-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="reviews__arrow" aria-label="Далі" data-carousel-next>
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+              <path d="M2 8h36M30 1l8 7-8 7" stroke="var(--color-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ БЛОГ (1440×1305) ══════ -->
+<section class="blog-preview" aria-label="Блог">
+  <div class="blog-preview__texture" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="blog-preview__top">
+      <div class="blog-preview__heading">
+        <h2 class="blog-preview__title">Відкрийте світ ветеринарної</h2>
+        <h2 class="blog-preview__title">дієтології разом із нами!</h2>
+      </div>
+      <div class="blog-preview__aside">
+        <p class="blog-preview__aside-text">НАШ БЛОГ —<br>ВАШ ПРОСТІР<br>ДЛЯ НОВИХ ЗНАНЬ</p>
+      </div>
+    </div>
+
+    <div class="blog-preview__actions">
+      <a href="{% url 'blog:list' %}" class="blog-preview__btn">Читати блог</a>
+      <div class="blog-preview__controls">
+        <button class="blog-preview__arrow" aria-label="Назад" data-carousel-prev>
+          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+            <path d="M38 8H2M10 1L2 8l8 7" stroke="var(--color-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="blog-preview__arrow" aria-label="Далі" data-carousel-next>
+          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+            <path d="M2 8h36M30 1l8 7-8 7" stroke="var(--color-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="blog-preview__carousel-wrap" data-carousel>
+      <div class="blog-preview__grid" data-carousel-track>
+        <a href="{% url 'blog:list' %}" class="blog-card">
+          <div class="blog-card__photo">
+            <img src="{% static 'images/blog-preview-1.webp' %}" alt="" loading="lazy">
+          </div>
+          <div class="blog-card__body">
+            <h3 class="blog-card__title">Тренди ветеринарної дієтології</h3>
+            <p class="blog-card__text">Ознайомтесь із найновішими підходами та дослідженнями для здоров'я тварин.</p>
+          </div>
+        </a>
+        <a href="{% url 'blog:list' %}" class="blog-card">
+          <div class="blog-card__photo">
+            <img src="{% static 'images/blog-preview-2.webp' %}" alt="" loading="lazy">
+          </div>
+          <div class="blog-card__body">
+            <h3 class="blog-card__title">Харчування тварин на різних етапах</h3>
+            <p class="blog-card__text">Дізнайтеся, як правильно годувати улюбленця залежно від віку та стану здоров'я.</p>
+          </div>
+        </a>
+        <a href="{% url 'blog:list' %}" class="blog-card">
+          <div class="blog-card__photo">
+            <img src="{% static 'images/blog-preview-3.webp' %}" alt="" loading="lazy">
+          </div>
+          <div class="blog-card__body">
+            <h3 class="blog-card__title">Доказова нутриціологія в практиці</h3>
+            <p class="blog-card__text">Як застосовувати наукові дані для формування правильних дієтологічних рекомендацій.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="blog-preview__banner">
+      <img src="{% static 'images/blog-card-photo.webp' %}" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+{% endblock %}

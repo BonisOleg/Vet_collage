@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Особистий кабінет — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/cabinet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="cabinet">
+
+  {% with sidebar_active=active_tab %}
+  {% include "components/cabinet_sidebar.html" %}
+  {% endwith %}
+
+  <main class="cabinet__main">
+
+    {# ── МІЙ АКАУНТ / МОЇ КУРСИ (default tab) ── #}
+    {% if active_tab == 'courses' or not active_tab %}
+
+      <h1 class="cabinet__greeting">Привіт, {{ user.first_name|default:user.email }}!</h1>
+
+      <div class="cabinet__section">
+        <div class="cab-section-header">
+          <span class="cab-section-title">Продовжи свій перегляд</span>
+          <img src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="18" height="11" aria-hidden="true">
+        </div>
+
+        {% if user_courses %}
+          <div class="cab-cards">
+            {% for course in user_courses %}
+              <article class="cab-card">
+                <div class="cab-card__photo">
+                  {% if course.cover %}
+                    <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
+                  {% else %}
+                    <div class="cab-card__photo-placeholder"></div>
+                  {% endif %}
+                </div>
+                <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+                <p class="cab-card__type">Курс</p>
+                <h2 class="cab-card__title">{{ course.title }}</h2>
+                <a href="{% url 'courses:detail' course.slug %}" class="cab-card__btn">Продовжити</a>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="cab-cards">
+            <article class="cab-card">
+              <div class="cab-card__photo">
+                <img src="{% static 'images/cabinet-mock-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+              <p class="cab-card__type">Вебінар</p>
+              <h2 class="cab-card__title">Нутриціологія</h2>
+              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+            </article>
+            <article class="cab-card">
+              <div class="cab-card__photo">
+                <img src="{% static 'images/cabinet-mock-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+              <p class="cab-card__type">Вебінар</p>
+              <h2 class="cab-card__title">Нутриціологія</h2>
+              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+            </article>
+          </div>
+        {% endif %}
+      </div>
+
+    {# ── МОЇ ВЕБІНАРИ ── #}
+    {% elif active_tab == 'webinars' %}
+
+      <h1 class="cab-page-title">Мої вебінари</h1>
+
+      <div class="cabinet__section">
+        <div class="cab-section-header">
+          <span class="cab-section-title">Продовжи свій перегляд</span>
+          <img src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="18" height="11" aria-hidden="true">
+        </div>
+
+        {% if user_webinars %}
+          <div class="cab-cards">
+            {% for webinar in user_webinars %}
+              <article class="cab-card">
+                <div class="cab-card__photo">
+                  {% if webinar.cover %}
+                    <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
+                  {% else %}
+                    <div class="cab-card__photo-placeholder"></div>
+                  {% endif %}
+                </div>
+                <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+                <p class="cab-card__type">Вебінар</p>
+                <h2 class="cab-card__title">{{ webinar.title }}</h2>
+                <a href="{% url 'webinars:detail' webinar.slug %}" class="cab-card__btn">Продовжити</a>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="cab-cards">
+            <article class="cab-card">
+              <div class="cab-card__photo">
+                <img src="{% static 'images/cabinet-mock-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+              <p class="cab-card__type">Вебінар</p>
+              <h2 class="cab-card__title">Нутриціологія</h2>
+              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+            </article>
+            <article class="cab-card">
+              <div class="cab-card__photo">
+                <img src="{% static 'images/cabinet-mock-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+              <p class="cab-card__type">Вебінар</p>
+              <h2 class="cab-card__title">Нутриціологія</h2>
+              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+            </article>
+          </div>
+        {% endif %}
+      </div>
+
+    {# ── ЧЛЕНСТВО ── #}
+    {% elif active_tab == 'membership' %}
+
+      <h1 class="cab-page-title">
+        Членство: неактивне
+        <span class="cab-page-title__dot" aria-label="неактивне"></span>
+      </h1>
+
+      <div class="mem-feature-cards">
+        <div class="mem-feature-card">
+          <img src="{% static 'images/membership-icon-1.svg' %}" alt="" class="mem-feature-icon" aria-hidden="true">
+          <h2 class="mem-feature-title">Ексклюзивні матеріали</h2>
+          <p class="mem-feature-text">Отримуйте доступ до навчальних ресурсів, вебінарів і підтримки від експертів.</p>
+        </div>
+        <div class="mem-feature-card">
+          <img src="{% static 'images/membership-icon-2.svg' %}" alt="" class="mem-feature-icon" aria-hidden="true">
+          <h2 class="mem-feature-title">Карʼєрний розвиток</h2>
+          <p class="mem-feature-text">Розширюйте свої професійні горизонти в рамках нашої організації.</p>
+        </div>
+        <div class="mem-feature-card">
+          <img src="{% static 'images/membership-icon-3.svg' %}" alt="" class="mem-feature-icon" aria-hidden="true">
+          <h2 class="mem-feature-title">Нетворкінг</h2>
+          <p class="mem-feature-text">Спілкуйтесь із колегами та експертами з усього світу і обмінюйтеся досвідом.</p>
+        </div>
+      </div>
+
+      <a href="{% url 'membership:plans' %}" class="mem-cta-pill">50 €/рік</a>
+
+      <div class="mem-bottom">
+        <!-- Left: image placeholder + title + text -->
+        <div class="mem-bottom__col">
+          <div class="mem-bottom__img-placeholder" role="img" aria-label="Ексклюзивні матеріали"></div>
+          <h3 class="mem-bottom__heading">Ексклюзивні матеріали</h3>
+          <p class="mem-bottom__text">Отримуйте доступ до навчальних ресурсів, вебінарів і технічної підтримки від експертів.</p>
+        </div>
+
+        <!-- Middle: title + text + join button -->
+        <div class="mem-bottom__col">
+          <h3 class="mem-bottom__heading">Знижки на освіту</h3>
+          <p class="mem-bottom__text">Користуйтеся спеціальними умовами на курси, сертифікаційні програми та інші освітні продукти.</p>
+          <a href="{% url 'membership:plans' %}" class="mem-join-btn">Приєднатися</a>
+        </div>
+
+        <!-- Right: text / photo / text stacked -->
+        <div class="mem-bottom__col mem-bottom__col--split">
+          <div class="mem-bottom__sub">
+            <p class="mem-bottom__text">Розширюйте свої горизонти в рамках нашої організації.</p>
+          </div>
+          <img src="{% static 'images/membership-photo.webp' %}" class="mem-bottom__photo" alt="Ветеринар з твариною">
+          <div class="mem-bottom__sub">
+            <p class="mem-bottom__text">Спілкуйтесь із колегами з усього світу під час заходів і обмінюйтеся досвідом</p>
+          </div>
+        </div>
+      </div>
+
+    {# ── НАЛАШТУВАННЯ (profile + password) ── #}
+    {% elif active_tab == 'profile' %}
+
+      <div class="cab-header-row">
+        <h1 class="cab-page-title">Налаштування</h1>
+        <button type="submit" form="settings-personal-form" class="cab-card__btn">Зберегти</button>
+      </div>
+
+      <!-- Personal info form -->
+      <form
+        id="settings-personal-form"
+        method="post"
+        action="{% url 'accounts:profile_update' %}"
+        hx-post="{% url 'accounts:profile_update' %}"
+        hx-target="#profile-result"
+        hx-swap="innerHTML"
+      >
+        {% csrf_token %}
+        <p class="cab-section-sub">Особиста інформація</p>
+        <div id="profile-result"></div>
+        <div class="cab-settings-section">
+          <div class="cab-form-row">
+            <input
+              type="text"
+              class="cab-form-pill"
+              name="first_name"
+              value="{{ user.first_name }}"
+              placeholder="Імʼя"
+              autocomplete="given-name"
+            >
+            <input
+              type="text"
+              class="cab-form-pill"
+              name="last_name"
+              value="{{ user.last_name }}"
+              placeholder="Прізвище"
+              autocomplete="family-name"
+            >
+          </div>
+          <input
+            type="email"
+            class="cab-form-pill"
+            value="{{ user.email }}"
+            placeholder="Email"
+            disabled
+          >
+        </div>
+      </form>
+
+      <!-- Password change form -->
+      <form
+        method="post"
+        action="{% url 'accounts:password_change' %}"
+        hx-post="{% url 'accounts:password_change' %}"
+        hx-target="#password-change-result"
+        hx-swap="innerHTML"
+      >
+        {% csrf_token %}
+        <p class="cab-section-sub">Зміна пароля</p>
+        <div id="password-change-result"></div>
+        <div class="cab-settings-section">
+          <input
+            type="password"
+            class="cab-form-pill"
+            name="old_password"
+            placeholder="Поточний пароль"
+            autocomplete="current-password"
+          >
+          <input
+            type="password"
+            class="cab-form-pill"
+            name="new_password1"
+            placeholder="Новий пароль"
+            autocomplete="new-password"
+          >
+          <input
+            type="password"
+            class="cab-form-pill"
+            name="new_password2"
+            placeholder="Підтвердити новий пароль"
+            autocomplete="new-password"
+          >
+          <div>
+            <button type="submit" class="cab-card__btn">Зберегти</button>
+          </div>
+        </div>
+      </form>
+
+    {# ── ІСТОРІЯ ПОКУПОК ── #}
+    {% elif active_tab == 'history' %}
+
+      <h1 class="cab-page-title">Історія покупок</h1>
+
+      <div class="hist-list">
+        {% for order in orders %}
+          <div class="hist-card">
+            <div class="hist-card__photo">
+              <div class="hist-card__photo-placeholder"></div>
+            </div>
+            <div class="hist-card__body">
+              <p class="hist-card__type">{{ order.get_order_type_display }}</p>
+              <h2 class="hist-card__title">{{ order.item_title }}</h2>
+              <p class="hist-card__meta">{{ order.created_at|date:"d.m.Y" }}</p>
+              <p class="hist-card__meta">Статус: {{ order.get_status_display }}</p>
+              <p class="hist-card__price">€{{ order.amount }}</p>
+              <a href="#" class="hist-card__btn">Дивитися</a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="cabinet__empty">
+            <p class="cabinet__empty-text">Немає жодних покупок</p>
+            <a href="{% url 'courses:list' %}" class="btn btn-red">Переглянути курси</a>
+          </div>
+        {% endfor %}
+      </div>
+
+    {# ── РЕСУРСИ ── #}
+    {% elif active_tab == 'resources' %}
+
+      <h1 class="cab-page-title">Ресурси</h1>
+
+      {% if user_membership and user_membership.is_active %}
+        <p class="cabinet__section-intro">Матеріали, доступні для членів організації.</p>
+        <div class="cabinet__grid">
+          <a href="#" class="cabinet__resource-card">
+            <span class="cabinet__resource-label">PDF</span>
+            <p class="cabinet__resource-title">Навчальний матеріал 1</p>
+          </a>
+        </div>
+      {% else %}
+        <div class="cabinet__empty">
+          <p class="cabinet__empty-text">Ресурси доступні тільки для членів організації</p>
+          <a href="{% url 'membership:index' %}" class="btn btn-red">Оформити членство</a>
+        </div>
+      {% endif %}
+
+    {# ── КАРʼЄРА ── #}
+    {% elif active_tab == 'career' %}
+
+      <h1 class="cab-page-title">Карʼєра</h1>
+
+      <div class="career-content">
+        <h2>Станьте частиною команди професіоналів!</h2>
+        <p>UCVN — це унікальна платформа для ветеринарів та студентів факультетів ветеринарної медицини, які прагнуть стати експертами у галузі харчування тварин. Ми пропонуємо вам можливість розпочати або розвинути свою карʼєру в інноваційному онлайн-форматі, працюючи з однодумцями та отримуючи доступ до найкращих навчальних матеріалів.</p>
+
+        <h2>Карʼєрні етапи:</h2>
+
+        <div class="career-stage">
+          <p class="career-stage__name">1. Стажер UCVN</p>
+          <p class="career-stage__desc">Перший крок до професійного визнання. Ви будете працювати під керівництвом наших менторів, здобуваючи практичний досвід у роботі з клінічними випадками. Стажери отримують доступ до навчальних матеріалів та консультації від провідних спеціалістів.</p>
+        </div>
+
+        <div class="career-stage">
+          <p class="career-stage__name">2. Експерт UCVN</p>
+          <p class="career-stage__desc">Після успішного завершення стажування та проходження необхідних курсів ви зможете консультувати власників тварин, розробляючи дієти, а також брати участь у конференціях та інших освітніх програмах.</p>
+        </div>
+
+        <div class="career-stage">
+          <p class="career-stage__name">3. Провідний експерт UCVN</p>
+          <p class="career-stage__desc">Це вершина карʼєрного шляху в UCVN. Провідні експерти не лише консультують, а й беруть участь у створенні нових програм, виступають на круглих столах та формують стандарти ветеринарної дієтології в Україні.</p>
+        </div>
+
+        <h2>Чому обирають UCVN?</h2>
+        <ul>
+          <li><strong>Навчання та підтримка:</strong> Ви отримаєте доступ до курсів, матеріалів і наставництва від провідних спеціалістів галузі.</li>
+          <li><strong>Освітні можливості:</strong> Участь у конференціях, круглих столах і розробці нових освітніх програм.</li>
+          <li><strong>Гнучкий формат роботи:</strong> Усі консультації та навчання проходять в онлайн-форматі.</li>
+          <li><strong>Карʼєрний розвиток:</strong> Ми пропонуємо чіткий шлях професійного зростання від стажера до провідного експерта.</li>
+          <li><strong>Команда однодумців:</strong> Ви станете частиною спільноти, яка працює заради розвитку ветеринарної дієтології в Україні.</li>
+          <li>Знижки на матеріали, навчальні програми та інші цікаві пропозиції.</li>
+        </ul>
+
+        <h2>Як долучитися?</h2>
+        <p><strong>Зв'яжіться із науковою радою UCVN та зробіть перший крок до своєї успішної карʼєри з UCVN. Разом ми створюємо нові стандарти у ветеринарній дієтології!</strong></p>
+      </div>
+
+    {# ── SETTINGS (legacy block, kept for safety) ── #}
+    {% elif active_tab == 'settings' %}
+      {# redirect to profile tab for Налаштування #}
+      <script>location.replace('{% url "accounts:cabinet" %}?tab=profile');</script>
+
+    {% endif %}
+
+  </main>
+
+</div>
+
+{% else %}
+<div class="cabinet-locked">
+  <h1 class="cabinet-locked__title">Доступ обмежений</h1>
+  <p class="cabinet-locked__sub">Будь ласка, увійдіть в систему</p>
+  <a href="{% url 'accounts:login' %}" class="btn btn-red">Увійти</a>
+</div>
+{% endif %}
+
+{% endblock %}

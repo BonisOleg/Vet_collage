@@ -1,0 +1,64 @@
+{% load static %}
+<!-- Figma: футер 1440×616, bg WHITE, paper textures -->
+<footer class="site-footer">
+  <div class="site-footer__textures" aria-hidden="true">
+    <div class="site-footer__tex site-footer__tex--1"></div>
+    <div class="site-footer__tex site-footer__tex--2"></div>
+  </div>
+
+  <div class="site-footer__inner">
+
+    <div class="site-footer__logo">
+      <img src="{% static 'images/logo.svg' %}" alt="UCVN" class="site-footer__logo-img" loading="lazy">
+    </div>
+
+    <div class="site-footer__newsletter">
+      <h3 class="site-footer__newsletter-title">підпишіться на нашу<br>email-розсилку</h3>
+      <div id="newsletter-result"></div>
+      <form class="site-footer__form"
+            hx-post="{% url 'core:newsletter' %}"
+            hx-target="#newsletter-result"
+            hx-swap="innerHTML"
+            hx-on::after-request="if(event.detail.successful) this.reset()">
+        {% csrf_token %}
+        <div class="site-footer__input-wrap">
+          <input type="email" name="email" placeholder="Ваш email" class="site-footer__input" required>
+        </div>
+        <button type="submit" class="btn btn-red site-footer__submit">Підписатись</button>
+      </form>
+    </div>
+
+    <div class="site-footer__col site-footer__col--faq">
+      <a href="#">часті запитання</a>
+      <a href="{% url 'webinars:list' %}">вебінари</a>
+      <a href="#">умови користування</a>
+    </div>
+
+    <nav class="site-footer__col site-footer__col--nav" aria-label="Підвальна навігація">
+      <a href="{% url 'core:about' %}">про нас</a>
+      <a href="{% url 'courses:list' %}">курси</a>
+      <a href="{% url 'webinars:list' %}">послуги</a>
+      <a href="{% url 'membership:index' %}">членство</a>
+      <a href="{% url 'blog:list' %}">блог</a>
+      <a href="{% url 'core:contact' %}">контакти</a>
+    </nav>
+
+    <div class="site-footer__col site-footer__col--contact">
+      <a href="mailto:info@ucvn.org" class="site-footer__email">EMAIL</a>
+      <div class="site-footer__socials">
+        <a href="#" aria-label="Instagram" class="site-footer__social">
+          <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook" class="site-footer__social">
+          <svg width="44" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="site-footer__bottom">
+    <a href="{% url 'core:privacy' %}" class="site-footer__legal">Privacy policy</a>
+    <a href="{% url 'core:cookies' %}" class="site-footer__legal">Cookies policy</a>
+  </div>
+</footer>

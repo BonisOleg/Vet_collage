@@ -1,0 +1,26 @@
+<div>
+  <h2 class="heading-sm" style="margin-bottom:var(--space-8);">Мій акаунт</h2>
+  <form method="post" action="{% url 'accounts:cabinet' %}" style="max-width:480px;">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="update_profile">
+    <div style="display:flex; flex-direction:column; gap:var(--space-5);">
+      <div class="form-group">
+        <label class="form-label">Ім'я</label>
+        <input class="form-input" type="text" name="first_name" value="{{ user.first_name }}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Прізвище</label>
+        <input class="form-input" type="text" name="last_name" value="{{ user.last_name }}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" name="email" value="{{ user.email }}" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Телефон</label>
+        <input class="form-input" type="tel" name="phone" placeholder="+380 XX XXX XX XX">
+      </div>
+      <button type="submit" class="btn btn-dark" style="align-self:flex-start;">Зберегти</button>
+    </div>
+  </form>
+</div>

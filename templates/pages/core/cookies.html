@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cookies Policy — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="article-detail">
+  <div class="article-detail__inner">
+    <a href="{% url 'core:home' %}" class="article-detail__back">← На головну</a>
+
+    <h1 class="article-detail__title">Cookies Policy</h1>
+
+    <div class="article-detail__content">
+      <p>Цей сайт використовує cookies для забезпечення коректної роботи та покращення вашого досвіду.</p>
+
+      <h2>Що таке cookies?</h2>
+      <p>Cookies — це невеликі текстові файли, які зберігаються у вашому браузері. Вони допомагають сайту запам'ятовувати ваші налаштування та авторизацію.</p>
+
+      <h2>Які cookies ми використовуємо</h2>
+      <p><strong>Необхідні cookies</strong> — для роботи сесій, авторизації та захисту від CSRF-атак. Без них сайт не може функціонувати.</p>
+      <p><strong>Аналітичні cookies</strong> — для розуміння, як відвідувачі користуються сайтом (за наявності).</p>
+
+      <h2>Управління cookies</h2>
+      <p>Ви можете вимкнути cookies у налаштуваннях вашого браузера, але це може обмежити функціональність сайту.</p>
+
+      <h2>Контакти</h2>
+      <p>З питань щодо cookies звертайтесь на <a href="mailto:info@ucvn.org">info@ucvn.org</a>.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

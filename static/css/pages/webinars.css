@@ -1,0 +1,280 @@
+/* ═══════════════════════════════════════════════════════════════
+   WEBINARS PAGE — pixel-perfect from Figma (frame 336:2393)
+   Desktop: 1440px · Mobile: 390px
+   Shared listing layout + sidebar → components.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Логотип у хедері на темному hero (сторінка «Послуги»): білий, як на блозі */
+.body--dark-hero.page-webinars .site-header .site-header__logo-img {
+  filter: brightness(0) invert(1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO — library/statue photo bg 1440×727, dark overlay
+   ═══════════════════════════════════════════════════════════════ */
+
+.webinars-hero {
+  position: relative;
+  width: 100%;
+  height: 727px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webinars-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.webinars-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Figma: two stacked rgba(0,0,0,0.20) overlays */
+.webinars-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.20),
+    rgba(0, 0, 0, 0.20)
+  );
+}
+
+.webinars-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 190px;
+}
+
+/* Breadcrumb */
+.webinars-hero__breadcrumb {
+  font-family: var(--font-body);
+  font-size: 20.16px;
+  font-weight: var(--fw-medium);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.webinars-hero__breadcrumb-dim { opacity: 0.5; }
+.webinars-hero__breadcrumb-sep { opacity: 0.5; }
+
+/* "ВЕБІНАРИ" — Sexsmith 214.73px */
+.webinars-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(80px, 14.9vw, 215px);
+  font-weight: var(--fw-regular);
+  line-height: 1.0;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  margin: 0;
+}
+
+/* Subtitle */
+.webinars-hero__sub {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-cream);
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  max-width: 339px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* "Членство" pill button */
+.webinars-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 161px;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: var(--fw-regular);
+  letter-spacing: -0.01em;
+  text-transform: capitalize;
+  margin-top: 16px;
+  transition: background var(--ease), color var(--ease);
+}
+
+.webinars-hero__btn:hover {
+  background: var(--color-dark);
+  color: var(--color-cream);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WBN-CARD — webinar card component
+   (.wbn-card prefix avoids any conflict with courses/.crs-card)
+   ═══════════════════════════════════════════════════════════════ */
+
+.wbn-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Photo — Figma: 286×314px, border-radius 5px */
+.wbn-card__photo {
+  width: 286px;
+  height: 314px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-gray-bg);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.wbn-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform var(--ease-slow);
+}
+
+.wbn-card:hover .wbn-card__photo img { transform: scale(1.03); }
+
+.wbn-card__photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-gray-bg);
+}
+
+/* "Вебінар" label */
+.wbn-card__type {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  color: rgba(0, 0, 0, 0.50);
+  text-transform: capitalize;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+/* Title — Sexsmith 30px uppercase */
+.wbn-card__title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+/* Description */
+.wbn-card__desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: var(--lh-normal);
+  text-align: justify;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+/* Prices row — old price (strikethrough) + new price */
+.wbn-card__prices {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+/* Figma: €100 — strikethrough, #2b2b18, 18px 500 */
+.wbn-card__price-old {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  color: var(--color-dark);
+  text-decoration: line-through;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Figma: €80 — normal, #2b2b18, 18px 500 */
+.wbn-card__price {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  color: var(--color-dark);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* "Купити" — Figma: bg #2b2b18, cream text, 40px pill, align-self start */
+.wbn-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-dark);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  letter-spacing: -0.01em;
+  text-transform: capitalize;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background var(--ease);
+}
+
+.wbn-card__btn:hover { background: var(--color-dark-hover); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — hero + card only (layout/sidebar → components.css)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .wbn-card__photo { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .webinars-hero { height: auto; min-height: 420px; padding-bottom: 48px; }
+  .webinars-hero__content { padding-top: 100px; }
+  .webinars-hero__title { font-size: clamp(60px, 18vw, 120px); }
+  .webinars-hero__sub { font-size: 16px; }
+
+  .wbn-card__photo { height: 220px; }
+  .wbn-card__btn { font-size: 16px; height: 36px; }
+}
+
+@media (max-width: 480px) {
+  .webinars-hero__title { font-size: clamp(56px, 16vw, 90px); }
+  .wbn-card__title { font-size: 24px; }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .wbn-card__btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .webinars-hero__btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

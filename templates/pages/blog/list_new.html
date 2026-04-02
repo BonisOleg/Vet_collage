@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ audience_label }} — UCVN Блог{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="blog-catlist">
+  <div class="container">
+
+    {# ── Header: breadcrumb + title ── #}
+    <div class="blog-catlist__header">
+      <p class="blog-catlist__breadcrumb">
+        <a href="{% url 'core:home' %}">Головна</a>
+        <span class="blog-catlist__breadcrumb-sep">&gt;</span>
+        <a href="{% url 'blog:list' %}">Блог</a>
+        {% if current_audience %}
+          <span class="blog-catlist__breadcrumb-sep">&gt;</span>
+          <a href="{% url 'blog:list' %}?audience={{ current_audience }}">{{ audience_label }}</a>
+        {% endif %}
+        <span class="blog-catlist__breadcrumb-sep">&gt;</span>
+        <strong>Всі статті</strong>
+      </p>
+      <h1 class="blog-catlist__title">{{ audience_label }}</h1>
+    </div>
+
+    {# ── Topic filter bar ── #}
+    {% if categories %}
+    <div class="blog-filter-bar">
+      <span class="blog-filter-bar__label">Тематика</span>
+      <div class="blog-filter-bar__options">
+        {% for cat in categories %}
+          <a
+            href="?audience={{ current_audience }}&category={{ cat.slug }}"
+            class="blog-filter-option {% if current_category_slug == cat.slug %}is-active{% endif %}"
+            aria-current="{% if current_category_slug == cat.slug %}true{% else %}false{% endif %}"
+          >
+            <span class="blog-filter-option__radio" aria-hidden="true"></span>
+            {{ cat.name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {# ── Articles grid ── #}
+    <div class="blog-section__grid">
+      {% for article in articles %}
+        <article class="blog-article-card">
+          <div class="blog-article-card__photo">
+            {% if article.cover %}
+              <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ article.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <p class="blog-article-card__date">
+            {% if article.published_at %}{{ article.published_at|date:"d.m.Y" }}{% endif %}
+          </p>
+          <h3 class="blog-article-card__title">{{ article.title }}</h3>
+          <p class="blog-article-card__excerpt">{{ article.excerpt|truncatewords:20 }}</p>
+          <a href="{% url 'blog:detail' article.slug %}" class="blog-article-card__btn">Читати</a>
+        </article>
+      {% empty %}
+        <p class="blog-section__empty">Статей поки немає.</p>
+      {% endfor %}
+    </div>
+
+    {# ── Pagination ── #}
+    {% if page_obj.has_other_pages %}
+    <nav class="blog-pagination" aria-label="Пагінація">
+      <ul class="blog-pagination__list">
+        {% if page_obj.has_previous %}
+          <li>
+            <a href="?page={{ page_obj.previous_page_number }}{% if current_audience %}&audience={{ current_audience }}{% endif %}{% if current_category_slug %}&category={{ current_category_slug }}{% endif %}"
+               class="blog-pagination__link">Попередня</a>
+          </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+          <li>
+            {% if num == page_obj.number %}
+              <span class="blog-pagination__current" aria-current="page">{{ num }}</span>
+            {% else %}
+              <a href="?page={{ num }}{% if current_audience %}&audience={{ current_audience }}{% endif %}{% if current_category_slug %}&category={{ current_category_slug }}{% endif %}"
+                 class="blog-pagination__link">{{ num }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li>
+            <a href="?page={{ page_obj.next_page_number }}{% if current_audience %}&audience={{ current_audience }}{% endif %}{% if current_category_slug %}&category={{ current_category_slug }}{% endif %}"
+               class="blog-pagination__link">Наступна</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

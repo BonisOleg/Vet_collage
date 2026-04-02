@@ -1,0 +1,43 @@
+<form
+  method="post"
+  action="{% url 'accounts:login' %}"
+  hx-post="{% url 'accounts:login' %}"
+  hx-target="#modal-login-content"
+  hx-swap="innerHTML"
+  class="auth-form"
+>
+  {% csrf_token %}
+  <h2 class="auth-form__title">Увійти в акаунт</h2>
+
+  {% if error %}
+    <div class="auth-form__error">{{ error }}</div>
+  {% endif %}
+
+  <div class="form-group">
+    <label class="form-label" for="id_username">Email</label>
+    <input class="form-input" type="email" id="id_username" name="username"
+           placeholder="your@email.com" autocomplete="email" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="id_password">Пароль</label>
+    <input class="form-input" type="password" id="id_password" name="password"
+           placeholder="••••••••" autocomplete="current-password" required>
+    <a href="#" class="auth-form__forgot"
+       hx-get="{% url 'accounts:password_reset' %}"
+       hx-target="#modal-login-content"
+       hx-swap="innerHTML">
+      Забули пароль?
+    </a>
+  </div>
+
+  <button type="submit" class="btn btn-red auth-form__submit">Увійти</button>
+
+  <p class="auth-form__switch">
+    Немає акаунту?
+    <button type="button" class="auth-form__switch-link"
+            data-modal-close data-modal-open="modal-register">
+      Зареєструватись
+    </button>
+  </p>
+</form>

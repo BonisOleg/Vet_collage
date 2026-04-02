@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Членство — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="membership-page">
+  <div class="container">
+    <header class="membership-page__header">
+      <h1 class="membership-page__title">членство</h1>
+      <p class="membership-page__lead">
+        Приєднуйтесь до спільноти ветеринарних дієтологів. Членство доступне виключно для ветеринарних лікарів або студентів ветеринарного факультету.
+      </p>
+    </header>
+
+    <div class="membership-home__grid">
+      {% for plan in plans %}
+      <div class="membership-card {% if plan.is_popular %}membership-card--active{% endif %}">
+        {% if plan.is_popular %}
+          <span class="membership-card__badge">Популярний</span>
+        {% endif %}
+        <span class="membership-card__label">{{ plan.name }}</span>
+        <p class="membership-card__price">{{ plan.price }} грн<span class="membership-card__period">/міс</span></p>
+        {% if plan.description %}
+          <p class="membership-card__desc">{{ plan.description }}</p>
+        {% endif %}
+        <ul class="membership-card__features">
+          {% for feature in plan.features %}
+          <li>✓ {{ feature }}</li>
+          {% endfor %}
+        </ul>
+        <button
+          type="button"
+          data-checkout
+          data-order-type="membership"
+          data-item-id="{{ plan.id }}"
+          class="btn {% if plan.is_popular %}btn-outline-white{% else %}btn-dark{% endif %} membership-card__cta">
+          Оформити
+        </button>
+      </div>
+      {% empty %}
+        <div class="membership-card">
+          <span class="membership-card__label">Базовий</span>
+          <p class="membership-card__price">299 грн<span class="membership-card__period">/міс</span></p>
+          <p class="membership-card__desc">Тарифні плани поки не налаштовані</p>
+          <a href="{% url 'accounts:register_step1' %}" class="btn btn-dark membership-card__cta">Оформити</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

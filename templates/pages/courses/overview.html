@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ course.title }} — Ознайомлення — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/course-learning.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lrn-page">
+
+  {# ── Course name label ── #}
+  <p class="lrn-course-title">{{ course.title }}</p>
+
+  {# ── Top bar: progress card + first-lesson nav card ── #}
+  <div class="lrn-top-bar lrn-top-bar--overview">
+
+    <div class="lrn-progress-card">
+      <span class="lrn-progress-label">Мій Прогрес: <strong>{{ progress_percent }}%</strong></span>
+      <div class="lrn-progress-track">
+        <div class="lrn-progress-fill" style="width: {{ progress_percent }}%"></div>
+      </div>
+    </div>
+
+    {% if first_lesson %}
+    <a href="{% url 'courses:lesson' course.slug first_lesson.slug %}"
+       class="lrn-nav-card lrn-nav-card--next"
+       aria-label="Перейти до: {{ first_lesson.title }}">
+      <div class="lrn-nav-card__body">
+        <span class="lrn-nav-card__title">{{ first_lesson.title }}</span>
+        <span class="lrn-nav-card__sub">{{ course.title }}</span>
+      </div>
+      <span class="lrn-nav-card__chevron" aria-hidden="true">
+        <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    {% endif %}
+
+  </div>{# /lrn-top-bar #}
+
+  {# ── Main: sidebar + content ── #}
+  <div class="lrn-main">
+
+    <aside class="lrn-sidebar" aria-label="Програма курсу">
+      {% include "pages/courses/partials/course_program.html" with course=course lessons=lessons current_lesson=None is_overview=True is_enrolled=is_enrolled %}
+    </aside>
+
+    <main class="lrn-content">
+
+      <div class="lrn-content-banner">
+        <h1 class="lrn-content-banner__title">Ознайомлення</h1>
+      </div>
+
+      <div class="lrn-overview-body">
+
+        <h2>Опис</h2>
+        <p>{{ course.description }}</p>
+
+        {% if course.what_you_learn %}
+        <h2>Список джерел</h2>
+        <ul>
+          {% for item in course.what_you_learn %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+      </div>
+
+      {# ── Bottom next-lesson card ── #}
+      {% if first_lesson %}
+      <div class="lrn-bottom-bar lrn-bottom-bar--overview">
+        <a href="{% url 'courses:lesson' course.slug first_lesson.slug %}"
+           class="lrn-nav-card lrn-nav-card--next"
+           aria-label="Перейти до: {{ first_lesson.title }}">
+          <div class="lrn-nav-card__body">
+            <span class="lrn-nav-card__title">{{ first_lesson.title }}</span>
+            <span class="lrn-nav-card__sub">{{ course.title }}</span>
+          </div>
+          <span class="lrn-nav-card__chevron" aria-hidden="true">
+            <svg viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+      {% endif %}
+
+    </main>
+  </div>{# /lrn-main #}
+
+</div>{# /lrn-page #}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  /* Module accordion toggle */
+  document.querySelectorAll('[data-module-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var module = btn.closest('[data-module]');
+      var expanded = module.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+</script>
+{% endblock %}

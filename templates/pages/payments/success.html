@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Оплата успішна — UCVN{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/payment.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="payment-result">
+
+  <div class="payment-result__icon payment-result__icon--success" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+
+  <h1 class="payment-result__title">Оплата пройшла успішно</h1>
+  <p class="payment-result__text">
+    Дякуємо за покупку! Ваш доступ активовано. Ви можете перейти до матеріалів у своєму кабінеті.
+  </p>
+
+  {% if order %}
+  <div class="payment-result__details">
+    {% if order.item_title %}
+    <div class="payment-result__row">
+      <span class="payment-result__label">Продукт</span>
+      <span class="payment-result__value">{{ order.item_title }}</span>
+    </div>
+    {% endif %}
+    {% if order.amount %}
+    <div class="payment-result__row">
+      <span class="payment-result__label">Сума</span>
+      <span class="payment-result__value">€{{ order.amount }}</span>
+    </div>
+    {% endif %}
+    {% if order.date %}
+    <div class="payment-result__row">
+      <span class="payment-result__label">Дата</span>
+      <span class="payment-result__value">{{ order.date|date:"d.m.Y" }}</span>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="payment-result__actions">
+    <a href="{% url 'accounts:cabinet' %}" class="btn btn-red">Мій кабінет</a>
+    <a href="{% url 'courses:list' %}" class="btn btn-dark">Переглянути курси</a>
+  </div>
+
+</section>
+{% endblock %}

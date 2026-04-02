@@ -1,0 +1,17 @@
+<div>
+  <h2 class="heading-sm" style="margin-bottom:var(--space-8);">Ресурси</h2>
+  {% if user.membership and user.membership.is_active %}
+    <p class="body-lg" style="margin-bottom:var(--space-6);">Матеріали, доступні для членів організації.</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:var(--space-5);">
+      <a href="#" class="card" style="padding:var(--space-6); display:block; text-decoration:none; color:inherit;">
+        <span class="label" style="color:var(--color-red);">PDF</span>
+        <p style="font-weight:var(--font-weight-semi); margin-top:var(--space-2);">Навчальний матеріал 1</p>
+      </a>
+    </div>
+  {% else %}
+    <div style="text-align:center; padding:var(--space-12) 0; color:var(--color-gray-mid);">
+      <p class="body-lg" style="margin-bottom:var(--space-6);">Ресурси доступні тільки для членів організації</p>
+      <a href="{% url 'membership:index' %}" class="btn btn-red">Оформити членство</a>
+    </div>
+  {% endif %}
+</div>

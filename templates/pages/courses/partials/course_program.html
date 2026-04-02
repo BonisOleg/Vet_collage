@@ -1,0 +1,54 @@
+{% comment %}
+  Shared "Програма курсу" sidebar partial.
+  Expects context:
+    course         — Course object
+    lessons        — QuerySet[Lesson] (ordered)
+    current_lesson — Active Lesson or None
+    is_overview    — True when on the course overview page
+{% endcomment %}
+<div class="lrn-program__header">Програма курсу</div>
+
+<div class="lrn-module is-open" data-module>
+
+  {# Module header — acts as a toggle for the lesson list #}
+  <div class="lrn-module__toggle" data-module-toggle aria-expanded="true">
+    {# Checkmark circle — "complete" state #}
+    <svg class="lrn-module__status" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="lrn-module__name">{{ course.title }}</span>
+    {# Chevron — rotates when expanded #}
+    <svg class="lrn-module__arrow" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="lrn-module__lessons">
+
+    {# First item: Ознайомлення (course overview) #}
+    <a
+      href="{% url 'courses:overview' course.slug %}"
+      class="lrn-lesson-link {% if is_overview %}lrn-lesson-link--active{% endif %}"
+    >
+      <span class="lrn-lesson-link__title">Ознайомлення</span>
+      <svg class="lrn-lesson-link__arrow" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1.5 1.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    {# Individual lessons #}
+    {% for l in lessons %}
+    <a
+      href="{% url 'courses:lesson' course.slug l.slug %}"
+      class="lrn-lesson-link {% if current_lesson and current_lesson.pk == l.pk %}lrn-lesson-link--active{% endif %}{% if not is_enrolled and not l.is_preview %} lrn-lesson-link--locked{% endif %}"
+    >
+      <span class="lrn-lesson-link__title">{{ l.title }}</span>
+      <svg class="lrn-lesson-link__arrow" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1.5 1.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    {% endfor %}
+
+  </div>
+</div>

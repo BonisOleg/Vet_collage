@@ -1,0 +1,50 @@
+<form
+  method="post"
+  action="{% url 'accounts:register_step1' %}"
+  hx-post="{% url 'accounts:register_step1' %}"
+  hx-target="#register-form-shell"
+  hx-swap="innerHTML"
+  class="auth-form"
+>
+  {% csrf_token %}
+  <p class="auth-form__step">Крок 1 / 2</p>
+  <h2 class="auth-form__title">Реєстрація</h2>
+
+  {% if error %}
+    <div class="auth-form__error">{{ error }}</div>
+  {% endif %}
+
+  <div class="form-group">
+    <label class="form-label" for="reg_first_name">Ім'я</label>
+    <input class="form-input" type="text" id="reg_first_name" name="first_name"
+           placeholder="Ваше ім'я" autocomplete="given-name" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="reg_last_name">Прізвище</label>
+    <input class="form-input" type="text" id="reg_last_name" name="last_name"
+           placeholder="Ваше прізвище" autocomplete="family-name" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="reg_email">Email</label>
+    <input class="form-input" type="email" id="reg_email" name="email"
+           placeholder="your@email.com" autocomplete="email" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="reg_password">Пароль</label>
+    <input class="form-input" type="password" id="reg_password" name="password1"
+           placeholder="Мінімум 8 символів" autocomplete="new-password" required>
+  </div>
+
+  <button type="submit" class="btn btn-red auth-form__submit">Далі →</button>
+
+  <p class="auth-form__switch">
+    Вже маєте акаунт?
+    <button type="button" class="auth-form__switch-link"
+            data-modal-close data-modal-open="modal-login">
+      Увійти
+    </button>
+  </p>
+</form>

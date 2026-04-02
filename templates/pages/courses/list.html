@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Курси — UCVN{% endblock %}
+
+{% block body_class %}body--dark-hero{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════ HERO — КУРСИ ══════ -->
+<section class="courses-hero" aria-label="Курси">
+  <div class="courses-hero__bg" aria-hidden="true">
+    <img src="{% static 'images/courses-hero-bg.jpg' %}" alt="" loading="eager">
+    <div class="courses-hero__overlay"></div>
+  </div>
+  <div class="courses-hero__content">
+    <p class="courses-hero__breadcrumb">
+      <span class="courses-hero__breadcrumb-dim">Головна</span>
+      <span class="courses-hero__breadcrumb-sep"> &gt; </span>
+      <span>КУРСИ</span>
+    </p>
+    <h1 class="courses-hero__title">КУРСИ</h1>
+    <p class="courses-hero__sub">Навчальні курси та вебінари для<br>професійного розвитку</p>
+    <a href="{% url 'membership:index' %}" class="courses-hero__btn">Членство</a>
+  </div>
+</section>
+
+<!-- ══════ LISTING BODY ══════ -->
+<section class="listing-body">
+
+  <!-- Sort row -->
+  <div class="listing-sort">
+    <button class="listing-sort__btn" type="button" data-filters-open aria-label="Сортувати результати">
+      <span>Сортувати за</span>
+      <img src="{% static 'images/courses-sort-arrow.svg' %}" alt="" width="24" height="4" aria-hidden="true">
+    </button>
+  </div>
+
+  <!-- Two-column layout: sidebar + grid -->
+  <div class="listing-layout">
+
+    <!-- ─── Sidebar filters ─── -->
+    <aside class="listing-sidebar" aria-label="Фільтри курсів">
+
+      <!-- ТИП МАТЕРІАЛУ -->
+      <div class="csb-line"></div>
+      <div class="csb-group">
+        <div class="csb-group__header">
+          <span class="csb-group__title">ТИП МАТЕРІАЛУ</span>
+          <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
+        </div>
+        <ul class="csb-options" role="list">
+          <li class="csb-option">
+            <span class="csb-radio csb-radio--ring-dot" aria-label="вибрано"></span>
+            <span>Курси</span>
+          </li>
+          <li class="csb-option">
+            <span class="csb-radio" aria-hidden="true"></span>
+            <span>Вебінари</span>
+          </li>
+          <li class="csb-option">
+            <span class="csb-radio" aria-hidden="true"></span>
+            <span>Інфопродукти</span>
+          </li>
+          <li class="csb-option">
+            <span class="csb-radio" aria-hidden="true"></span>
+            <span>Все</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ТЕМАТИКА -->
+      <div class="csb-line"></div>
+      <div class="csb-group">
+        <div class="csb-group__header">
+          <span class="csb-group__title">ТЕМАТИКА</span>
+          <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
+        </div>
+        <ul class="csb-options" role="list">
+          <li class="csb-option csb-option--selected-dark">
+            <span class="csb-radio csb-radio--solid-cream" aria-label="вибрано"></span>
+            <span>Для власників</span>
+          </li>
+          <li class="csb-option">
+            <span class="csb-radio" aria-hidden="true"></span>
+            <span>Для експертів</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ДОСТУПНІСТЬ -->
+      <div class="csb-line"></div>
+      <div class="csb-group">
+        <div class="csb-group__header">
+          <span class="csb-group__title">ДОСТУПНІСТЬ</span>
+          <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
+        </div>
+        <ul class="csb-options" role="list">
+          <li class="csb-option">
+            <span class="csb-radio" aria-hidden="true"></span>
+            <span>Для членів</span>
+          </li>
+          <li class="csb-option csb-option--bold">
+            <span class="csb-radio csb-radio--solid-cream" aria-label="вибрано"></span>
+            <span>Для всіх</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="csb-line"></div>
+
+    </aside><!-- /.listing-sidebar -->
+
+    <!-- ─── Main content: course grid ─── -->
+    <div class="listing-main">
+      <div class="listing-grid" id="courses-grid">
+
+        {% for course in courses %}
+          <article class="crs-card">
+            <div class="crs-card__photo">
+              {% if course.cover %}
+                <img src="{{ course.cover.url }}" alt="{{ course.title }}" loading="lazy">
+              {% else %}
+                <div class="crs-card__photo-placeholder"></div>
+              {% endif %}
+            </div>
+            <p class="crs-card__type">Курс</p>
+            <h2 class="crs-card__title">{{ course.title }}</h2>
+            <p class="crs-card__desc">{{ course.description|truncatewords:15 }}</p>
+            <p class="crs-card__price">€{{ course.price }}</p>
+            <div class="crs-card__actions">
+              <a href="{% url 'membership:index' %}" class="crs-card__btn crs-card__btn--member">Стати членом</a>
+              <a href="{% url 'courses:detail' course.slug %}" class="crs-card__btn crs-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
+          </article>
+        {% empty %}
+          <!-- Figma mock data -->
+          <article class="crs-card">
+            <div class="crs-card__photo">
+              <img src="{% static 'images/courses-figma-photo-1.jpg' %}" alt="Клінічна ветеринарна дієтологія" loading="lazy">
+            </div>
+            <p class="crs-card__type">Курс</p>
+            <h2 class="crs-card__title">Клінічна ветеринарна дієтологія</h2>
+            <p class="crs-card__desc">Комплексний дієтологічний супровід тварин: від діагностики до розробки раціону.</p>
+            <p class="crs-card__price">€500</p>
+            <div class="crs-card__actions">
+              <a href="{% url 'membership:index' %}" class="crs-card__btn crs-card__btn--member">Стати членом</a>
+              <a href="{% url 'courses:list' %}" class="crs-card__btn crs-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
+          </article>
+
+          <article class="crs-card">
+            <div class="crs-card__photo">
+              <img src="{% static 'images/courses-figma-photo-2.png' %}" alt="Нутрітивна підтримка на різних етапах життя" loading="lazy">
+            </div>
+            <p class="crs-card__type">Курс</p>
+            <h2 class="crs-card__title">Нутрітивна підтримка на різних етапах життя</h2>
+            <p class="crs-card__desc">Дієтологія улюбленців: оптимальне харчування з урахуванням віку та фізіології.</p>
+            <p class="crs-card__price">€250</p>
+            <div class="crs-card__actions">
+              <a href="{% url 'membership:index' %}" class="crs-card__btn crs-card__btn--member">Стати членом</a>
+              <a href="{% url 'courses:list' %}" class="crs-card__btn crs-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
+          </article>
+
+          <article class="crs-card">
+            <div class="crs-card__photo">
+              <img src="{% static 'images/courses-figma-photo-3.png' %}" alt="Нутриціологія у ветеринарній медицині" loading="lazy">
+            </div>
+            <p class="crs-card__type">Курс</p>
+            <h2 class="crs-card__title">Нутриціологія у ветеринарній медицині</h2>
+            <p class="crs-card__desc">Основи ветеринарної дієтології: принципи харчування, роль поживних речовин, аналіз кормів.</p>
+            <p class="crs-card__price">€150</p>
+            <div class="crs-card__actions">
+              <a href="{% url 'membership:index' %}" class="crs-card__btn crs-card__btn--member">Стати членом</a>
+              <a href="{% url 'courses:list' %}" class="crs-card__btn crs-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+
+      </div><!-- /#courses-grid -->
+    </div><!-- /.listing-main -->
+
+  </div><!-- /.listing-layout -->
+
+  {% include 'components/filters_panel.html' %}
+
+</section><!-- /.listing-body -->
+
+{% endblock %}

@@ -1,0 +1,738 @@
+/* ════════════════════════════════════════
+   ABOUT PAGE — matches Figma desktop 1440 + mobile 390
+   No class names overlap with base.css / components.css
+   ════════════════════════════════════════ */
+
+.body--dark-hero.page-about .site-header .site-header__logo-img {
+  filter: brightness(0) invert(1);
+}
+
+/* ═══════════════════════
+   HERO
+   Dark olive bg, texture overlays, white arch at bottom
+   ═══════════════════════ */
+
+.about-hero {
+  position: relative;
+  min-height: 65vh;
+  background: var(--color-dark);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-top: 122px; /* header height */
+}
+
+/* White arch at bottom → transitions to white timeline bg */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 130px;
+  background: var(--color-white);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.about-hero__textures {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-hero__tex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+  opacity: 0.07;
+}
+
+.about-hero__tex--2 { opacity: 0.05; }
+
+.about-hero__content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 140px; /* space for arch */
+}
+
+.about-hero__breadcrumb {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: var(--fw-medium);
+  color: rgba(245, 240, 234, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.about-hero__breadcrumb span:last-child { color: var(--color-cream); }
+
+/* Figma: 214px Sexsmith Regular, cream */
+.about-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 15vw, 215px);
+  font-weight: var(--fw-regular);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  margin-bottom: 20px;
+}
+
+.about-hero__sub {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-cream);
+  margin-bottom: 36px;
+}
+
+/* Extends base .btn — cream bg, dark text, larger font */
+.about-hero__btn {
+  background: var(--color-cream);
+  color: var(--color-dark);
+  font-size: 22px;
+  padding: 0 48px;
+}
+
+.about-hero__btn:hover {
+  background: transparent;
+  color: var(--color-cream);
+  outline: 1.5px solid var(--color-cream);
+}
+
+/* ═══════════════════════
+   TIMELINE
+   White bg, absolute central line, alternating rows
+   ═══════════════════════ */
+
+.timeline-section {
+  padding: 90px 0 80px;
+  background: var(--color-white);
+}
+
+.timeline {
+  position: relative;
+}
+
+/* Centered line — absolute, spans full height of .timeline */
+.timeline__line-col {
+  position: absolute;
+  left: calc(50% - 15px);
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.timeline__line-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+}
+
+/* Dots on the central line */
+.timeline__dot {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  background: var(--color-dark);
+  border-radius: var(--radius-full);
+  border: 3px solid var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-dark);
+  z-index: 2;
+}
+
+/* Each row = full-width, 2-col grid */
+.timeline__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0;
+}
+
+.timeline__cell {
+  padding: 48px 0;
+}
+
+.timeline__cell--left {
+  padding-right: 80px;
+  text-align: right;
+}
+
+.timeline__cell--right {
+  padding-left: 80px;
+  text-align: left;
+}
+
+.timeline__cell--empty {
+  min-height: 40px;
+}
+
+/* Figma: 112px Sexsmith, olive-dark #3c3b23 */
+.timeline__year {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 113px);
+  font-weight: var(--fw-regular);
+  color: #3c3b23;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.timeline__text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+
+.timeline__photo {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.timeline__cell--left  .timeline__photo { aspect-ratio: 520 / 216; }
+.timeline__cell--right .timeline__photo { aspect-ratio: 520 / 344; }
+
+.timeline__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ═══════════════════════
+   VALUES
+   Dark bg throughout, white arch at very top, cream heading + cards
+   ═══════════════════════ */
+
+.values-section {
+  background: var(--color-dark);
+  position: relative;
+}
+
+/* White arch at top → visual transition from white timeline */
+.values-section::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 130px;
+  background: var(--color-white);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.values-section__arch {
+  position: relative;
+  z-index: 1;
+  padding: 140px 0 60px; /* 140px = arch height + spacing */
+}
+
+/* Figma: 77px Sexsmith, cream on dark arch */
+.values-section__heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.4vw, 78px);
+  font-weight: var(--fw-regular);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.values-section__body {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 100px;
+}
+
+.values-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 55px;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.values-card {
+  background: var(--color-cream);
+  border-radius: var(--radius-md);
+  padding: 33px 22px 30px;
+  min-height: 282px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.values-card__icon {
+  width: 70px;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.values-card__icon img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.values-card__title {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.values-card__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: var(--fw-light);
+  line-height: 1.55;
+  color: var(--color-black);
+}
+
+/* ═══════════════════════
+   FOUNDERS
+   Continuous dark bg from values section
+   ═══════════════════════ */
+
+.founders-section {
+  background: var(--color-dark);
+  padding: 0 0 100px;
+}
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: 418px 524px;
+  gap: 122px;
+  justify-content: center;
+  align-items: start;
+}
+
+.founder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+/* Figma: 77px Sexsmith Regular, cream */
+.founder-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.4vw, 78px);
+  font-weight: var(--fw-regular);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.founder-card__role {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  color: var(--color-cream);
+  opacity: 0.75;
+}
+
+.founder-card__photo {
+  width: 100%;
+  height: 448px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.founder-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Extends base .btn — cream bg, dark text */
+.about-btn-founder {
+  background: var(--color-cream);
+  color: var(--color-dark);
+}
+
+.about-btn-founder:hover {
+  background: transparent;
+  color: var(--color-cream);
+  outline: 1.5px solid var(--color-cream);
+}
+
+/* ═══════════════════════
+   TEAM
+   Light bg with texture, arch at top from dark founders
+   ═══════════════════════ */
+
+.team-section {
+  position: relative;
+  background: var(--color-white);
+  padding: 0 0 100px;
+  overflow: hidden;
+}
+
+/* Dark arch at top — transition from dark founders */
+.team-section::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 130px;
+  background: var(--color-dark);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.team-section__bg-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.team-section__bg-texture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.15;
+}
+
+.team-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header: heading + nav arrows */
+.team-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 160px; /* account for arch */
+  padding-bottom: 60px;
+}
+
+.team-section__heading-wrap {
+  max-width: 700px;
+}
+
+/* Figma: 77px Sexsmith Regular, dark */
+.team-section__heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.4vw, 77px);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.008em;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.team-section__sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.6;
+  max-width: 520px;
+  text-align: left;
+}
+
+/* Nav arrows — circle buttons */
+.team-section__nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.team-nav-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-dark);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--ease), transform var(--ease);
+  flex-shrink: 0;
+}
+
+.team-nav-btn:hover {
+  background: var(--color-dark-hover);
+  transform: scale(1.07);
+}
+
+.team-nav-btn img {
+  width: 22px;
+  height: auto;
+  display: block;
+  filter: brightness(0) invert(1); /* make arrows white on dark bg */
+}
+
+/* 3-col card grid */
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px;
+}
+
+.team-card {
+  background: var(--color-cream);
+  border: 1px solid var(--color-red);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 28px 28px;
+  text-align: center;
+}
+
+.team-card__photo {
+  width: 100%;
+  max-width: 328px;
+  aspect-ratio: 328 / 238;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.team-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Figma: 60px Sexsmith Regular */
+.team-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4.2vw, 60px);
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.team-card__role {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.team-card__bio {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: 1.45;
+}
+
+/* ═══════════════════════
+   SEPARATOR
+   Dark block with "=" in Sexsmith
+   ═══════════════════════ */
+
+.about-separator {
+  background: var(--color-dark);
+  padding: 60px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-separator__symbol {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 10vw, 160px);
+  font-weight: var(--fw-regular);
+  color: var(--color-cream);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  opacity: 0.4;
+  user-select: none;
+}
+
+/* ═══════════════════════
+   PARTNERS
+   ═══════════════════════ */
+
+.partners-section {
+  padding: 80px 0;
+  background: var(--color-dark);
+}
+
+/* Figma: Sexsmith ~92px, uppercase, cream */
+.partners-section__title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.4vw, 92px);
+  font-weight: var(--fw-regular);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 64px;
+}
+
+.partners-section__logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+}
+
+/* ═══════════════════════
+   RESPONSIVE — ≤1024px
+   ═══════════════════════ */
+
+@media (max-width: 1024px) {
+  .founders-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .values-cards {
+    gap: 24px;
+  }
+
+  .team-section__header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 140px;
+  }
+
+  .team-section__nav {
+    align-self: flex-end;
+  }
+}
+
+/* ═══════════════════════
+   RESPONSIVE — ≤768px
+   ═══════════════════════ */
+
+@media (max-width: 768px) {
+  /* Hero */
+  .about-hero { padding-top: 80px; }
+  .about-hero__content { padding-top: 60px; padding-bottom: 120px; }
+  .about-hero__breadcrumb { font-size: 14px; }
+  .about-hero__sub { font-size: 16px; }
+
+  /* Timeline → single column */
+  .timeline__row {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline__line-col { display: none; }
+  .timeline__cell--empty { display: none; }
+
+  .timeline__cell--left,
+  .timeline__cell--right {
+    padding: 0 0 48px;
+    text-align: left;
+  }
+
+  .timeline__cell--left  .timeline__photo { aspect-ratio: 4 / 3; }
+  .timeline__cell--right .timeline__photo { aspect-ratio: 4 / 3; }
+
+  /* Values */
+  .values-section::before { height: 80px; }
+  .values-section__arch   { padding-top: 100px; }
+  .values-cards { grid-template-columns: 1fr; gap: 20px; }
+
+  /* Founders */
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+
+  .founder-card__photo { height: 340px; }
+
+  /* Team */
+  .team-section::before { height: 80px; }
+  .team-section__header { padding-top: 100px; }
+  .team-cards { grid-template-columns: 1fr; }
+  .team-card__photo { max-width: 100%; }
+}
+
+/* ═══════════════════════
+   RESPONSIVE — ≤640px (Figma 390px)
+   ═══════════════════════ */
+
+@media (max-width: 640px) {
+  /* Hero */
+  .about-hero::after { height: 80px; }
+  .about-hero__content { padding-bottom: 100px; }
+  .about-hero__btn { font-size: 16px; padding: 0 32px; height: var(--btn-h-sm); }
+
+  /* Values */
+  .values-card__text { font-size: 13px; }
+
+  /* Team header stacked */
+  .team-section__header { gap: 24px; }
+  .team-section__heading { margin-bottom: 16px; }
+  .team-cards { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ═══════════════════════
+   iOS Safari
+   ═══════════════════════ */
+
+@supports (-webkit-touch-callout: none) {
+  .about-hero__title { -webkit-font-smoothing: antialiased; }
+  .about-hero__btn,
+  .about-btn-founder,
+  .team-nav-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+}

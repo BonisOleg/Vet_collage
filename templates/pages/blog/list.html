@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог — UCVN{% endblock %}
+
+{% block body_class %}page-blog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="blog-hero" aria-label="Блог">
+  <div class="blog-hero__overlay" aria-hidden="true"></div>
+  <div class="container blog-hero__content">
+    <p class="blog-hero__breadcrumb">
+      <a href="{% url 'core:home' %}">Головна</a>
+      <span class="blog-hero__breadcrumb-sep"> &gt; </span>
+      <span>Блог</span>
+    </p>
+    <h1 class="blog-hero__title">Блог</h1>
+    <p class="blog-hero__sub">Місце, де знайдеш корисні статті, поради та якісні матеріали</p>
+    <a href="#articles-owners" class="blog-hero__btn">Читати статті</a>
+  </div>
+</section>
+
+<section id="articles-owners" class="blog-section blog-section--owners">
+  <div class="container">
+    <div class="blog-section__head">
+      <h2 class="blog-section__title">ДЛЯ ВЛАСНИКІВ УЛЮБЛЕНЦІВ</h2>
+      <a href="{% url 'blog:list' %}?audience=owners" class="blog-section__link-all">Переглянути все</a>
+
+    </div>
+    <div class="blog-section__grid">
+      {% for card in owners_cards %}
+        <article class="blog-article-card">
+          <div class="blog-article-card__photo">
+            {% if card.slug and card.cover %}
+              <img src="{{ card.cover.url }}" alt="{{ card.title }}" loading="lazy">
+            {% elif card.slug %}
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ card.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-owners-nutrition.webp' %}" alt="{{ card.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <p class="blog-article-card__date">{% if card.published_at %}{{ card.published_at|date:"d.m.Y" }}{% else %}11.11.2024{% endif %}</p>
+          <h3 class="blog-article-card__title">{{ card.title }}</h3>
+          <p class="blog-article-card__excerpt">{% if card.slug %}{{ card.excerpt|truncatewords:20|default:"" }}{% else %}{{ card.excerpt }}{% endif %}</p>
+          {% if card.slug %}
+            <a href="{% url 'blog:detail' card.slug %}" class="blog-article-card__btn">Читати</a>
+          {% else %}
+            <a href="{% url 'blog:list' %}?audience=owners" class="blog-article-card__btn">Читати</a>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="articles-vets" class="blog-section blog-section--vets">
+  <div class="container">
+    <div class="blog-section__head blog-section__head--vets">
+      <div class="blog-section__titles">
+        <h2 class="blog-section__title">ДЛЯ ВЕТЕРИНАРНИХ ЛІКАРІВ</h2>
+        <p class="blog-section__sub">*Тільки для членів</p>
+      </div>
+      <a href="{% url 'blog:list' %}?audience=vets" class="blog-section__link-all blog-section__link-all--locked">
+        <svg width="14" height="16" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3.5 8V5.5a3.5 3.5 0 0 1 7 0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Переглянути все
+      </a>
+    </div>
+    <div class="blog-section__grid">
+      {% for card in vets_cards %}
+        <article class="blog-article-card blog-article-card--vets">
+          <div class="blog-article-card__photo">
+            {% if card.slug and card.cover %}
+              <img src="{{ card.cover.url }}" alt="{{ card.title }}" loading="lazy">
+            {% elif card.slug %}
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ card.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-owners-nutrition.webp' %}" alt="{{ card.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <p class="blog-article-card__date">{% if card.published_at %}{{ card.published_at|date:"d.m.Y" }}{% else %}11.11.2024{% endif %}</p>
+          <h3 class="blog-article-card__title">{{ card.title }}</h3>
+          <p class="blog-article-card__excerpt">{% if card.slug %}{{ card.excerpt|truncatewords:20|default:"" }}{% else %}{{ card.excerpt }}{% endif %}</p>
+          <div class="blog-article-card__actions">
+            <a href="{% url 'membership:index' %}" class="btn btn-dark blog-article-card__btn">Стати членом</a>
+            {% if card.slug %}
+              <a href="{% url 'blog:detail' card.slug %}" class="blog-article-card__btn blog-article-card__btn--outline">
+                {% if card.requires_membership and not user_has_membership %}
+                  <span>Читати</span>
+                  <svg class="blog-article-card__lock" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="3" y="11" width="18" height="11" rx="2"/></svg>
+                {% else %}
+                  Читати
+                {% endif %}
+              </a>
+            {% else %}
+              <a href="{% url 'blog:list' %}?audience=vets" class="blog-article-card__btn blog-article-card__btn--outline">Читати</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

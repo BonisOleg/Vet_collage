@@ -1,0 +1,22 @@
+{% for article in articles %}
+<a href="{% url 'blog:detail' article.slug %}" class="blog-card">
+  <div class="blog-card__image">
+    {% if article.cover %}
+      <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
+    {% else %}
+      <div class="blog-card__image-placeholder"></div>
+    {% endif %}
+  </div>
+  <div class="blog-card__body">
+    {% if article.category %}
+      <span class="blog-card__tag">{{ article.category.name }}</span>
+    {% endif %}
+    <h2 class="blog-card__title">{{ article.title }}</h2>
+    {% if article.excerpt %}
+      <p class="blog-card__excerpt">{{ article.excerpt|truncatechars:160 }}</p>
+    {% endif %}
+  </div>
+</a>
+{% empty %}
+  <p class="blog-card__empty">Статей не знайдено</p>
+{% endfor %}

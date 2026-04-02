@@ -1,0 +1,20 @@
+{% load static %}
+<div>
+  <h2 class="heading-sm" style="margin-bottom:var(--space-8);">Членство</h2>
+
+  {% if user.membership and user.membership.is_active %}
+    <div style="border:2px solid var(--color-dark); padding:var(--space-8); max-width:400px; margin-bottom:var(--space-8);">
+      <span class="label" style="color:var(--color-dark);">Активне членство</span>
+      <h3 class="heading-sm" style="margin-block:var(--space-3);">{{ user.membership.plan.name }}</h3>
+      <p style="font-size:var(--font-size-sm); color:var(--color-gray-mid);">
+        Діє до: {{ user.membership.end_date|date:"d.m.Y" }}
+      </p>
+      <button class="btn btn-outline-red btn-sm" style="margin-top:var(--space-5);">Скасувати членство</button>
+    </div>
+  {% else %}
+    <div style="text-align:center; padding:var(--space-12) 0; color:var(--color-gray-mid);">
+      <p class="body-lg" style="margin-bottom:var(--space-6);">У вас немає активного членства</p>
+      <a href="{% url 'membership:index' %}" class="btn btn-red">Оформити членство</a>
+    </div>
+  {% endif %}
+</div>

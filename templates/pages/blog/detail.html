@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} — UCVN Блог{% endblock %}
+
+{% block body_class %}page-blog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{# ══════════════════════════════════════════════════════════
+   HERO — dark background, two-column layout (242:4831)
+   ══════════════════════════════════════════════════════════ #}
+<section class="blog-detail-hero" aria-label="{{ article.title }}">
+  <div class="container">
+
+    {# Breadcrumb #}
+    <p class="blog-detail-hero__breadcrumb">
+      <a href="{% url 'core:home' %}">Головна</a>
+      <span class="blog-detail-hero__breadcrumb-sep">&gt;</span>
+      <a href="{% url 'blog:list' %}">Блог</a>
+      {% if article.category %}
+        <span class="blog-detail-hero__breadcrumb-sep">&gt;</span>
+        <a href="{% url 'blog:list' %}?audience={{ article.category.audience }}">{{ article.category.name }}</a>
+      {% endif %}
+      <span class="blog-detail-hero__breadcrumb-sep">&gt;</span>
+      <span>{{ article.title }}</span>
+    </p>
+
+    {# Two-column grid: left = title + meta, right = cover image #}
+    <div class="blog-detail-hero__cols">
+
+      <div class="blog-detail-hero__left">
+        <h1 class="blog-detail-hero__title">{{ article.title }}</h1>
+
+        <div class="blog-detail-hero__meta">
+          {% if article.published_at %}
+            <p class="blog-detail-hero__meta-item">
+              <strong>Дата публікації:</strong> {{ article.published_at|date:"d E Y року" }}
+            </p>
+          {% endif %}
+          <p class="blog-detail-hero__meta-item">
+            <strong>Час читання:</strong> ~{{ read_time }} хвилин
+          </p>
+          {% if article.category %}
+            <p class="blog-detail-hero__meta-item">
+              <strong>Категорія:</strong> {{ article.category.name }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if article.cover %}
+      <div class="blog-detail-hero__cover">
+        <img src="{{ article.cover.url }}" alt="{{ article.title }}" loading="lazy">
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+{# ══════════════════════════════════════════════════════════
+   ARTICLE BODY — cream background, centered content
+   ══════════════════════════════════════════════════════════ #}
+<section class="blog-article-body">
+  <div class="blog-article-body__inner">
+
+    {% if has_access %}
+      <div class="blog-article-body__text">
+        {{ article.content|linebreaks }}
+      </div>
+    {% else %}
+      <div class="blog-article-body__text blog-article-body__text--preview" aria-hidden="true">
+        {{ content_preview|linebreaks }}
+      </div>
+      <div class="blog-article-body__paywall">
+        <h2 class="blog-article-body__paywall-title">Ця стаття доступна тільки для членів</h2>
+        <p class="blog-article-body__paywall-text">
+          Оформіть членство, щоб отримати доступ до всіх ексклюзивних матеріалів
+        </p>
+        <a href="{% url 'membership:index' %}" class="btn btn-dark">Оформити членство</a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{# ══════════════════════════════════════════════════════════
+   RELATED ARTICLES — reuse .blog-article-card
+   ══════════════════════════════════════════════════════════ #}
+{% if related_articles %}
+<section class="blog-related">
+  <div class="container">
+
+    <div class="blog-related__head">
+      <h2 class="blog-related__title">Вам може сподобатись</h2>
+      {% if article.category %}
+        <a href="{% url 'blog:list' %}?audience={{ article.category.audience }}"
+           class="blog-section__link-all">Переглянути все</a>
+      {% endif %}
+    </div>
+
+    <div class="blog-section__grid">
+      {% for related in related_articles %}
+        <article class="blog-article-card">
+          <div class="blog-article-card__photo">
+            {% if related.cover %}
+              <img src="{{ related.cover.url }}" alt="{{ related.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-card-photo.webp' %}" alt="{{ related.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <p class="blog-article-card__date">
+            {% if related.published_at %}{{ related.published_at|date:"d.m.Y" }}{% endif %}
+          </p>
+          <h3 class="blog-article-card__title">{{ related.title }}</h3>
+          <p class="blog-article-card__excerpt">{{ related.excerpt|truncatewords:20 }}</p>
+          <a href="{% url 'blog:detail' related.slug %}" class="blog-article-card__btn">Читати</a>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
