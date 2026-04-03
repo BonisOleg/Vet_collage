@@ -20,6 +20,12 @@ class WebinarListView(ListView):
         if search:
             qs = qs.filter(title__icontains=search)
 
+        membership = self.request.GET.get('membership')
+        if membership == 'members':
+            qs = qs.filter(requires_membership=True)
+        elif membership == 'all':
+            qs = qs.filter(requires_membership=False)
+
         sort_map = {
             'price_asc': 'price',
             'price_desc': '-price',
@@ -34,6 +40,7 @@ class WebinarListView(ListView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['search_query'] = self.request.GET.get('q', '')
+        ctx['active_membership'] = self.request.GET.get('membership', '')
         ctx['active_sort'] = self.request.GET.get('sort', '')
         ctx['sort_options'] = [
             ('newest', 'Найновіші'),

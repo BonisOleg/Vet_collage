@@ -32,21 +32,13 @@
 <!-- ══════ LISTING BODY ══════ -->
 <section class="listing-body">
 
-  <!-- Sort row -->
-  <div class="listing-sort">
-    <button class="listing-sort__btn" type="button" data-filters-open aria-label="Сортувати результати">
-      <span>Сортувати за</span>
-      <img src="{% static 'images/courses-sort-arrow.svg' %}" alt="" width="24" height="4" aria-hidden="true">
-    </button>
-  </div>
-
   <!-- Two-column layout: sidebar + grid -->
   <div class="listing-layout">
 
     <!-- ─── Sidebar filters ─── -->
     <aside class="listing-sidebar" aria-label="Фільтри вебінарів">
 
-      <!-- ТИП МАТЕРІАЛУ -->
+      <!-- ТИП МАТЕРІАЛУ — навігація -->
       <div class="csb-line"></div>
       <div class="csb-group">
         <div class="csb-group__header">
@@ -55,25 +47,17 @@
         </div>
         <ul class="csb-options" role="list">
           <li class="csb-option">
-            <span class="csb-radio csb-radio--ring-dot" aria-label="вибрано"></span>
-            <span>Курси</span>
-          </li>
-          <li class="csb-option">
             <span class="csb-radio" aria-hidden="true"></span>
-            <span>Вебінари</span>
+            <a href="{% url 'courses:list' %}">Курси</a>
           </li>
-          <li class="csb-option">
-            <span class="csb-radio" aria-hidden="true"></span>
-            <span>Інфопродукти</span>
-          </li>
-          <li class="csb-option">
-            <span class="csb-radio" aria-hidden="true"></span>
-            <span>Все</span>
+          <li class="csb-option csb-option--selected-dark">
+            <span class="csb-radio csb-radio--solid-cream" aria-hidden="true"></span>
+            <a href="{% url 'webinars:list' %}">Вебінари</a>
           </li>
         </ul>
       </div>
 
-      <!-- ТЕМАТИКА -->
+      <!-- ТЕМАТИКА — статичний блок (фільтр за категоріями для вебінарів не підключено) -->
       <div class="csb-line"></div>
       <div class="csb-group">
         <div class="csb-group__header">
@@ -82,7 +66,7 @@
         </div>
         <ul class="csb-options" role="list">
           <li class="csb-option csb-option--selected-dark">
-            <span class="csb-radio csb-radio--solid-cream" aria-label="вибрано"></span>
+            <span class="csb-radio csb-radio--solid-cream" aria-hidden="true"></span>
             <span>Для власників</span>
           </li>
           <li class="csb-option">
@@ -92,26 +76,36 @@
         </ul>
       </div>
 
-      <!-- ДОСТУПНІСТЬ -->
-      <div class="csb-line"></div>
-      <div class="csb-group">
-        <div class="csb-group__header">
-          <span class="csb-group__title">ДОСТУПНІСТЬ</span>
-          <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
+      <form class="listing-sidebar__form" method="get" action="">
+        <!-- ДОСТУПНІСТЬ -->
+        <div class="csb-line"></div>
+        <div class="csb-group">
+          <div class="csb-group__header">
+            <span class="csb-group__title">ДОСТУПНІСТЬ</span>
+            <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
+          </div>
+          <ul class="csb-options" role="list">
+            <li class="csb-option {% if active_membership == 'members' %}csb-option--selected-dark{% endif %}">
+              <input type="radio" name="membership" value="members" id="wbn-ms-members"
+                     class="listing-sidebar__radio-input" {% if active_membership == 'members' %}checked{% endif %}>
+              <label for="wbn-ms-members" class="csb-option__label">
+                <span class="csb-radio {% if active_membership == 'members' %}csb-radio--solid-cream{% endif %}" aria-hidden="true"></span>
+                <span>Для членів</span>
+              </label>
+            </li>
+            <li class="csb-option {% if active_membership == 'all' or not active_membership %}csb-option--selected-dark{% endif %} {% if active_membership == 'all' or not active_membership %}csb-option--bold{% endif %}">
+              <input type="radio" name="membership" value="all" id="wbn-ms-all"
+                     class="listing-sidebar__radio-input" {% if active_membership == 'all' or not active_membership %}checked{% endif %}>
+              <label for="wbn-ms-all" class="csb-option__label">
+                <span class="csb-radio {% if active_membership == 'all' or not active_membership %}csb-radio--solid-cream{% endif %}" aria-hidden="true"></span>
+                <span>Для всіх</span>
+              </label>
+            </li>
+          </ul>
         </div>
-        <ul class="csb-options" role="list">
-          <li class="csb-option">
-            <span class="csb-radio" aria-hidden="true"></span>
-            <span>Для членів</span>
-          </li>
-          <li class="csb-option csb-option--bold">
-            <span class="csb-radio csb-radio--solid-cream" aria-label="вибрано"></span>
-            <span>Для всіх</span>
-          </li>
-        </ul>
-      </div>
 
-      <div class="csb-line"></div>
+        <div class="csb-line"></div>
+      </form>
 
     </aside><!-- /.listing-sidebar -->
 
@@ -188,8 +182,6 @@
     </div><!-- /.listing-main -->
 
   </div><!-- /.listing-layout -->
-
-  {% include 'components/filters_panel.html' %}
 
 </section><!-- /.listing-body -->
 

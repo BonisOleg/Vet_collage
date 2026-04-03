@@ -212,6 +212,24 @@
     }
   });
 
+  // ─── LISTING SIDEBAR — авто-застосування фільтрів ─────
+
+  document.querySelectorAll('.listing-sidebar form input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      sessionStorage.setItem('sidebarScrollY', String(window.scrollY));
+      var form = radio.closest('form');
+      if (form) form.submit();
+    });
+  });
+
+  (function() {
+    var savedY = sessionStorage.getItem('sidebarScrollY');
+    if (savedY !== null) {
+      sessionStorage.removeItem('sidebarScrollY');
+      window.scrollTo(0, parseInt(savedY, 10));
+    }
+  })();
+
   // ─── STRIPE CHECKOUT ─────────────────────────────────
 
   var PENDING_CHECKOUT_KEY = 'pendingCheckout';
@@ -264,9 +282,19 @@
           return null;
         }
         if (!resp.ok) {
-          btn.disabled = false;
-          btn.textContent = 'Помилка. Спробуйте ще раз';
-          return null;
+          return resp.json().then(function(body) {
+            btn.disabled = false;
+            if (body && body.error === 'stripe_not_configured') {
+              btn.textContent = 'Оплата наразі недоступна';
+            } else {
+              btn.textContent = 'Помилка. Спробуйте ще раз';
+            }
+            return null;
+          }).catch(function() {
+            btn.disabled = false;
+            btn.textContent = 'Помилка. Спробуйте ще раз';
+            return null;
+          });
         }
         return resp.json();
       })

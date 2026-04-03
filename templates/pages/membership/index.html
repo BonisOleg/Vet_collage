@@ -33,6 +33,7 @@
           <li>✓ {{ feature }}</li>
           {% endfor %}
         </ul>
+        {% if user.is_authenticated %}
         <button
           type="button"
           data-checkout
@@ -41,13 +42,18 @@
           class="btn {% if plan.is_popular %}btn-outline-white{% else %}btn-dark{% endif %} membership-card__cta">
           Оформити
         </button>
+        {% else %}
+        <a href="{% url 'accounts:login' %}?next={% url 'membership:plans' %}"
+           class="btn {% if plan.is_popular %}btn-outline-white{% else %}btn-dark{% endif %} membership-card__cta">
+          Оформити
+        </a>
+        {% endif %}
       </div>
       {% empty %}
         <div class="membership-card">
-          <span class="membership-card__label">Базовий</span>
-          <p class="membership-card__price">299 грн<span class="membership-card__period">/міс</span></p>
-          <p class="membership-card__desc">Тарифні плани поки не налаштовані</p>
-          <a href="{% url 'accounts:register_step1' %}" class="btn btn-dark membership-card__cta">Оформити</a>
+          <span class="membership-card__label">Незабаром</span>
+          <p class="membership-card__desc">Тарифні плани незабаром будуть доступні. Звʼяжіться з нами для детальної інформації.</p>
+          <a href="{% url 'core:contact' %}" class="btn btn-dark membership-card__cta">Звʼязатись</a>
         </div>
       {% endfor %}
     </div>

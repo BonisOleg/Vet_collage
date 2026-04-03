@@ -22,6 +22,10 @@ def create_checkout_view(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'auth_required'}, status=401)
 
+    if not (getattr(settings, 'STRIPE_SECRET_KEY', '') or '').strip():
+        logger.warning('Checkout rejected: STRIPE_SECRET_KEY not configured')
+        return JsonResponse({'error': 'stripe_not_configured'}, status=503)
+
     order_type = request.POST.get('order_type', '')
     item_id = request.POST.get('item_id', '')
 

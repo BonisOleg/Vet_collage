@@ -79,6 +79,11 @@ class CourseListView(ListView):
             qs = qs.filter(category__slug=category)
         if level:
             qs = qs.filter(level=level)
+        membership = self.request.GET.get('membership')
+        if membership == 'members':
+            qs = qs.filter(requires_membership=True)
+        elif membership == 'all':
+            qs = qs.filter(requires_membership=False)
         if search:
             qs = qs.filter(title__icontains=search)
 
@@ -130,6 +135,7 @@ class CourseListView(ListView):
         # #endregion
         ctx['categories'] = Category.objects.all()
         ctx['active_category'] = self.request.GET.get('category', '')
+        ctx['active_membership'] = self.request.GET.get('membership', '')
         ctx['active_level'] = self.request.GET.get('level', '')
         ctx['active_sort'] = self.request.GET.get('sort', '')
         ctx['search_query'] = self.request.GET.get('q', '')

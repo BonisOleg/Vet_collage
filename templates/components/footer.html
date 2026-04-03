@@ -22,7 +22,9 @@
             hx-on::after-request="if(event.detail.successful) this.reset()">
         {% csrf_token %}
         <div class="site-footer__input-wrap">
-          <input type="email" name="email" placeholder="Ваш email" class="site-footer__input" required>
+          <input type="email" name="email" placeholder="Ваш email"
+                 class="site-footer__input" required
+                 autocapitalize="none" autocorrect="off" spellcheck="false">
         </div>
         <button type="submit" class="btn btn-red site-footer__submit">Підписатись</button>
       </form>
