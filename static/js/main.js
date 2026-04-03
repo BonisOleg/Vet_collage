@@ -222,11 +222,27 @@
     });
   });
 
+  document.querySelectorAll('.listing-sidebar a[href]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      sessionStorage.setItem('sidebarScrollY', String(window.scrollY));
+    });
+  });
+
   (function() {
     var savedY = sessionStorage.getItem('sidebarScrollY');
-    if (savedY !== null) {
-      sessionStorage.removeItem('sidebarScrollY');
-      window.scrollTo(0, parseInt(savedY, 10));
+    if (savedY === null) return;
+    sessionStorage.removeItem('sidebarScrollY');
+    var y = parseInt(savedY, 10);
+    function applyScroll() {
+      var prev = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, y);
+      document.documentElement.style.scrollBehavior = prev;
+    }
+    if (document.readyState === 'complete') {
+      applyScroll();
+    } else {
+      window.addEventListener('load', applyScroll);
     }
   })();
 

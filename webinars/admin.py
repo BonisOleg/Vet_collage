@@ -8,7 +8,7 @@ class WebinarAdmin(admin.ModelAdmin):
         'title', 'date', 'price', 'is_free',
         'is_active', 'has_recording', 'registration_count', 'created_at',
     ]
-    list_filter = ['is_active', 'is_free', 'requires_membership', 'date']
+    list_filter = ['is_active', 'is_free', 'requires_membership', 'audience', 'date']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ('title',)}
     list_per_page = 25
@@ -23,7 +23,7 @@ class WebinarAdmin(admin.ModelAdmin):
             'fields': ('date', 'duration_min'),
         }),
         ('Параметри', {
-            'fields': ('is_active', 'requires_membership'),
+            'fields': ('is_active', 'requires_membership', 'audience'),
         }),
         ('Bunny.net', {
             'fields': ('bunny_library_id', 'bunny_video_id'),

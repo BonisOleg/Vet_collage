@@ -772,9 +772,10 @@
    (sort row, sidebar 250px, 3-col grid, .csb-* filter groups)
    ════════════════════════════════════════════════════════════════ */
 
-/* Cream background wrapper */
+/* Cream background wrapper — top padding mirrors .listing-sort (templates go hero → listing without sort row) */
 .listing-body {
   background: var(--color-cream);
+  padding-top: 104px;
   padding-bottom: 80px;
 }
 
@@ -920,7 +921,10 @@
 
 .listing-sidebar .csb-option a,
 .listing-sidebar .csb-option a:link,
-.listing-sidebar .csb-option a:visited {
+.listing-sidebar .csb-option a:visited,
+.listing-sidebar .listing-sidebar__nav-link {
+  position: relative;
+  z-index: 2;
   font-family: var(--font-body);
   font-size: 18px;
   font-weight: var(--fw-regular);
@@ -1012,6 +1016,7 @@
 /* ─── Listing Responsive ─── */
 
 @media (max-width: 1200px) {
+  .listing-body    { padding-top: 80px; }
   .listing-layout { gap: 40px; padding: 0 40px; }
   .listing-sort   { padding: 80px 40px 0; }
   .listing-grid   { grid-template-columns: repeat(2, 1fr); }
@@ -1025,6 +1030,7 @@
 }
 
 @media (max-width: 768px) {
+  .listing-body      { padding-top: 48px; }
   .listing-sort      { padding: 48px var(--pad-mobile) 0; margin-bottom: 40px; }
   .listing-sort__btn { font-size: 18px; height: 40px; }
   .listing-layout    { padding: 0 var(--pad-mobile); gap: 24px; }

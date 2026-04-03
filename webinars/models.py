@@ -6,6 +6,11 @@ User = get_user_model()
 
 
 class Webinar(models.Model):
+    AUDIENCE_CHOICES = [
+        ('owners', 'Для власників'),
+        ('experts', 'Для експертів'),
+    ]
+
     title = models.CharField('Назва', max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField('Опис')
@@ -16,6 +21,12 @@ class Webinar(models.Model):
     is_active = models.BooleanField('Активний', default=True)
     is_free = models.BooleanField('Безкоштовний', default=False)
     requires_membership = models.BooleanField('Тільки для членів', default=False)
+    audience = models.CharField(
+        'Тематика (аудиторія)',
+        max_length=20,
+        choices=AUDIENCE_CHOICES,
+        default='owners',
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     speaker = models.ForeignKey(
