@@ -1,0 +1,50 @@
+databases:
+  - name: ucvn-db
+    plan: free
+    databaseName: ucvn
+    user: ucvn
+
+services:
+  - type: web
+    plan: free
+    name: ucvn
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn ucvn.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ucvn-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: BUNNY_API_KEY
+        sync: false
+      - key: BUNNY_LIBRARY_ID
+        sync: false
+      - key: BUNNY_CDN_HOSTNAME
+        sync: false
+      - key: BUNNY_TOKEN_AUTH_KEY
+        sync: false
+      - key: BUNNY_USERNAME
+        sync: false
+      - key: BUNNY_PASSWORD
+        sync: false
+      - key: BUNNY_REGION
+        sync: false
+      - key: BUNNY_HOSTNAME
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false

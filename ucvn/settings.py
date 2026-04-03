@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,9 +12,13 @@ SECRET_KEY = os.environ.get(
     'django-insecure-$)2a)m!ap24gcbg&+=)vq%70-j0m=pb!mv0325fr_wdb1lb3$r'
 )
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,10 +69,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ucvn.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -88,6 +94,16 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+if not DEBUG:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django_bunny.storage.BunnyStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
@@ -105,6 +121,12 @@ BUNNY_API_KEY = os.environ.get('BUNNY_API_KEY', '')
 BUNNY_LIBRARY_ID = os.environ.get('BUNNY_LIBRARY_ID', '')
 BUNNY_CDN_HOSTNAME = os.environ.get('BUNNY_CDN_HOSTNAME', '')
 BUNNY_TOKEN_AUTH_KEY = os.environ.get('BUNNY_TOKEN_AUTH_KEY', '')
+
+# --- Bunny.net Storage (media files) ---
+BUNNY_USERNAME = os.environ.get('BUNNY_USERNAME', '')
+BUNNY_PASSWORD = os.environ.get('BUNNY_PASSWORD', '')
+BUNNY_REGION = os.environ.get('BUNNY_REGION', '')
+BUNNY_HOSTNAME = os.environ.get('BUNNY_HOSTNAME', '')
 
 # --- Email (Gmail SMTP) ---
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
