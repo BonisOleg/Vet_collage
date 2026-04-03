@@ -160,7 +160,7 @@ class CabinetView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         user = self.request.user
-        tab = self.request.GET.get('tab', 'courses')
+        tab = self.request.GET.get('tab', 'account') or 'account'
         ctx['active_tab'] = tab
 
         enrollments = Enrollment.objects.filter(

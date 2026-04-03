@@ -92,27 +92,32 @@
   line-height: var(--lh-normal);
 }
 
+/* Як кнопка «Членство» на сторінці Послуги (.webinars-hero__btn) — контраст на темному hero */
 .blog-hero__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: var(--btn-h);
-  padding: 0 40px;
-  border-radius: var(--btn-radius);
-  background: var(--color-dark);
-  color: var(--color-white);
+  min-width: 161px;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--color-black);
   font-family: var(--font-body);
-  font-size: 18px;
-  font-weight: var(--fw-light);
-  text-transform: capitalize;
+  font-size: 24px;
+  font-weight: var(--fw-regular);
   letter-spacing: -0.01em;
-  transition: all var(--ease);
+  text-transform: capitalize;
+  text-decoration: none;
+  margin-top: 16px;
+  transition: background var(--ease), color var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .blog-hero__btn:hover {
-  background: var(--color-dark-hover);
-  transform: translateY(-2px);
-  color: var(--color-white);
+  background: var(--color-dark);
+  color: var(--color-cream);
 }
 
 .blog-section {

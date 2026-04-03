@@ -3,7 +3,7 @@
 
 {% block title %}Контакти — UCVN{% endblock %}
 
-{% block body_class %}page-contact{% endblock %}
+{% block body_class %}page-contact{% if user.is_authenticated %} page-cabinet{% endif %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/pages/contact.css' %}">
@@ -19,7 +19,7 @@
   </div>
   <div class="container contact-hero__content">
     <p class="contact-hero__breadcrumb">
-      <span>Головна</span> / <span>Контакти</span>
+      <a href="{% url 'core:home' %}">Головна</a> / <span>Контакти</span>
     </p>
     <h1 class="contact-hero__title">Контакти</h1>
     <p class="contact-hero__sub">

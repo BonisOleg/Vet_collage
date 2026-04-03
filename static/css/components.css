@@ -136,6 +136,20 @@
   transform-origin: center;
 }
 
+/* ─── Особистий кабінет: повітря для лого + зазор до блоку кабінету ─── */
+body.page-cabinet {
+  --membership-content-gap: var(--sp-4);
+  --membership-header-stack: 136px;
+  --cabinet-top-offset: calc(var(--membership-header-stack) + var(--membership-content-gap));
+}
+
+body.page-cabinet .site-header {
+  position: fixed;
+  padding-top: 48px;
+  height: var(--membership-header-stack);
+  background: var(--color-white);
+}
+
 /* ─── DARK HERO header override (courses, webinars pages) ─── */
 
 .body--dark-hero .site-header__link,
@@ -552,6 +566,17 @@
   .site-header__lang { font-size: 16px; gap: 8px; }
   .site-header__lang-btn { font-size: 16px; }
 
+  body.page-cabinet {
+    --membership-header-stack: calc(80px + var(--sp-3) + env(safe-area-inset-top, 0px));
+    --cabinet-top-offset: calc(var(--membership-header-stack) + var(--membership-content-gap));
+  }
+
+  body.page-cabinet .site-header {
+    padding-top: calc(var(--sp-3) + env(safe-area-inset-top, 0px));
+    height: auto;
+    min-height: var(--membership-header-stack);
+  }
+
   .site-footer__inner {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -628,6 +653,20 @@
   .site-header {
     padding-top: env(safe-area-inset-top, 0);
     height: calc(80px + env(safe-area-inset-top, 0));
+  }
+
+  @media (min-width: 769px) {
+    body.page-cabinet {
+      --membership-header-stack: calc(136px + env(safe-area-inset-top, 0px));
+      --cabinet-top-offset: calc(var(--membership-header-stack) + var(--membership-content-gap));
+    }
+
+    body.page-cabinet .site-header {
+      padding-top: calc(48px + env(safe-area-inset-top, 0px));
+      height: auto;
+      min-height: var(--membership-header-stack);
+      background: var(--color-white);
+    }
   }
 
   .site-header__link,

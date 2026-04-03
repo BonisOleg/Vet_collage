@@ -212,40 +212,6 @@
     }
   });
 
-  // ─── LISTING SIDEBAR — авто-застосування фільтрів ─────
-
-  document.querySelectorAll('.listing-sidebar form input[type="radio"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      sessionStorage.setItem('sidebarScrollY', String(window.scrollY));
-      var form = radio.closest('form');
-      if (form) form.submit();
-    });
-  });
-
-  document.querySelectorAll('.listing-sidebar a[href]').forEach(function(link) {
-    link.addEventListener('click', function() {
-      sessionStorage.setItem('sidebarScrollY', String(window.scrollY));
-    });
-  });
-
-  (function() {
-    var savedY = sessionStorage.getItem('sidebarScrollY');
-    if (savedY === null) return;
-    sessionStorage.removeItem('sidebarScrollY');
-    var y = parseInt(savedY, 10);
-    function applyScroll() {
-      var prev = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = 'auto';
-      window.scrollTo(0, y);
-      document.documentElement.style.scrollBehavior = prev;
-    }
-    if (document.readyState === 'complete') {
-      applyScroll();
-    } else {
-      window.addEventListener('load', applyScroll);
-    }
-  })();
-
   // ─── STRIPE CHECKOUT ─────────────────────────────────
 
   var PENDING_CHECKOUT_KEY = 'pendingCheckout';

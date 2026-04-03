@@ -2,8 +2,8 @@
 <aside class="cabinet__sidebar">
 
   <nav class="cabinet__nav">
-    <a href="{% url 'accounts:cabinet' %}"
-       class="cabinet__nav-link {% if sidebar_active == 'account' or sidebar_active == 'courses' %}cabinet__nav-link--active{% endif %}">
+    <a href="{% url 'accounts:cabinet' %}?tab=account"
+       class="cabinet__nav-link {% if sidebar_active == 'account' %}cabinet__nav-link--active{% endif %}">
       Мій акаунт
     </a>
     <a href="{% url 'accounts:cabinet' %}?tab=profile"
@@ -15,7 +15,7 @@
       Членство
     </a>
     <a href="{% url 'accounts:cabinet' %}?tab=courses"
-       class="cabinet__nav-link">
+       class="cabinet__nav-link {% if sidebar_active == 'courses' %}cabinet__nav-link--active{% endif %}">
       Мої курси
     </a>
     <a href="{% url 'accounts:cabinet' %}?tab=webinars"

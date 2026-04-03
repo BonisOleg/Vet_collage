@@ -147,7 +147,7 @@ class CourseListView(ListView):
             ('popular', 'Популярні'),
         ]
         if self.request.headers.get('HX-Request'):
-            self.template_name = 'pages/courses/partials/course_grid.html'
+            self.template_name = 'pages/courses/partials/listing_body.html'
         return ctx
 
 

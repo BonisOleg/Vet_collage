@@ -19,24 +19,28 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--sp-6);
+  align-self: start;
   position: sticky;
   top: 122px;
   height: calc(100vh - 122px);
   overflow-y: auto;
+  padding: var(--sp-8) var(--sp-6) var(--sp-6);
+  box-sizing: border-box;
 }
 
 /* ─── Nav list ─── */
 .cabinet__nav {
   display: flex;
   flex-direction: column;
-  padding-top: 58px; /* aligns with Figma: first item at y=241, sidebar at y=172 → ~58px gap */
+  padding-top: 0;
 }
 
 /* ─── Nav link — inactive: cream text, 18px Helvetica 300 ─── */
 .cabinet__nav-link {
   display: block;
   width: 100%;
-  padding: 13px 54px;
+  padding: var(--sp-3) var(--sp-4);
   font-family: var(--font-body);
   font-size: 18px;
   font-weight: var(--fw-light);
@@ -64,8 +68,8 @@
 /* ─── Вийти — white, 50% opacity, underline ─── */
 .cabinet__logout {
   display: block;
-  padding: 13px 54px;
-  margin-bottom: 20px;
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: 0;
   font-family: var(--font-body);
   font-size: 18px;
   font-weight: var(--fw-light);
@@ -569,7 +573,10 @@
     height: auto;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 12px 0;
+    align-content: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--pad-mobile);
+    box-sizing: border-box;
   }
 
   .cabinet__nav {
@@ -1085,4 +1092,25 @@
 
   .career-content h2 { font-size: 20px; }
   .career-content p, .career-content ul li { font-size: 15px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CABINET UNDER HEADER — body.page-cabinet (авторизований кабінет + /membership/)
+   --cabinet-top-offset задається в components.css
+   ═══════════════════════════════════════════════════════════════ */
+body.page-cabinet .cabinet {
+  margin-top: var(--cabinet-top-offset, 152px);
+  min-height: calc(100vh - var(--cabinet-top-offset, 152px));
+}
+
+body.page-cabinet .cabinet__sidebar {
+  top: var(--cabinet-top-offset, 152px);
+  height: calc(100vh - var(--cabinet-top-offset, 152px));
+}
+
+@media (max-width: 768px) {
+  body.page-cabinet .cabinet__sidebar {
+    top: auto;
+    height: auto;
+  }
 }

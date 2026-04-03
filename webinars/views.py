@@ -54,6 +54,8 @@ class WebinarListView(ListView):
             ('price_asc', 'Ціна ↑'),
             ('price_desc', 'Ціна ↓'),
         ]
+        if self.request.headers.get('HX-Request'):
+            self.template_name = 'pages/webinars/partials/listing_body.html'
         return ctx
 
 

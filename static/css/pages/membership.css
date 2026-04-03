@@ -113,32 +113,6 @@
     -webkit-tap-highlight-color: transparent;
     min-height: 48px;
   }
-  .cabinet--membership {
-    margin-top: max(160px, env(safe-area-inset-top, 0px) + 120px);
-  }
-}
-
-/* ─── Сайдбар сторінки Членство ─── */
-.cabinet--membership {
-  margin-top: 160px;
-}
-
-.cabinet--membership .cabinet__sidebar {
-  padding-top: var(--sp-8);
-  padding-right: var(--sp-6);
-  padding-bottom: var(--sp-6);
-  padding-left: var(--sp-6);
-  gap: var(--sp-6);
-  overflow-y: hidden;
-}
-
-.cabinet--membership .cabinet__nav-link--logout {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.cabinet--membership .cabinet__nav-link--logout:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
 }
 
 /* ─── Публічна сторінка тарифів (/membership/plans/) ─── */
