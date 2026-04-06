@@ -161,6 +161,11 @@ body.page-cabinet .site-header {
 .body--dark-hero .site-header__lang-btn.is-active { color: var(--color-cream); }
 .body--dark-hero .site-header__burger span { background: var(--color-cream); }
 
+/* Темна зона hero: іконка кабінету як img не наслідує color — інвертуємо до білого (як логотип) */
+.body--dark-hero .site-header__account img {
+  filter: brightness(0) invert(1);
+}
+
 /* ─── MOBILE NAV ─── */
 
 .mobile-nav {
@@ -409,6 +414,13 @@ body.page-cabinet .site-header {
   display: block;
 }
 
+.site-footer__social svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+  flex-shrink: 0;
+}
+
 .site-footer__social:hover { color: var(--color-red); }
 
 .site-footer__bottom {
@@ -566,6 +578,19 @@ body.page-cabinet .site-header {
   .site-header__lang { font-size: 16px; gap: 8px; }
   .site-header__lang-btn { font-size: 16px; }
 
+  .body--dark-hero .site-header__lang-btn,
+  .body--dark-hero .site-header__lang-btn.is-active,
+  .body--dark-hero .site-header__arrow {
+    color: var(--color-text);
+  }
+  .body--dark-hero .site-header__burger span {
+    background: var(--color-text);
+  }
+
+  .body--dark-hero .site-header__account img {
+    filter: none;
+  }
+
   body.page-cabinet {
     --membership-header-stack: calc(80px + var(--sp-3) + env(safe-area-inset-top, 0px));
     --cabinet-top-offset: calc(var(--membership-header-stack) + var(--membership-content-gap));
@@ -581,7 +606,7 @@ body.page-cabinet .site-header {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 24px;
-    padding: 80px var(--pad-mobile) 32px;
+    padding: 80px var(--pad-mobile) 64px;
   }
 
   .site-footer__logo { grid-column: auto; grid-row: auto; }
@@ -624,15 +649,34 @@ body.page-cabinet .site-header {
     text-transform: capitalize;
   }
 
-  .site-footer__col--contact {
-    flex-direction: row;
+  .site-footer__col--faq {
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 28px;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+  }
+
+  .site-footer__col--faq a {
+    font-size: clamp(14px, 3.35vw, 14px);
+    font-weight: var(--fw-bold); 
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+
+  .site-footer__col--contact {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
   }
 
   .site-footer__socials {
     flex-direction: row;
-    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    padding-bottom: 8px;
   }
 
   .site-footer__bottom {
