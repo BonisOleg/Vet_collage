@@ -345,7 +345,7 @@
 
 .founders-grid {
   display: grid;
-  grid-template-columns: 418px 524px;
+  grid-template-columns: repeat(2, minmax(0, 418px));
   gap: 122px;
   justify-content: center;
   align-items: start;
@@ -397,6 +397,12 @@
 /* Ткач: зміщення кадру вгору по вихідному знімку, щоб не обрізати голову */
 .founder-card__photo--focus-head img {
   object-position: center 16%;
+}
+
+/* Довбиш: трохи збільшити масштаб суб’єкта в кадрі (вихідне фото далі від камери) */
+.founder-card__photo--scale-up img {
+  transform: scale(1.5);
+  transform-origin: center 16%;
 }
 
 /* Extends base .btn — cream bg, dark text */
@@ -725,6 +731,11 @@
 
   .founder-card__photo--focus-head img {
     object-position: center 26%;
+  }
+
+  .founder-card__photo--scale-up img {
+    transform: scale(1.08);
+    transform-origin: center 32%;
   }
 
   /* Team */
