@@ -727,17 +727,6 @@
     margin-inline: auto;
   }
 
-  .founder-card__photo { height: 340px; }
-
-  .founder-card__photo--focus-head img {
-    object-position: center 26%;
-  }
-
-  .founder-card__photo--scale-up img {
-    transform: scale(1.08);
-    transform-origin: center 32%;
-  }
-
   /* Team */
   .team-section::before { height: 80px; }
   .team-section__header { padding-top: 100px; }
