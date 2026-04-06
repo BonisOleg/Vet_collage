@@ -30,6 +30,10 @@
   .page-blog .site-header .site-header__account img {
     filter: none;
   }
+
+  .page-blog .site-header .site-header__logo-img {
+    filter: none;
+  }
 }
 
 .blog-hero {

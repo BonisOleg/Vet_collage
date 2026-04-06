@@ -9,6 +9,12 @@
   filter: brightness(0) invert(1);
 }
 
+@media (max-width: 768px) {
+  .body--dark-hero.page-webinars .site-header .site-header__logo-img {
+    filter: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    HERO — library/statue photo bg 1440×727, dark overlay
    ═══════════════════════════════════════════════════════════════ */

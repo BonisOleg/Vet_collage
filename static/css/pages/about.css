@@ -7,6 +7,12 @@
   filter: brightness(0) invert(1);
 }
 
+@media (max-width: 768px) {
+  .body--dark-hero.page-about .site-header .site-header__logo-img {
+    filter: none;
+  }
+}
+
 /* ═══════════════════════
    HERO
    Dark olive bg, texture overlays, white arch at bottom

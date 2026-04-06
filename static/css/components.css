@@ -603,6 +603,10 @@ body.page-cabinet .site-header {
     filter: none;
   }
 
+  .body--dark-hero .site-header__logo-img {
+    filter: none;
+  }
+
   body.page-cabinet {
     --membership-header-stack: calc(80px + var(--sp-3) + env(safe-area-inset-top, 0px));
     --cabinet-top-offset: calc(var(--membership-header-stack) + var(--membership-content-gap));
