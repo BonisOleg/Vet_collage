@@ -2,13 +2,7 @@
    CONTACT PAGE — light section (footer-style, per mockup)
    ════════════════════════════════════════ */
 
-/* Hide header and mobile nav only for full-bleed contact (guests) */
-.page-contact:not(.page-cabinet) .site-header,
-.page-contact:not(.page-cabinet) .mobile-nav {
-  display: none;
-}
-
-/* Authenticated: hero clears fixed cabinet header (vars from components.css — body.page-cabinet) */
+/* Hero під фіксованою шапкою (та сама висота/змінні, що й у кабінеті — components.css body.page-cabinet) */
 .page-contact.page-cabinet .contact-hero {
   margin-top: var(--cabinet-top-offset);
   padding-top: 32px;

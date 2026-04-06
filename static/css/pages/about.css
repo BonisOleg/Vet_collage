@@ -394,6 +394,11 @@
   display: block;
 }
 
+/* Ткач: зміщення кадру вгору по вихідному знімку, щоб не обрізати голову */
+.founder-card__photo--focus-head img {
+  object-position: center 16%;
+}
+
 /* Extends base .btn — cream bg, dark text */
 .about-btn-founder {
   background: var(--color-cream);
@@ -717,6 +722,10 @@
   }
 
   .founder-card__photo { height: 340px; }
+
+  .founder-card__photo--focus-head img {
+    object-position: center 26%;
+  }
 
   /* Team */
   .team-section::before { height: 80px; }
