@@ -1,7 +1,3 @@
-import json
-import time
-from pathlib import Path
-
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
@@ -10,28 +6,6 @@ from django.views.generic import DetailView, ListView
 
 from core.services.bunny import BunnyNetService
 from .models import Category, Course, Enrollment, Lesson
-
-_AGENT_DEBUG_LOG = Path(__file__).resolve().parents[1] / '.cursor' / 'debug-625a1a.log'
-
-
-def _agent_debug_log(hypothesis_id, message, data, run_id='post-fix'):
-    # #region agent log
-    try:
-        payload = {
-            'sessionId': '625a1a',
-            'hypothesisId': hypothesis_id,
-            'location': 'courses/views.py:CourseListView',
-            'message': message,
-            'data': data,
-            'timestamp': int(time.time() * 1000),
-            'runId': run_id,
-        }
-        _AGENT_DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
-        with open(_AGENT_DEBUG_LOG, 'a', encoding='utf-8') as f:
-            f.write(json.dumps(payload, ensure_ascii=False) + '\n')
-    except OSError:
-        pass
-    # #endregion
 
 
 class CourseOverviewView(LoginRequiredMixin, DetailView):
@@ -96,43 +70,10 @@ class CourseListView(ListView):
         if sort in sort_map:
             qs = qs.order_by(sort_map[sort])
 
-        # #region agent log
-        try:
-            total = qs.count()
-            head = list(qs[:5].values_list('id', 'price'))
-        except Exception:
-            total, head = -1, []
-        _agent_debug_log(
-            'H1',
-            'queryset_after_filters',
-            {'sort': sort, 'total_count': total, 'id_price_head': head},
-        )
-        _agent_debug_log(
-            'H2',
-            'sort_param_received',
-            {'sort': sort, 'raw_get_sort': self.request.GET.get('sort')},
-        )
-        # #endregion
-
         return qs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        # #region agent log
-        try:
-            cl = ctx.get('courses')
-            page_len = len(cl) if cl is not None else None
-        except Exception:
-            page_len = None
-        _agent_debug_log(
-            'H1',
-            'paginated_courses_on_page',
-            {
-                'page_len': page_len,
-                'sort': self.request.GET.get('sort', ''),
-            },
-        )
-        # #endregion
         ctx['categories'] = Category.objects.all()
         ctx['active_category'] = self.request.GET.get('category', '')
         ctx['active_membership'] = self.request.GET.get('membership', '')

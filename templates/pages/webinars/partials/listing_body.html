@@ -8,18 +8,22 @@
       <!-- ТИП МАТЕРІАЛУ — навігація -->
       <div class="csb-line"></div>
       <div class="csb-group">
-        <div class="csb-group__header">
+        <button type="button" class="csb-group__header" aria-expanded="true" aria-controls="csb-options-wbn-material">
           <span class="csb-group__title">ТИП МАТЕРІАЛУ</span>
           <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
-        </div>
-        <ul class="csb-options" role="list">
+        </button>
+        <ul id="csb-options-wbn-material" class="csb-options" role="list">
           <li class="csb-option">
-            <span class="csb-radio" aria-hidden="true"></span>
-            <a href="{% url 'courses:list' %}" class="listing-sidebar__nav-link">Курси</a>
+            <a href="{% url 'courses:list' %}" class="listing-sidebar__nav-link">
+              <span class="csb-radio" aria-hidden="true"></span>
+              <span>Курси</span>
+            </a>
           </li>
           <li class="csb-option csb-option--selected-dark">
-            <span class="csb-radio csb-radio--solid-cream" aria-hidden="true"></span>
-            <a href="{% url 'webinars:list' %}" class="listing-sidebar__nav-link">Вебінари</a>
+            <a href="{% url 'webinars:list' %}" class="listing-sidebar__nav-link">
+              <span class="csb-radio csb-radio--solid-cream" aria-hidden="true"></span>
+              <span>Вебінари</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -33,11 +37,11 @@
         <!-- ТЕМАТИКА -->
         <div class="csb-line"></div>
         <div class="csb-group">
-          <div class="csb-group__header">
+          <button type="button" class="csb-group__header" aria-expanded="true" aria-controls="csb-options-wbn-topic">
             <span class="csb-group__title">ТЕМАТИКА</span>
             <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
-          </div>
-          <ul class="csb-options" role="list">
+          </button>
+          <ul id="csb-options-wbn-topic" class="csb-options" role="list">
             <li class="csb-option {% if active_topic == 'owners' %}csb-option--selected-dark{% endif %}">
               <input type="radio" name="topic" value="owners" id="wbn-topic-owners"
                      class="listing-sidebar__radio-input" {% if active_topic == 'owners' %}checked{% endif %}>
@@ -60,11 +64,11 @@
         <!-- ДОСТУПНІСТЬ -->
         <div class="csb-line"></div>
         <div class="csb-group">
-          <div class="csb-group__header">
+          <button type="button" class="csb-group__header" aria-expanded="true" aria-controls="csb-options-wbn-membership">
             <span class="csb-group__title">ДОСТУПНІСТЬ</span>
             <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
-          </div>
-          <ul class="csb-options" role="list">
+          </button>
+          <ul id="csb-options-wbn-membership" class="csb-options" role="list">
             <li class="csb-option {% if active_membership == 'members' %}csb-option--selected-dark{% endif %}">
               <input type="radio" name="membership" value="members" id="wbn-ms-members"
                      class="listing-sidebar__radio-input" {% if active_membership == 'members' %}checked{% endif %}>

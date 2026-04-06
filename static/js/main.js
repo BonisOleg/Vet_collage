@@ -212,6 +212,17 @@
     }
   });
 
+  // ─── LISTING SIDEBAR — filter accordion (delegated; survives HTMX swap) ───
+
+  document.addEventListener('click', function(e) {
+    var header = e.target.closest('.listing-sidebar .csb-group__header');
+    if (!header || header.tagName !== 'BUTTON') return;
+    var group = header.closest('.csb-group');
+    if (!group) return;
+    var collapsed = group.classList.toggle('is-collapsed');
+    header.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  });
+
   // ─── STRIPE CHECKOUT ─────────────────────────────────
 
   var PENDING_CHECKOUT_KEY = 'pendingCheckout';
