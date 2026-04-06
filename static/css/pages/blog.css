@@ -10,12 +10,26 @@
   filter: brightness(0) invert(1);
 }
 
+.page-blog .site-header .site-header__account img {
+  filter: brightness(0) invert(1);
+}
+
 .page-blog .site-header .site-header__link:hover {
   color: var(--color-white);
 }
 
 .page-blog .site-header .site-header__arrow {
   opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .page-blog .site-header .site-header__lang-btn {
+    color: var(--color-text);
+  }
+
+  .page-blog .site-header .site-header__account img {
+    filter: none;
+  }
 }
 
 .blog-hero {
