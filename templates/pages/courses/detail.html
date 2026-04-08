@@ -30,6 +30,10 @@
 
     <h1 class="course-detail__title">{{ course.title }}</h1>
 
+    {% if course.subtitle %}
+    <p class="course-detail__subtitle">{{ course.subtitle }}</p>
+    {% endif %}
+
     <div class="course-detail__info">
       {% if course.duration_hours %}
         <span class="course-detail__duration">{{ course.duration_hours }} год</span>
@@ -37,19 +41,46 @@
       {% if course.lesson_count %}
         <span class="course-detail__lessons-count">{{ course.lesson_count }} уроків</span>
       {% endif %}
-      <span class="course-detail__price">{{ course.price }} грн</span>
+      <span class="course-detail__price">{{ course.price }} {{ course.currency }}</span>
+      {% if course.materials_access_note %}
+        <span class="course-detail__access-note">Доступ: {{ course.materials_access_note }}</span>
+      {% endif %}
     </div>
-
-    {% if course.instructor %}
-    <div class="course-detail__instructor">
-      <span class="course-detail__instructor-label">Лектор:</span>
-      <span>{{ course.instructor.get_full_name|default:course.instructor.username }}</span>
-    </div>
-    {% endif %}
 
     <div class="course-detail__description">
       {{ course.description|linebreaks }}
     </div>
+
+    {% if instructors %}
+    <div class="course-detail__speakers">
+      <h2 class="course-detail__speakers-title">Про спікерів</h2>
+      {% for speaker in instructors %}
+      <div class="course-detail__speaker">
+        {% if speaker.photo %}
+        <img
+          class="course-detail__speaker-photo"
+          src="{{ speaker.photo.url }}"
+          alt="{{ speaker.name }}"
+          loading="lazy"
+          width="80"
+          height="80"
+        >
+        {% else %}
+        <div class="course-detail__speaker-photo course-detail__speaker-photo--placeholder" aria-hidden="true"></div>
+        {% endif %}
+        <div class="course-detail__speaker-info">
+          <p class="course-detail__speaker-name">{{ speaker.name }}</p>
+          {% if speaker.role %}
+            <p class="course-detail__speaker-role">{{ speaker.role }}</p>
+          {% endif %}
+          {% if speaker.bio %}
+            <div class="course-detail__speaker-bio">{{ speaker.bio|linebreaks }}</div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     {% if course.what_you_learn %}
     <div class="course-detail__learn">
@@ -62,7 +93,42 @@
     </div>
     {% endif %}
 
-    {% if lessons %}
+    {% if modules %}
+    <div class="course-detail__curriculum">
+      <h2 class="course-detail__curriculum-title">Програма курсу</h2>
+      {% for module in modules %}
+      <div class="course-detail__module">
+        <h3 class="course-detail__module-header">
+          Модуль {{ module.number }}{% if module.title %}: {{ module.title }}{% endif %}
+        </h3>
+        <div class="course-detail__lesson-list">
+          {% for lesson in module.lessons %}
+          <div class="course-detail__lesson-item">
+            <span class="course-detail__lesson-order">{{ lesson.order }}</span>
+            <span class="course-detail__lesson-title">{{ lesson.title }}</span>
+            {% if lesson.duration_seconds %}
+            <span class="course-detail__lesson-duration">
+              {{ lesson.duration_seconds|floatformat:"0" }}с
+            </span>
+            {% endif %}
+            {% if lesson.is_preview %}
+            <a href="{% url 'courses:lesson' course.slug lesson.slug %}" class="course-detail__lesson-preview">
+              Перегляд
+            </a>
+            {% elif is_enrolled %}
+            <a href="{% url 'courses:lesson' course.slug lesson.slug %}" class="course-detail__lesson-link">
+              Дивитись
+            </a>
+            {% else %}
+            <span class="course-detail__lesson-locked" aria-label="Заблоковано">🔒</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% elif lessons %}
     <div class="course-detail__curriculum">
       <h2 class="course-detail__curriculum-title">Програма курсу</h2>
       <div class="course-detail__lesson-list">
@@ -84,7 +150,7 @@
             Дивитись
           </a>
           {% else %}
-          <span class="course-detail__lesson-locked">🔒</span>
+          <span class="course-detail__lesson-locked" aria-label="Заблоковано">🔒</span>
           {% endif %}
         </div>
         {% endfor %}
@@ -106,7 +172,7 @@
           data-checkout
           data-order-type="course"
           data-item-id="{{ course.pk }}"
-        >Придбати курс — {{ course.price }} грн</button>
+        >Придбати курс — {{ course.price }} {{ course.currency }}</button>
       {% else %}
         <button type="button" class="btn btn-red" data-modal-open="modal-login">
           Увійдіть, щоб придбати

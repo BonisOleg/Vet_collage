@@ -1,15 +1,22 @@
 from django.contrib import admin
-from .models import Category, Course, Enrollment, Lesson
+from .models import Category, Course, CourseInstructor, Enrollment, Lesson
 
 
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 1
     fields = [
-        'title', 'slug', 'bunny_video_id', 'duration_seconds',
-        'order', 'is_preview',
+        'title', 'slug', 'module_number', 'module_title',
+        'bunny_video_id', 'duration_seconds', 'order', 'is_preview',
     ]
     prepopulated_fields = {'slug': ('title',)}
+    ordering = ['order']
+
+
+class CourseInstructorInline(admin.TabularInline):
+    model = CourseInstructor
+    extra = 1
+    fields = ['order', 'name', 'role', 'bio', 'photo']
     ordering = ['order']
 
 
@@ -22,20 +29,23 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = [
-        'title', 'category', 'price', 'level',
+        'title', 'category', 'price', 'currency', 'level',
         'is_active', 'is_popular', 'lesson_count', 'created_at',
     ]
     list_filter = ['is_active', 'is_popular', 'level', 'category', 'requires_membership']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ('title',)}
-    inlines = [LessonInline]
+    inlines = [CourseInstructorInline, LessonInline]
     list_per_page = 25
     fieldsets = (
         (None, {
             'fields': (
-                'title', 'slug', 'category', 'instructor',
-                'description', 'cover', 'price',
+                'title', 'subtitle', 'slug', 'category',
+                'description', 'cover',
             ),
+        }),
+        ('Ціна та доступ', {
+            'fields': ('price', 'currency', 'materials_access_note'),
         }),
         ('Параметри', {
             'fields': (

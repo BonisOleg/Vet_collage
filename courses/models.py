@@ -25,6 +25,7 @@ class Course(models.Model):
     ]
 
     title = models.CharField('Назва', max_length=255)
+    subtitle = models.CharField('Підзаголовок', max_length=512, blank=True, default='')
     slug = models.SlugField(unique=True)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL,
@@ -95,6 +96,8 @@ class Lesson(models.Model):
     )
     duration_seconds = models.PositiveIntegerField('Тривалість (сек)', default=0)
     order = models.PositiveIntegerField('Порядок', default=0)
+    module_number = models.PositiveSmallIntegerField('Номер модуля', default=1)
+    module_title = models.CharField('Назва модуля', max_length=255, blank=True, default='')
     is_preview = models.BooleanField(
         'Безкоштовний перегляд', default=False,
         help_text='Дозволити перегляд без покупки курсу',
@@ -111,8 +114,28 @@ class Lesson(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+
+class CourseInstructor(models.Model):
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name='instructors',
+        verbose_name='Курс',
+    )
+    name = models.CharField('ПІБ', max_length=255)
+    role = models.CharField('Роль/посада', max_length=255, blank=True)
+    bio = models.TextField('Біографія', blank=True)
+    photo = models.ImageField('Фото', upload_to='instructors/', blank=True)
+    order = models.PositiveSmallIntegerField('Порядок', default=0)
+
+    class Meta:
+        verbose_name = 'Спікер'
+        verbose_name_plural = 'Спікери'
+        ordering = ['order']
+
+    def __str__(self):
+        return f'{self.name} ({self.course.title})'
 
 
 class Enrollment(models.Model):

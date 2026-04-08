@@ -242,8 +242,10 @@
 }
 
 .course-detail__lesson-locked {
-  font-size: var(--fs-small);
-  opacity: 0.5;
+  font-size: 1.1rem;
+  opacity: 0.35;
+  line-height: 1;
+  user-select: none;
 }
 
 /* ════════════════════════════════════════
@@ -503,4 +505,127 @@
 
 .btn--pulse {
   animation: ucvn-pulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Subtitle ─── */
+.course-detail__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--color-gray-mid);
+  margin-top: calc(-1 * var(--sp-4));
+  margin-bottom: var(--sp-6);
+}
+
+/* ─── Access note ─── */
+.course-detail__access-note {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+}
+
+/* ─── Speakers ─── */
+.course-detail__speakers {
+  margin-bottom: var(--sp-10);
+}
+
+.course-detail__speakers-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-6);
+  color: var(--color-dark);
+}
+
+.course-detail__speaker {
+  display: flex;
+  gap: var(--sp-6);
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--color-border, #e0e0e0);
+}
+
+.course-detail__speaker:last-child {
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+}
+
+.course-detail__speaker-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  flex-shrink: 0;
+  display: block;
+}
+
+.course-detail__speaker-photo--placeholder {
+  background: var(--color-cream, #f5f0ea);
+}
+
+.course-detail__speaker-info {
+  flex: 1;
+}
+
+.course-detail__speaker-name {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semi);
+  color: var(--color-dark);
+  margin-bottom: var(--sp-1);
+}
+
+.course-detail__speaker-role {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-red);
+  font-weight: var(--fw-semi);
+  margin-bottom: var(--sp-3);
+}
+
+.course-detail__speaker-bio {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-loose);
+  color: var(--color-text);
+}
+
+.course-detail__speaker-bio p {
+  margin-bottom: var(--sp-2);
+}
+
+/* ─── Module header ─── */
+.course-detail__module {
+  margin-bottom: var(--sp-4);
+}
+
+.course-detail__module-header {
+  font-family: var(--font-ui);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semi);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-gray-mid);
+  background: var(--color-cream, #f5f0ea);
+  padding: var(--sp-3) var(--sp-6);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.course-detail__module .course-detail__lesson-list {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ─── Mobile adjustments for new blocks ─── */
+@media (max-width: 768px) {
+  .course-detail__speaker {
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .course-detail__speaker-photo {
+    width: 64px;
+    height: 64px;
+  }
 }

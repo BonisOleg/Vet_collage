@@ -1,3 +1,5 @@
+from itertools import groupby
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
@@ -100,15 +102,28 @@ class CourseDetailView(DetailView):
 
     def get_queryset(self):
         return Course.objects.filter(is_active=True).select_related(
-            'category', 'instructor',
-        ).prefetch_related('lessons')
+            'category',
+        ).prefetch_related('lessons', 'instructors')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         course = self.object
         user = self.request.user
 
-        ctx['lessons'] = course.lessons.all()
+        lessons = list(course.lessons.all())
+        ctx['lessons'] = lessons
+        ctx['instructors'] = course.instructors.all()
+
+        modules = []
+        for module_num, group in groupby(lessons, key=lambda l: l.module_number):
+            group_list = list(group)
+            modules.append({
+                'number': module_num,
+                'title': group_list[0].module_title,
+                'lessons': group_list,
+            })
+        ctx['modules'] = modules
+
         ctx['is_enrolled'] = False
         ctx['stripe_key'] = settings.STRIPE_PUBLISHABLE_KEY
 
