@@ -3,7 +3,8 @@
    ════════════════════════════════════════ */
 
 .webinar-detail {
-  padding-block: var(--sp-16);
+  padding-top: calc(122px + var(--sp-8));
+  padding-bottom: var(--sp-16);
 }
 
 .webinar-detail__inner {
@@ -200,7 +201,8 @@
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
   .webinar-detail {
-    padding-block: var(--sp-10);
+    padding-top: calc(80px + var(--sp-10));
+    padding-bottom: var(--sp-10);
   }
 
   .webinar-detail__inner {

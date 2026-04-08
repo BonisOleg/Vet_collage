@@ -111,6 +111,10 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/cabinet/'
 LOGOUT_REDIRECT_URL = '/'
 
+# Slugs of courses shown in «Продовжи свій перегляд» when the user has no enrollments
+# (after this, fallback is is_popular courses). Example: ('nutritsiolohiya-u-vet-med',)
+CABINET_CONTINUE_FALLBACK_COURSE_SLUGS = ()
+
 # --- Stripe ---
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')

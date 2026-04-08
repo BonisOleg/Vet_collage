@@ -3,6 +3,7 @@ from __future__ import annotations
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -166,7 +167,28 @@ class CabinetView(LoginRequiredMixin, TemplateView):
         enrollments = Enrollment.objects.filter(
             user=user,
         ).select_related('course', 'course__category')
-        ctx['user_courses'] = [e.course for e in enrollments]
+        enrolled_courses = [e.course for e in enrollments]
+        if enrolled_courses:
+            ctx['user_courses'] = enrolled_courses
+        else:
+            slug_fallback = getattr(
+                settings, 'CABINET_CONTINUE_FALLBACK_COURSE_SLUGS', (),
+            ) or ()
+            if slug_fallback:
+                slug_order = {s: i for i, s in enumerate(slug_fallback)}
+                qs = (
+                    Course.objects.filter(is_active=True, slug__in=slug_fallback)
+                    .select_related('category')
+                )
+                ctx['user_courses'] = sorted(
+                    qs, key=lambda c: slug_order[c.slug],
+                )[:2]
+            else:
+                ctx['user_courses'] = list(
+                    Course.objects.filter(is_active=True, is_popular=True).select_related(
+                        'category',
+                    )[:2],
+                )
 
         registrations = WebinarRegistration.objects.filter(
             user=user,

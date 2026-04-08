@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
 from core.services.bunny import BunnyNetService
@@ -115,6 +116,13 @@ class CourseDetailView(DetailView):
             ctx['is_enrolled'] = Enrollment.objects.filter(
                 user=user, course=course,
             ).exists()
+
+        if self.request.GET.get('from') == 'cabinet':
+            ctx['course_back_url'] = f"{reverse('accounts:cabinet')}?tab=courses"
+            ctx['course_back_label'] = 'Назад до моїх курсів'
+        else:
+            ctx['course_back_url'] = reverse('courses:list')
+            ctx['course_back_label'] = 'Назад до курсів'
 
         return ctx
 

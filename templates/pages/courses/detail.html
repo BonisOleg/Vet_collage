@@ -11,8 +11,8 @@
 <section class="course-detail">
   <div class="course-detail__inner">
 
-    <a href="{% url 'courses:list' %}" class="course-detail__back">
-      ← Назад до курсів
+    <a href="{{ course_back_url }}" class="course-detail__back">
+      ← {{ course_back_label }}
     </a>
 
     {% if course.cover %}

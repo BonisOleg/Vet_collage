@@ -45,30 +45,14 @@
                 <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
                 <p class="cab-card__type">Курс</p>
                 <h2 class="cab-card__title">{{ course.title }}</h2>
-                <a href="{% url 'courses:detail' course.slug %}" class="cab-card__btn">Продовжити</a>
+                <a href="{% url 'courses:detail' course.slug %}?from=cabinet" class="cab-card__btn">Продовжити</a>
               </article>
             {% endfor %}
           </div>
         {% else %}
-          <div class="cab-cards">
-            <article class="cab-card">
-              <div class="cab-card__photo">
-                <img src="{% static 'images/cabinet-mock-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
-              <p class="cab-card__type">Вебінар</p>
-              <h2 class="cab-card__title">Нутриціологія</h2>
-              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
-            </article>
-            <article class="cab-card">
-              <div class="cab-card__photo">
-                <img src="{% static 'images/cabinet-mock-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
-              <p class="cab-card__type">Вебінар</p>
-              <h2 class="cab-card__title">Нутриціологія</h2>
-              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
-            </article>
+          <div class="cabinet__empty">
+            <p class="cabinet__empty-text">Немає курсів для продовження перегляду</p>
+            <a href="{% url 'courses:list' %}" class="btn btn-red">Переглянути курси</a>
           </div>
         {% endif %}
       </div>
