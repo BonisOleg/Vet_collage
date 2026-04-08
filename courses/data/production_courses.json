@@ -1,0 +1,57 @@
+{
+  "categories": [
+    {
+      "name": "Нутриціологія",
+      "slug": "nutritsiolohiya"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Нутриціологія у ветеринарній медицині",
+      "slug": "nutritsiolohiya-u-vet-med",
+      "category_slug": "nutritsiolohiya",
+      "description": "Системний курс про принципи раціонального харчування тварин у клінічній практиці: оцінка потреб, підбір раціонів, робота з комерційними кормами та підтримка пацієнтів на різних етапах життя. Матеріал орієнтований на ветеринарних лікарів, які хочуть впевнено консультувати власників щодо харчування.",
+      "price": "350.00",
+      "duration_hours": 20,
+      "level": "intermediate",
+      "is_active": true,
+      "is_popular": true,
+      "requires_membership": false,
+      "what_you_learn": [
+        "Основи енергетики та нутрієнтів у дієтології тварин",
+        "Підхід до оцінки стану та потреб пацієнта",
+        "Комунікація з власником щодо раціону та змін у способі годування"
+      ],
+      "bunny_library_id": "",
+      "lessons": [
+        {
+          "title": "Вступ: роль нутриціології у ветеринарній практиці",
+          "slug": "vstup-nutritsiolohiya",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 0,
+          "is_preview": true
+        },
+        {
+          "title": "Енергія та макронутрієнти",
+          "slug": "enerhiia-makronutriienty",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 1,
+          "is_preview": false
+        },
+        {
+          "title": "Практичні кейси та підбір раціону",
+          "slug": "praktychni-keisy",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 2,
+          "is_preview": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "categories": [
+    {
+      "name": "Дієтологія",
+      "slug": "dietetyka"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Приклад курсу для sync_courses",
+      "slug": "course-sync-example",
+      "category_slug": "dietetyka",
+      "description": "Замініть цей приклад реальними даними або використайте окремий JSON без коміту в git.",
+      "price": "0.00",
+      "duration_hours": 1,
+      "level": "beginner",
+      "is_active": true,
+      "is_popular": false,
+      "requires_membership": false,
+      "what_you_learn": ["Пункт 1", "Пункт 2"],
+      "bunny_library_id": "",
+      "lessons": [
+        {
+          "title": "Урок 1",
+          "slug": "lesson-1",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 0,
+          "is_preview": true
+        }
+      ]
+    }
+  ]
+}
