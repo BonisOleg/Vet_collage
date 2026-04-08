@@ -55,6 +55,9 @@ class Course(models.Model):
         'Bunny Library ID', max_length=100, blank=True,
         help_text='ID бібліотеки Bunny.net Stream (якщо відрізняється від глобального)',
     )
+    materials_access_note = models.TextField(
+        'Умови доступу до матеріалів', default='', blank=True,
+    )
 
     class Meta:
         verbose_name = 'Курс'
