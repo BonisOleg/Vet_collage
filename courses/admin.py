@@ -57,7 +57,7 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': ('what_you_learn',),
         }),
         ('Bunny.net', {
-            'fields': ('bunny_library_id',),
+            'fields': ('bunny_library_id', 'promo_bunny_video_id'),
             'classes': ('collapse',),
         }),
     )

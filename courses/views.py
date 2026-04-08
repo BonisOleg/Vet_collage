@@ -132,6 +132,14 @@ class CourseDetailView(DetailView):
                 user=user, course=course,
             ).exists()
 
+        if course.promo_bunny_video_id:
+            library_id = course.bunny_library_id or settings.BUNNY_LIBRARY_ID
+            ctx['promo_embed_url'] = BunnyNetService.get_embed_url(
+                video_id=course.promo_bunny_video_id,
+                library_id=library_id,
+                responsive=True,
+            )
+
         if self.request.GET.get('from') == 'cabinet':
             ctx['course_back_url'] = f"{reverse('accounts:cabinet')}?tab=courses"
             ctx['course_back_label'] = 'Назад до моїх курсів'

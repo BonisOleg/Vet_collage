@@ -56,6 +56,10 @@ class Course(models.Model):
         'Bunny Library ID', max_length=100, blank=True,
         help_text='ID бібліотеки Bunny.net Stream (якщо відрізняється від глобального)',
     )
+    promo_bunny_video_id = models.CharField(
+        'Промо-відео (Bunny Video ID)', max_length=100, blank=True,
+        help_text='GUID промо-відео курсу в Bunny.net Stream',
+    )
     materials_access_note = models.TextField(
         'Умови доступу до матеріалів', default='', blank=True,
     )

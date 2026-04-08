@@ -1,4 +1,4 @@
-"""Idempotent sync of Category, Course, and Lesson from JSON."""
+"""Idempotent sync of Category, Course, Lesson, and CourseInstructor from JSON."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from typing import Any
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 
-from courses.models import Category, Course, Enrollment, Lesson
+from courses.models import Category, Course, CourseInstructor, Enrollment, Lesson
 
 User = get_user_model()
 
@@ -59,14 +59,17 @@ class Command(BaseCommand):
         self._validate_root(data)
 
         cat_n = self._sync_categories(data.get('categories', []))
-        course_n, lesson_n = self._sync_courses(data['courses'])
+        course_n, lesson_counts = self._sync_courses(data['courses'])
+        lesson_n = lesson_counts
         enroll_msg = ''
         if enroll_email:
             enroll_msg = ' ' + self._enroll(enroll_email, course_slug)
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Synced categories: {cat_n}, courses: {course_n}, lessons: {lesson_n}.'
+                f'Synced categories: {cat_n}, courses: {course_n}, '
+                f'lessons: {lesson_n[0]} (+{lesson_n[1]} deleted), '
+                f'instructors: {lesson_n[2]}.'
                 f'{enroll_msg}'
             )
         )
@@ -97,9 +100,9 @@ class Command(BaseCommand):
             n += 1
         return n
 
-    def _sync_courses(self, items: list[Any]) -> tuple[int, int]:
+    def _sync_courses(self, items: list[Any]) -> tuple[int, tuple[int, int, int]]:
         course_n = 0
-        lesson_n = 0
+        lesson_n: tuple[int, int, int] = (0, 0, 0)  # synced, deleted, instructors
         for raw in items:
             if not isinstance(raw, dict):
                 raise CommandError('Each course must be an object.')
@@ -168,9 +171,11 @@ class Command(BaseCommand):
                 slug=str(slug),
                 defaults={
                     'title': str(title),
+                    'subtitle': str(raw.get('subtitle', '') or ''),
                     'category': category,
                     'description': str(description),
                     'price': price,
+                    'currency': str(raw.get('currency', 'UAH') or 'UAH'),
                     'duration_hours': duration_hours,
                     'level': level,
                     'is_active': bool(raw.get('is_active', True)),
@@ -178,15 +183,31 @@ class Command(BaseCommand):
                     'requires_membership': bool(raw.get('requires_membership', False)),
                     'what_you_learn': wyf,
                     'bunny_library_id': str(raw.get('bunny_library_id', '') or ''),
+                    'promo_bunny_video_id': str(raw.get('promo_bunny_video_id', '') or ''),
+                    'materials_access_note': str(raw.get('materials_access_note', '') or ''),
                     'instructor': instructor,
                 },
             )
             course_n += 1
+
             lessons = raw.get('lessons', [])
             if lessons is not None and not isinstance(lessons, list):
                 raise CommandError(f'"lessons" must be an array for course "{slug}".')
+            synced_lesson_n = 0
+            synced_slugs: list[str] = []
             for les_raw in lessons or []:
-                lesson_n += self._sync_lesson(course, les_raw, str(slug))
+                synced_lesson_n += self._sync_lesson(course, les_raw, str(slug))
+                synced_slugs.append(str(les_raw['slug']))
+
+            deleted_n, _ = course.lessons.exclude(slug__in=synced_slugs).delete()
+            lesson_n = (lesson_n[0] + synced_lesson_n, lesson_n[1] + deleted_n, lesson_n[2])
+
+            instructors_raw = raw.get('instructors', [])
+            if instructors_raw is not None and not isinstance(instructors_raw, list):
+                raise CommandError(f'"instructors" must be an array for course "{slug}".')
+            instr_n = self._sync_instructors(course, instructors_raw or [], str(slug))
+            lesson_n = (lesson_n[0], lesson_n[1], lesson_n[2] + instr_n)
+
         return course_n, lesson_n
 
     def _sync_lesson(
@@ -209,6 +230,11 @@ class Command(BaseCommand):
             raise CommandError(
                 f'duration_seconds must be >= 0 (lesson "{slug}", course "{course_slug}").',
             )
+        module_number = int(raw.get('module_number', 1))
+        if module_number < 1:
+            raise CommandError(
+                f'module_number must be >= 1 (lesson "{slug}", course "{course_slug}").',
+            )
         Lesson.objects.update_or_create(
             course=course,
             slug=str(slug),
@@ -218,10 +244,38 @@ class Command(BaseCommand):
                 'bunny_video_id': str(raw.get('bunny_video_id', '') or ''),
                 'duration_seconds': duration_seconds,
                 'order': order,
+                'module_number': module_number,
+                'module_title': str(raw.get('module_title', '') or ''),
                 'is_preview': bool(raw.get('is_preview', False)),
             },
         )
         return 1
+
+    def _sync_instructors(
+        self,
+        course: Course,
+        items: list[Any],
+        course_slug: str,
+    ) -> int:
+        course.instructors.all().delete()
+        for idx, raw in enumerate(items):
+            if not isinstance(raw, dict):
+                raise CommandError(
+                    f'Each instructor must be an object (course "{course_slug}").',
+                )
+            name = raw.get('name')
+            if not name:
+                raise CommandError(
+                    f'Each instructor needs "name" (course "{course_slug}").',
+                )
+            CourseInstructor.objects.create(
+                course=course,
+                name=str(name),
+                role=str(raw.get('role', '') or ''),
+                bio=str(raw.get('bio', '') or ''),
+                order=int(raw.get('order', idx)),
+            )
+        return len(items)
 
     def _enroll(self, email: str, slug: str) -> str:
         user = User.objects.filter(email__iexact=email).first()

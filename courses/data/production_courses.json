@@ -9,46 +9,132 @@
     {
       "title": "Нутриціологія у ветеринарній медицині",
       "slug": "nutritsiolohiya-u-vet-med",
+      "subtitle": "Комплексне вивчення основ ветеринарної дієтології: принципи харчування, функції поживних речовин і аналіз комерційних кормів.",
       "category_slug": "nutritsiolohiya",
-      "description": "Системний курс про принципи раціонального харчування тварин у клінічній практиці: оцінка потреб, підбір раціонів, робота з комерційними кормами та підтримка пацієнтів на різних етапах життя. Матеріал орієнтований на ветеринарних лікарів, які хочуть впевнено консультувати власників щодо харчування.",
-      "price": "350.00",
-      "duration_hours": 20,
-      "level": "intermediate",
+      "description": "Курс \"Нутриціологія у ветеринарній дієтології\" надає фундаментальні знання для розуміння основ харчування тварин. Ви дізнаєтесь про анатомію та фізіологію травлення, роль білків, жирів, вітамінів та мінералів у раціоні, а також навчитесь аналізувати комерційні корми. Завдяки цьому курсу ви зможете впевнено орієнтуватись у базових аспектах дієтології та закладете основу для подальшого поглибленого навчання.",
+      "price": "200.00",
+      "currency": "EUR",
+      "duration_hours": 0,
+      "level": "beginner",
       "is_active": true,
       "is_popular": true,
       "requires_membership": false,
-      "what_you_learn": [
-        "Основи енергетики та нутрієнтів у дієтології тварин",
-        "Підхід до оцінки стану та потреб пацієнта",
-        "Комунікація з власником щодо раціону та змін у способі годування"
-      ],
+      "materials_access_note": "1 рік",
+      "what_you_learn": [],
       "bunny_library_id": "",
-      "lessons": [
+      "promo_bunny_video_id": "",
+      "instructors": [
         {
-          "title": "Вступ: роль нутриціології у ветеринарній практиці",
-          "slug": "vstup-nutritsiolohiya",
-          "description": "",
-          "bunny_video_id": "",
-          "duration_seconds": 0,
-          "order": 0,
-          "is_preview": true
+          "name": "Ткач Єгор Кирилович",
+          "role": "Засновник та голова наукової ради UCVN",
+          "bio": "Ветеринарний дієтолог із близько п'ятирічним практичним досвідом, експерт ESVCN та атестований AAHA Champion Nutrition. Пройшов навчання у дипломатів ESVCN, сертифікований слухач лекцій WSAVA та провідних міжнародних експертів, зокрема Cecilia Villaverde Haro та Georgia Woods-Lee. Один із провідних фахівців країни та досвідчений лектор, який особливо цінує науку й сучасні дослідження у своїй роботі.",
+          "order": 0
         },
         {
-          "title": "Енергія та макронутрієнти",
-          "slug": "enerhiia-makronutriienty",
+          "name": "Добиш Ксенія Миколаївна",
+          "role": "Член наукової ради UCVN",
+          "bio": "Ветеринарна дієтологиня з понад п'ятирічним практичним досвідом, експерт ESVCN, здобувачка ступеня MSc in Animal Nutrition (Університет Глазго), членкиня WSAVA та AVA. Сертифікована NAVC Pet Nutrition Coach, пройшла навчання та стажування у дипломатів ECVCN, сертифікована слухачка лекцій WSAVA з ветеринарної дієтології. Одна з провідних фахівців країни та досвідчена лекторка з глибоким практичним досвідом.",
+          "order": 1
+        }
+      ],
+      "lessons": [
+        {
+          "title": "Введення у ветеринарну дієтологію",
+          "slug": "vvedennia-u-veterynarne-dietolohiiu",
           "description": "",
           "bunny_video_id": "",
           "duration_seconds": 0,
           "order": 1,
+          "module_number": 1,
+          "module_title": "",
           "is_preview": false
         },
         {
-          "title": "Практичні кейси та підбір раціону",
-          "slug": "praktychni-keisy",
+          "title": "Анатомія та фізіологія харчування",
+          "slug": "anatomiia-ta-fiziolohiia-kharchuvannia",
           "description": "",
           "bunny_video_id": "",
           "duration_seconds": 0,
           "order": 2,
+          "module_number": 1,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Основні типи харчування",
+          "slug": "osnovni-typy-kharchuvannia",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 3,
+          "module_number": 1,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Комерційні корми та розуміння етикетки",
+          "slug": "komertsiyni-kormy-ta-rozuminnia-etyketky",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 4,
+          "module_number": 1,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Білки, жири, вуглеводи",
+          "slug": "bilky-zhyry-vuhlevody",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 5,
+          "module_number": 2,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Амінокислоти та жирні кислоти",
+          "slug": "aminokyslo-ty-ta-zhyrni-kysloty",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 6,
+          "module_number": 2,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Вітаміни",
+          "slug": "vitaminy",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 7,
+          "module_number": 2,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Мінеральні речовини",
+          "slug": "mineralni-rechovyny",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 8,
+          "module_number": 2,
+          "module_title": "",
+          "is_preview": false
+        },
+        {
+          "title": "Поняття про енергію та кондицію",
+          "slug": "poniattia-pro-enerhiiu-ta-kondytsiiu",
+          "description": "",
+          "bunny_video_id": "",
+          "duration_seconds": 0,
+          "order": 9,
+          "module_number": 2,
+          "module_title": "",
           "is_preview": false
         }
       ]

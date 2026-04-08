@@ -158,6 +158,18 @@
     </div>
     {% endif %}
 
+    {% if promo_embed_url %}
+    <div class="course-detail__promo-video">
+      <iframe
+        src="{{ promo_embed_url }}"
+        title="Промо {{ course.title }}"
+        loading="lazy"
+        allowfullscreen
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+      ></iframe>
+    </div>
+    {% endif %}
+
     <div class="course-detail__actions">
       {% if is_enrolled %}
         {% if lessons %}
