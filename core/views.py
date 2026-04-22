@@ -97,13 +97,18 @@ def contact_view(request):
         f"Повідомлення:\n{message or '—'}"
     )
     
-    # Спочатку зберігаємо заявку в БД (завжди, якщо валідація пройшла)
-    ContactRequest.objects.create(
-        name=name,
-        phone=phone,
-        email=email_addr,
-        message=message,
-    )
+    # Спочатку зберігаємо заявку в БД (критично важливо!)
+    db_error = None
+    try:
+        ContactRequest.objects.create(
+            name=name,
+            phone=phone,
+            email=email_addr,
+            message=message,
+        )
+    except Exception as e:
+        db_error = e
+        logger.exception(f"Помилка збереження заявки на консультацію: {e}")
     
     # Email — graceful fallback: спробуємо, але не блокуємо на помилці
     try:
