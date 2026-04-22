@@ -15,13 +15,29 @@
       ← Назад до вебінарів
     </a>
 
-    {% if webinar.cover %}
-    <div class="webinar-detail__cover">
-      <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
-    </div>
+    {% if video_embed_url %}
+      <div class="webinar-detail__video">
+        <iframe
+          src="{{ video_embed_url }}"
+          loading="lazy"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen
+          title="{{ webinar.title }}"
+        ></iframe>
+      </div>
+    {% elif webinar.cover %}
+      <div class="webinar-detail__cover">
+        <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
+      </div>
     {% endif %}
 
-    <span class="webinar-detail__label">Вебінар</span>
+    <div class="webinar-detail__meta">
+      <span class="webinar-detail__label">Вебінар</span>
+      {% if webinar.audience %}
+        <span class="webinar-detail__audience">{{ webinar.get_audience_display }}</span>
+      {% endif %}
+    </div>
+
     <h1 class="webinar-detail__title">{{ webinar.title }}</h1>
 
     <div class="webinar-detail__info">
@@ -30,6 +46,9 @@
       {% endif %}
       <span class="webinar-detail__duration">{{ webinar.duration_min }} хв</span>
       {% if not webinar.is_free %}
+        {% if webinar.original_price %}
+          <span class="webinar-detail__price webinar-detail__price--old">{{ webinar.original_price }} грн</span>
+        {% endif %}
         <span class="webinar-detail__price">{{ webinar.price }} грн</span>
       {% else %}
         <span class="webinar-detail__price webinar-detail__price--free">Безкоштовно</span>
@@ -37,9 +56,16 @@
     </div>
 
     {% if webinar.speaker %}
-    <div class="webinar-detail__speaker">
-      <span class="webinar-detail__speaker-label">Спікер:</span>
-      <span>{{ webinar.speaker.get_full_name|default:webinar.speaker.username }}</span>
+    <div class="webinar-detail__speakers">
+      <h2 class="webinar-detail__speakers-title">Спікер</h2>
+      <div class="webinar-detail__speaker">
+        <div class="webinar-detail__speaker-avatar" aria-hidden="true">
+          {{ webinar.speaker.get_full_name|default:webinar.speaker.username|slice:":1" }}
+        </div>
+        <div class="webinar-detail__speaker-info">
+          <p class="webinar-detail__speaker-name">{{ webinar.speaker.get_full_name|default:webinar.speaker.username }}</p>
+        </div>
+      </div>
     </div>
     {% endif %}
 

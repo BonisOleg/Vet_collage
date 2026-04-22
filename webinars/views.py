@@ -80,6 +80,25 @@ class WebinarDetailView(DetailView):
                 user=user, webinar=webinar,
             ).exists()
 
+        # Provide video embed on detail page for users who have access
+        user_has_access = webinar.is_free or (user.is_authenticated and ctx['is_registered'])
+        if webinar.has_recording and user_has_access:
+            if webinar.bunny_embed_url:
+                ctx['video_embed_url'] = webinar.bunny_embed_url
+            elif webinar.bunny_video_id:
+                library_id = webinar.bunny_library_id or settings.BUNNY_LIBRARY_ID
+                if settings.BUNNY_TOKEN_AUTH_KEY:
+                    ctx['video_embed_url'] = BunnyNetService.generate_signed_url(
+                        video_id=webinar.bunny_video_id,
+                        library_id=library_id,
+                    )
+                else:
+                    ctx['video_embed_url'] = BunnyNetService.get_embed_url(
+                        video_id=webinar.bunny_video_id,
+                        library_id=library_id,
+                        responsive=True,
+                    )
+
         return ctx
 
 

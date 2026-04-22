@@ -42,6 +42,14 @@
             <img class="csb-group__chevron" src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="28" height="17" aria-hidden="true">
           </button>
           <ul id="csb-options-wbn-topic" class="csb-options" role="list">
+            <li class="csb-option {% if not active_topic %}csb-option--selected-dark{% endif %}">
+              <input type="radio" name="topic" value="" id="wbn-topic-all"
+                     class="listing-sidebar__radio-input" {% if not active_topic %}checked{% endif %}>
+              <label for="wbn-topic-all" class="csb-option__label">
+                <span class="csb-radio {% if not active_topic %}csb-radio--solid-cream{% endif %}" aria-hidden="true"></span>
+                <span>Всі</span>
+              </label>
+            </li>
             <li class="csb-option {% if active_topic == 'owners' %}csb-option--selected-dark{% endif %}">
               <input type="radio" name="topic" value="owners" id="wbn-topic-owners"
                      class="listing-sidebar__radio-input" {% if active_topic == 'owners' %}checked{% endif %}>
@@ -99,66 +107,107 @@
 
         {% for webinar in webinars %}
           <article class="wbn-card">
-            <div class="wbn-card__photo">
-              {% if webinar.cover %}
-                <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
-              {% else %}
-                <div class="wbn-card__photo-placeholder"></div>
-              {% endif %}
-            </div>
+            <a href="{% url 'webinars:detail' webinar.slug %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: {{ webinar.title }}">
+              <div class="wbn-card__photo">
+                {% if webinar.cover %}
+                  <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
+                {% else %}
+                  <div class="wbn-card__photo-placeholder"></div>
+                {% endif %}
+                {% if webinar.has_recording %}
+                  <span class="wbn-card__badge">● Запис</span>
+                {% endif %}
+              </div>
+            </a>
             <p class="wbn-card__type">Вебінар</p>
             <h2 class="wbn-card__title">{{ webinar.title }}</h2>
             <p class="wbn-card__desc">{{ webinar.description|truncatewords:15 }}</p>
             <div class="wbn-card__prices">
-              {% if webinar.original_price %}
-                <span class="wbn-card__price-old">€{{ webinar.original_price }}</span>
+              {% if webinar.is_free %}
+                <span class="wbn-card__price wbn-card__price--free">Безкоштовно</span>
+              {% else %}
+                {% if webinar.original_price %}
+                  <span class="wbn-card__price-old">{{ webinar.original_price }} грн</span>
+                {% endif %}
+                <span class="wbn-card__price">{{ webinar.price }} грн</span>
               {% endif %}
-              <span class="wbn-card__price">€{{ webinar.price }}</span>
             </div>
-            <a href="{% url 'webinars:detail' webinar.slug %}" class="wbn-card__btn">Купити</a>
+            <div class="wbn-card__actions">
+              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
+              <a href="{% url 'webinars:detail' webinar.slug %}" class="wbn-card__btn wbn-card__btn--buy">
+                {% if webinar.is_free and webinar.has_recording %}Дивитись{% else %}Купити{% endif %}
+                {% if not webinar.is_free %}
+                  <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+                {% endif %}
+              </a>
+            </div>
           </article>
         {% empty %}
           <!-- Figma mock data — shown when no webinars exist in DB -->
           <article class="wbn-card">
-            <div class="wbn-card__photo">
-              <img src="{% static 'images/webinars-figma-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
-            </div>
+            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
+              <div class="wbn-card__photo">
+                <img src="{% static 'images/webinars-figma-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+            </a>
             <p class="wbn-card__type">Вебінар</p>
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
+              <span class="wbn-card__price-old">100 грн</span>
+              <span class="wbn-card__price">80 грн</span>
             </div>
-            <a href="{% url 'webinars:list' %}" class="wbn-card__btn">Купити</a>
+            <div class="wbn-card__actions">
+              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
+              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
           </article>
 
           <article class="wbn-card">
-            <div class="wbn-card__photo">
-              <img src="{% static 'images/webinars-figma-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
-            </div>
+            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
+              <div class="wbn-card__photo">
+                <img src="{% static 'images/webinars-figma-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+            </a>
             <p class="wbn-card__type">Вебінар</p>
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
+              <span class="wbn-card__price-old">100 грн</span>
+              <span class="wbn-card__price">80 грн</span>
             </div>
-            <a href="{% url 'webinars:list' %}" class="wbn-card__btn">Купити</a>
+            <div class="wbn-card__actions">
+              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
+              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
           </article>
 
           <article class="wbn-card">
-            <div class="wbn-card__photo">
-              <img src="{% static 'images/webinars-figma-photo-3.png' %}" alt="Нутриціологія" loading="lazy">
-            </div>
+            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
+              <div class="wbn-card__photo">
+                <img src="{% static 'images/webinars-figma-photo-3.png' %}" alt="Нутриціологія" loading="lazy">
+              </div>
+            </a>
             <p class="wbn-card__type">Вебінар</p>
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
+              <span class="wbn-card__price-old">100 грн</span>
+              <span class="wbn-card__price">80 грн</span>
             </div>
-            <a href="{% url 'webinars:list' %}" class="wbn-card__btn">Купити</a>
+            <div class="wbn-card__actions">
+              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
+              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
+                Купити
+                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
+              </a>
+            </div>
           </article>
         {% endfor %}
 
