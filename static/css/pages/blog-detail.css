@@ -4,6 +4,8 @@
 
 .article-detail {
   padding-block: var(--sp-16);
+  margin-top: 160px;
+  scroll-margin-top: 160px;
 }
 
 .article-detail__inner {
@@ -220,6 +222,8 @@
 @media (max-width: 768px) {
   .article-detail {
     padding-block: var(--sp-10);
+    margin-top: 140px;
+    scroll-margin-top: 140px;
   }
 
   .article-detail__inner {
