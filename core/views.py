@@ -47,6 +47,14 @@ class CookiesView(TemplateView):
     template_name = 'pages/core/cookies.html'
 
 
+class FaqView(TemplateView):
+    template_name = 'pages/core/faq.html'
+
+
+class TermsView(TemplateView):
+    template_name = 'pages/core/terms.html'
+
+
 def contact_view(request):
     if request.method != 'POST':
         return render(request, 'pages/core/contact.html')

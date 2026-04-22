@@ -12,4 +12,6 @@ urlpatterns = [
     path('payment/failure/', views.PaymentFailureView.as_view(), name='payment_failure'),
     path('privacy/', views.PrivacyView.as_view(), name='privacy'),
     path('cookies/', views.CookiesView.as_view(), name='cookies'),
+    path('faq/', views.FaqView.as_view(), name='faq'),
+    path('terms/', views.TermsView.as_view(), name='terms'),
 ]
