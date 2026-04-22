@@ -40,15 +40,19 @@
           <img src="{% static 'images/logo.svg' %}" alt="UCVN" loading="lazy">
         </div>
         <h2 class="contact-main__title">підпишіться на нашу email-розсилку</h2>
-        <form class="contact-main__form" method="post" action="{% url 'core:contact' %}">
+        <div id="newsletter-result"></div>
+        <form class="contact-main__form"
+              hx-post="{% url 'core:newsletter' %}"
+              hx-target="#newsletter-result"
+              hx-swap="innerHTML"
+              hx-on::after-request="if(event.detail.successful) this.reset()">
           {% csrf_token %}
-          <input type="text" name="name" placeholder="Ваше ім'я" class="contact-main__input" required>
-          <input type="email" name="email" placeholder="Ваш email" class="contact-main__input" required>
-          <input type="tel" name="phone" placeholder="Ваш телефон" class="contact-main__input">
-          <textarea name="message" placeholder="Повідомлення" class="contact-main__input" rows="3"></textarea>
+          <input type="email" name="email" placeholder="Ваш email" class="contact-main__input" required
+                 autocapitalize="none" autocorrect="off" spellcheck="false">
           <button type="submit" class="contact-main__submit">Надіслати</button>
         </form>
       </div>
+
 
       <div class="contact-main__cols-right">
 
