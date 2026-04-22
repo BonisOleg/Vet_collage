@@ -1,3 +1,4 @@
+import logging
 import re
 
 from django.conf import settings
@@ -8,6 +9,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from courses.models import Course
+from core.models import ContactRequest
+
+
+logger = logging.getLogger(__name__)
 
 
 class HomeView(TemplateView):
@@ -91,6 +96,16 @@ def contact_view(request):
         f"Email: {email_addr}\n\n"
         f"Повідомлення:\n{message or '—'}"
     )
+    
+    # Спочатку зберігаємо заявку в БД (завжди, якщо валідація пройшла)
+    ContactRequest.objects.create(
+        name=name,
+        phone=phone,
+        email=email_addr,
+        message=message,
+    )
+    
+    # Email — graceful fallback: спробуємо, але не блокуємо на помилці
     try:
         send_mail(
             subject,
@@ -100,14 +115,9 @@ def contact_view(request):
             fail_silently=False,
         )
     except Exception:
-        if is_htmx:
-            return HttpResponse(
-                '<p class="form-error">Помилка відправлення. Спробуйте пізніше або напишіть нам напряму.</p>',
-                status=500,
-            )
-        messages.error(request, 'Помилка відправлення. Спробуйте пізніше.')
-        return redirect('core:home')
-
+        logger.exception("Помилка відправлення email для заявки")
+    
+    # Завжди повертаємо успіх після збереження в БД
     if is_htmx:
         return HttpResponse(
             '<p class="form-success">&#10003; Дякуємо! Ми зв\'яжемося з вами найближчим часом.</p>'
