@@ -16,7 +16,7 @@ class WebinarAdmin(admin.ModelAdmin):
         (None, {
             'fields': (
                 'title', 'slug', 'speaker', 'description',
-                'cover', 'price', 'is_free',
+                'cover', 'price', 'original_price', 'is_free',
             ),
         }),
         ('Розклад', {
@@ -25,9 +25,12 @@ class WebinarAdmin(admin.ModelAdmin):
         ('Параметри', {
             'fields': ('is_active', 'requires_membership', 'audience'),
         }),
-        ('Bunny.net', {
-            'fields': ('bunny_library_id', 'bunny_video_id'),
-            'classes': ('collapse',),
+        ('Bunny.net — відео', {
+            'fields': ('bunny_embed_url', 'bunny_library_id', 'bunny_video_id'),
+            'description': (
+                'Для вставки відео достатньо заповнити поле «Посилання для вставки відео». '
+                'Library ID та Video ID потрібні лише для токен-аутентифікації.'
+            ),
         }),
     )
 

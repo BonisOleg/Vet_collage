@@ -93,7 +93,7 @@ class WebinarWatchView(LoginRequiredMixin, DetailView):
             Webinar, slug=self.kwargs['slug'], is_active=True,
         )
 
-        if not webinar.bunny_video_id:
+        if not webinar.has_recording:
             raise Http404('Запис вебінару ще не доступний')
 
         if not webinar.is_free:
@@ -109,17 +109,20 @@ class WebinarWatchView(LoginRequiredMixin, DetailView):
         ctx = super().get_context_data(**kwargs)
         webinar = self.object
 
-        library_id = webinar.bunny_library_id or settings.BUNNY_LIBRARY_ID
-        if settings.BUNNY_TOKEN_AUTH_KEY:
-            ctx['video_embed_url'] = BunnyNetService.generate_signed_url(
-                video_id=webinar.bunny_video_id,
-                library_id=library_id,
-            )
-        else:
-            ctx['video_embed_url'] = BunnyNetService.get_embed_url(
-                video_id=webinar.bunny_video_id,
-                library_id=library_id,
-                responsive=True,
-            )
+        if webinar.bunny_embed_url:
+            ctx['video_embed_url'] = webinar.bunny_embed_url
+        elif webinar.bunny_video_id:
+            library_id = webinar.bunny_library_id or settings.BUNNY_LIBRARY_ID
+            if settings.BUNNY_TOKEN_AUTH_KEY:
+                ctx['video_embed_url'] = BunnyNetService.generate_signed_url(
+                    video_id=webinar.bunny_video_id,
+                    library_id=library_id,
+                )
+            else:
+                ctx['video_embed_url'] = BunnyNetService.get_embed_url(
+                    video_id=webinar.bunny_video_id,
+                    library_id=library_id,
+                    responsive=True,
+                )
 
         return ctx

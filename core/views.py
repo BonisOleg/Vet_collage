@@ -4,7 +4,6 @@ import re
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
@@ -109,14 +108,14 @@ def contact_view(request):
     except Exception as e:
         logger.exception(f"Помилка збереження заявки на консультацію: {e}")
     
-    # Email — graceful fallback: спробуємо, але не блокуємо на помилці
+    # Email — best-effort: log failure but never block the success response
     try:
         send_mail(
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
             [settings.DEFAULT_FROM_EMAIL],
-            fail_silently=False,
+            fail_silently=True,
         )
     except Exception:
         logger.exception("Помилка відправлення email для заявки")

@@ -16,6 +16,10 @@ class Webinar(models.Model):
     description = models.TextField('Опис')
     cover = models.ImageField('Обкладинка', upload_to='webinars/covers/', blank=True)
     price = models.DecimalField('Ціна', max_digits=10, decimal_places=2)
+    original_price = models.DecimalField(
+        'Стара ціна', max_digits=10, decimal_places=2, null=True, blank=True,
+        help_text='Ціна до знижки — відображається закресленою поруч із поточною ціною',
+    )
     date = models.DateTimeField('Дата проведення', null=True, blank=True)
     duration_min = models.PositiveIntegerField('Тривалість (хв)', default=60)
     is_active = models.BooleanField('Активний', default=True)
@@ -41,6 +45,13 @@ class Webinar(models.Model):
         'Bunny Video ID', max_length=100, blank=True,
         help_text='GUID відео-запису вебінару в Bunny.net Stream',
     )
+    bunny_embed_url = models.URLField(
+        'Посилання для вставки відео (Bunny.net)', max_length=500, blank=True,
+        help_text=(
+            'Скопіюйте URL-адресу iframe з Bunny.net Stream → Share → Embed. '
+            'Якщо заповнено — використовується замість Library ID + Video ID.'
+        ),
+    )
 
     class Meta:
         verbose_name = 'Вебінар'
@@ -57,7 +68,7 @@ class Webinar(models.Model):
 
     @property
     def has_recording(self) -> bool:
-        return bool(self.bunny_video_id)
+        return bool(self.bunny_embed_url or self.bunny_video_id)
 
 
 class WebinarRegistration(models.Model):
