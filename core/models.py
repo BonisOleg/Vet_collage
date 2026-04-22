@@ -18,3 +18,20 @@ class ContactRequest(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.email})"
+
+
+class NewsletterSubscription(models.Model):
+    """Підписка на email-розсилку."""
+    
+    email = models.EmailField(unique=True, verbose_name='Email')
+    subscribed_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата підписки')
+    is_active = models.BooleanField(default=True, verbose_name='Активна')
+
+    class Meta:
+        ordering = ['-subscribed_at']
+        verbose_name = 'Підписка на розсилку'
+        verbose_name_plural = 'Підписки на розсилку'
+
+    def __str__(self) -> str:
+        status = "✓ активна" if self.is_active else "✗ деактивована"
+        return f"{self.email} ({status})"

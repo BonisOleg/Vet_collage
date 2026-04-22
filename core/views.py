@@ -4,12 +4,13 @@ import re
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from courses.models import Course
-from core.models import ContactRequest
+from core.models import ContactRequest, NewsletterSubscription
 
 
 logger = logging.getLogger(__name__)
@@ -98,7 +99,6 @@ def contact_view(request):
     )
     
     # Спочатку зберігаємо заявку в БД (критично важливо!)
-    db_error = None
     try:
         ContactRequest.objects.create(
             name=name,
@@ -107,7 +107,6 @@ def contact_view(request):
             message=message,
         )
     except Exception as e:
-        db_error = e
         logger.exception(f"Помилка збереження заявки на консультацію: {e}")
     
     # Email — graceful fallback: спробуємо, але не блокуємо на помилці
@@ -133,22 +132,40 @@ def contact_view(request):
 
 def newsletter_view(request):
     """Handle newsletter subscription from footer form."""
-    if request.method == 'POST':
-        email = request.POST.get('email', '').strip()
-        is_htmx = request.headers.get('HX-Request')
-        if email:
-            if is_htmx:
-                return HttpResponse(
-                    '<p class="form-success">&#10003; Дякуємо! Ви підписані на розсилку.</p>'
-                )
-            messages.success(request, 'Дякуємо! Ви підписані на розсилку.')
-        else:
-            if is_htmx:
-                return HttpResponse(
-                    '<p class="form-error">Введіть коректний email.</p>',
-                    status=400,
-                )
-            messages.error(request, 'Введіть коректний email.')
+    if request.method != 'POST':
         return redirect('core:home')
 
+    email = request.POST.get('email', '').strip()
+    is_htmx = bool(request.headers.get('HX-Request'))
+
+    # Валідація email
+    if not email or not re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', email):
+        error_msg = 'Введіть коректний email.'
+        if is_htmx:
+            return HttpResponse(
+                f'<p class="form-error">{error_msg}</p>',
+                status=400,
+            )
+        messages.error(request, error_msg)
+        return redirect('core:home')
+
+    # Спочатку зберігаємо підписку в БД
+    try:
+        subscription, created = NewsletterSubscription.objects.get_or_create(
+            email=email,
+            defaults={'is_active': True},
+        )
+        # Якщо підписка вже існувала і була деактивована, активуємо її знову
+        if not created and not subscription.is_active:
+            subscription.is_active = True
+            subscription.save()
+    except Exception as e:
+        logger.exception(f"Помилка збереження підписки на розсилку: {e}")
+
+    # Завжди повертаємо успіх
+    if is_htmx:
+        return HttpResponse(
+            '<p class="form-success">&#10003; Дякуємо! Ви підписані на розсилку.</p>'
+        )
+    messages.success(request, 'Дякуємо! Ви підписані на розсилку.')
     return redirect('core:home')
