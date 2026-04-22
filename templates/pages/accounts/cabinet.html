@@ -64,47 +64,69 @@
 
       <div class="cabinet__section">
         <div class="cab-section-header">
-          <span class="cab-section-title">Продовжи свій перегляд</span>
+          <span class="cab-section-title">Мої вебінари</span>
           <img src="{% static 'images/courses-filter-chevron.svg' %}" alt="" width="18" height="11" aria-hidden="true">
         </div>
 
         {% if user_webinars %}
           <div class="cab-cards">
             {% for webinar in user_webinars %}
-              <article class="cab-card">
-                <div class="cab-card__photo">
-                  {% if webinar.cover %}
-                    <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
-                  {% else %}
-                    <div class="cab-card__photo-placeholder"></div>
-                  {% endif %}
-                </div>
-                <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+              <article class="cab-card cab-card--webinar">
+                <a href="{% url 'webinars:detail' webinar.slug %}" class="cab-card__photo-link" aria-label="Деталі вебінару: {{ webinar.title }}">
+                  <div class="cab-card__photo">
+                    {% if webinar.cover %}
+                      <img src="{{ webinar.cover.url }}" alt="{{ webinar.title }}" loading="lazy">
+                    {% else %}
+                      <div class="cab-card__photo-placeholder"></div>
+                    {% endif %}
+                    {% if webinar.has_recording %}
+                      <span class="cab-card__badge">● Запис</span>
+                    {% endif %}
+                  </div>
+                </a>
                 <p class="cab-card__type">Вебінар</p>
                 <h2 class="cab-card__title">{{ webinar.title }}</h2>
-                <a href="{% url 'webinars:detail' webinar.slug %}" class="cab-card__btn">Продовжити</a>
+                <p class="cab-card__desc">{{ webinar.description|truncatewords:12 }}</p>
+                <div class="cab-card__actions">
+                  {% if webinar.has_recording %}
+                    <a href="{% url 'webinars:watch' webinar.slug %}" class="cab-card__btn cab-card__btn--primary">Дивитись</a>
+                  {% else %}
+                    <span class="cab-card__btn cab-card__btn--primary cab-card__btn--disabled">Незабаром</span>
+                  {% endif %}
+                  <a href="{% url 'webinars:detail' webinar.slug %}" class="cab-card__btn cab-card__btn--outline">Деталі</a>
+                </div>
               </article>
             {% endfor %}
           </div>
         {% else %}
           <div class="cab-cards">
-            <article class="cab-card">
-              <div class="cab-card__photo">
-                <img src="{% static 'images/cabinet-mock-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+            <article class="cab-card cab-card--webinar">
+              <a href="{% url 'webinars:list' %}" class="cab-card__photo-link" aria-label="Вебінари">
+                <div class="cab-card__photo">
+                  <img src="{% static 'images/cabinet-mock-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
+                </div>
+              </a>
               <p class="cab-card__type">Вебінар</p>
               <h2 class="cab-card__title">Нутриціологія</h2>
-              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+              <p class="cab-card__desc">Вебінар для тих, хто хоче освоїти основи нутриціології тварин.</p>
+              <div class="cab-card__actions">
+                <a href="{% url 'webinars:list' %}" class="cab-card__btn cab-card__btn--primary">Дивитись</a>
+                <a href="{% url 'webinars:list' %}" class="cab-card__btn cab-card__btn--outline">Деталі</a>
+              </div>
             </article>
-            <article class="cab-card">
-              <div class="cab-card__photo">
-                <img src="{% static 'images/cabinet-mock-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-              <img src="{% static 'images/cabinet-progress-bar.svg' %}" alt="" class="cab-card__progress" aria-hidden="true">
+            <article class="cab-card cab-card--webinar">
+              <a href="{% url 'webinars:list' %}" class="cab-card__photo-link" aria-label="Вебінари">
+                <div class="cab-card__photo">
+                  <img src="{% static 'images/cabinet-mock-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
+                </div>
+              </a>
               <p class="cab-card__type">Вебінар</p>
               <h2 class="cab-card__title">Нутриціологія</h2>
-              <a href="{% url 'webinars:list' %}" class="cab-card__btn">Продовжити</a>
+              <p class="cab-card__desc">Вебінар для тих, хто хоче освоїти основи нутриціології тварин.</p>
+              <div class="cab-card__actions">
+                <a href="{% url 'webinars:list' %}" class="cab-card__btn cab-card__btn--primary">Дивитись</a>
+                <a href="{% url 'webinars:list' %}" class="cab-card__btn cab-card__btn--outline">Деталі</a>
+              </div>
             </article>
           </div>
         {% endif %}

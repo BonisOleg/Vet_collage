@@ -150,6 +150,7 @@
   overflow: hidden;
   background: var(--color-gray-bg);
   flex-shrink: 0;
+  position: relative;
 }
 
 .cab-card__photo img {
@@ -1095,9 +1096,107 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CABINET UNDER HEADER — body.page-cabinet (авторизований кабінет + /membership/)
-   --cabinet-top-offset задається в components.css
+   CAB-CARD — WEBINAR VARIANT (cab-card--webinar)
+   Same visual language as wbn-card on the listing page.
+   Uses existing cab-card base; modifier overrides flex + adds new elements.
    ═══════════════════════════════════════════════════════════════ */
+
+/* Photo link — wraps the photo, makes it clickable */
+.cab-card__photo-link {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+/* Recording badge — overlaid on photo */
+.cab-card__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--color-dark);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}
+
+/* Short description below title */
+.cab-card__desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: var(--color-black);
+  line-height: var(--lh-normal);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+/* For webinar variant: title should NOT flex-grow (desc fills the space instead) */
+.cab-card--webinar .cab-card__title {
+  flex: 0 0 auto;
+  margin-bottom: 12px;
+}
+
+/* Actions row — two pill buttons */
+.cab-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* Reset align-self inside the actions row */
+.cab-card__actions .cab-card__btn {
+  align-self: auto;
+  padding: 0 16px;
+}
+
+/* "Дивитись" — dark bg, white text (inherits base btn bg, kept for clarity) */
+.cab-card__btn--primary {
+  background: var(--color-dark);
+  color: var(--color-white);
+  border: none;
+}
+
+/* "Деталі" — outline */
+.cab-card__btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+}
+
+.cab-card__btn--outline:hover {
+  background: var(--color-black);
+  color: var(--color-cream);
+}
+
+/* Disabled state — "Незабаром" */
+.cab-card__btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Hover zoom on webinar card photo */
+.cab-card--webinar:hover .cab-card__photo img {
+  transform: scale(1.03);
+}
+
+/* ─── RESPONSIVE — webinar card variant ─── */
+@media (max-width: 1024px) {
+  .cab-card--webinar .cab-card__photo { width: 240px; height: 264px; }
+}
+
+@media (max-width: 768px) {
+  .cab-card--webinar .cab-card__photo { width: 100%; height: 220px; }
+  .cab-card__actions { flex-wrap: wrap; }
+  .cab-card__actions .cab-card__btn { font-size: 16px; height: 36px; }
+}
+
+
 body.page-cabinet .cabinet {
   margin-top: var(--cabinet-top-offset, 152px);
   min-height: calc(100vh - var(--cabinet-top-offset, 152px));
