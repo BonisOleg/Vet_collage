@@ -1,6 +1,39 @@
 from django.db import models
 
 
+class SiteContact(models.Model):
+    """Контактна інформація сайту (singleton — завжди один запис з pk=1)."""
+
+    email = models.EmailField(blank=True, verbose_name='Email')
+    phone = models.CharField(max_length=30, blank=True, verbose_name='Телефон')
+    instagram_url = models.URLField(blank=True, verbose_name='Instagram URL')
+    facebook_url = models.URLField(blank=True, verbose_name='Facebook URL')
+
+    class Meta:
+        verbose_name = 'Контактні дані сайту'
+        verbose_name_plural = 'Контактні дані сайту'
+
+    def __str__(self) -> str:
+        return 'Контактні дані сайту'
+
+    def save(self, *args, **kwargs) -> None:
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls) -> 'SiteContact':
+        obj, _ = cls.objects.get_or_create(
+            pk=1,
+            defaults={
+                'email': 'info@ucvn.org',
+                'phone': '',
+                'instagram_url': '',
+                'facebook_url': '',
+            },
+        )
+        return obj
+
+
 class ContactRequest(models.Model):
     """Заявка на консультацію від відвідувача."""
     

@@ -1,6 +1,30 @@
 from django.contrib import admin
+from django.http import HttpRequest
 
-from core.models import ContactRequest, NewsletterSubscription
+from core.models import ContactRequest, NewsletterSubscription, SiteContact
+
+
+@admin.register(SiteContact)
+class SiteContactAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Контактна інформація', {
+            'fields': ('email', 'phone'),
+        }),
+        ('Соціальні мережі', {
+            'fields': ('instagram_url', 'facebook_url'),
+        }),
+    )
+
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return not SiteContact.objects.exists()
+
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+
+    def changelist_view(self, request: HttpRequest, extra_context=None):
+        """Перенаправляємо зі списку одразу на форму редагування."""
+        obj = SiteContact.load()
+        return self.changeform_view(request, object_id=str(obj.pk), extra_context=extra_context)
 
 
 @admin.register(ContactRequest)
