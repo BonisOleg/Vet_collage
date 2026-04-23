@@ -96,9 +96,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 if not DEBUG:
+    MEDIA_URL = f"https://{os.environ.get('BUNNY_HOSTNAME', '')}/"
     STORAGES = {
         "default": {
             "BACKEND": "django_bunny.storage.BunnyStorage",
+            "OPTIONS": {
+                "username": os.environ.get("BUNNY_USERNAME", ""),
+                "password": os.environ.get("BUNNY_PASSWORD", ""),
+                "region": os.environ.get("BUNNY_REGION", "de"),
+                "hostname": os.environ.get("BUNNY_HOSTNAME", ""),
+            },
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
