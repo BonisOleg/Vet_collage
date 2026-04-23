@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
+from core.currency import CURRENCY_CHOICES, DEFAULT_CURRENCY, get_currency_symbol
+
 User = get_user_model()
 
 
@@ -20,7 +22,9 @@ class Webinar(models.Model):
         'Стара ціна', max_digits=10, decimal_places=2, null=True, blank=True,
         help_text='Ціна до знижки — відображається закресленою поруч із поточною ціною',
     )
-    currency = models.CharField('Валюта', max_length=3, default='EUR')
+    currency = models.CharField(
+        'Валюта', max_length=3, default=DEFAULT_CURRENCY, choices=CURRENCY_CHOICES,
+    )
     date = models.DateTimeField('Дата проведення', null=True, blank=True)
     duration_min = models.PositiveIntegerField('Тривалість (хв)', default=60)
     is_active = models.BooleanField('Активний', default=True)
@@ -76,7 +80,7 @@ class Webinar(models.Model):
 
     @property
     def currency_symbol(self) -> str:
-        return '€' if self.currency == 'EUR' else 'грн'
+        return get_currency_symbol(self.currency)
 
     @property
     def has_recording(self) -> bool:

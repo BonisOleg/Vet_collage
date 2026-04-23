@@ -1,13 +1,17 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from core.currency import CURRENCY_CHOICES, DEFAULT_CURRENCY, get_currency_symbol
+
 User = get_user_model()
 
 
 class MembershipPlan(models.Model):
     name = models.CharField('Назва', max_length=100)
     price = models.DecimalField('Ціна/міс', max_digits=10, decimal_places=2)
-    currency = models.CharField('Валюта', max_length=3, default='EUR')
+    currency = models.CharField(
+        'Валюта', max_length=3, default=DEFAULT_CURRENCY, choices=CURRENCY_CHOICES,
+    )
     description = models.TextField('Опис', blank=True)
     features = models.JSONField('Переваги', default=list)
     is_popular = models.BooleanField('Популярний', default=False)
@@ -23,7 +27,7 @@ class MembershipPlan(models.Model):
 
     @property
     def currency_symbol(self) -> str:
-        return '€' if self.currency == 'EUR' else 'грн'
+        return get_currency_symbol(self.currency)
 
 
 class UserMembership(models.Model):

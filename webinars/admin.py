@@ -11,7 +11,7 @@ class WebinarInstructorInline(admin.TabularInline):
 @admin.register(Webinar)
 class WebinarAdmin(admin.ModelAdmin):
     list_display = [
-        'title', 'date', 'price', 'original_price', 'is_free',
+        'title', 'date', 'price', 'currency', 'original_price', 'is_free',
         'is_active', 'has_recording', 'registration_count', 'created_at',
     ]
     list_filter = ['is_active', 'is_free', 'requires_membership', 'audience', 'date']

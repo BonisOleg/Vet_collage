@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
+from core.currency import CURRENCY_CHOICES, DEFAULT_CURRENCY, get_currency_symbol
+
 User = get_user_model()
 
 
@@ -34,7 +36,9 @@ class Course(models.Model):
     description = models.TextField('Опис')
     cover = models.ImageField('Обкладинка', upload_to='courses/covers/', blank=True)
     price = models.DecimalField('Ціна', max_digits=10, decimal_places=2)
-    currency = models.CharField('Валюта', max_length=3, default='EUR')
+    currency = models.CharField(
+        'Валюта', max_length=3, default=DEFAULT_CURRENCY, choices=CURRENCY_CHOICES,
+    )
     duration_hours = models.PositiveIntegerField('Тривалість (год)', default=0)
     level = models.CharField(
         'Рівень', max_length=20, choices=LEVEL_CHOICES, default='beginner',
@@ -79,7 +83,7 @@ class Course(models.Model):
 
     @property
     def currency_symbol(self) -> str:
-        return '€' if self.currency == 'EUR' else 'грн'
+        return get_currency_symbol(self.currency)
 
     @property
     def total_duration_seconds(self) -> int:

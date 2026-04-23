@@ -4,7 +4,7 @@ from .models import MembershipPlan, UserMembership
 
 @admin.register(MembershipPlan)
 class MembershipPlanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'is_popular', 'order']
+    list_display = ['name', 'price', 'currency', 'is_popular', 'order']
     list_editable = ['order', 'is_popular']
     ordering = ['order']
 
