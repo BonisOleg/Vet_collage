@@ -47,9 +47,9 @@
       <span class="webinar-detail__duration">{{ webinar.duration_min }} хв</span>
       {% if not webinar.is_free %}
         {% if webinar.original_price %}
-          <span class="webinar-detail__price webinar-detail__price--old">{{ webinar.original_price }} грн</span>
+          <span class="webinar-detail__price webinar-detail__price--old">{{ webinar.currency_symbol }}{{ webinar.original_price }}</span>
         {% endif %}
-        <span class="webinar-detail__price">{{ webinar.price }} грн</span>
+        <span class="webinar-detail__price">{{ webinar.currency_symbol }}{{ webinar.price }}</span>
       {% else %}
         <span class="webinar-detail__price webinar-detail__price--free">Безкоштовно</span>
       {% endif %}
@@ -95,7 +95,7 @@
           data-checkout
           data-order-type="webinar"
           data-item-id="{{ webinar.pk }}"
-        >Придбати вебінар — {{ webinar.price }} грн</button>
+        >Придбати вебінар — {{ webinar.currency_symbol }}{{ webinar.price }}</button>
       {% else %}
         <button type="button" class="btn btn-red" data-modal-open="modal-login">
           Увійдіть, щоб придбати

@@ -24,7 +24,7 @@
           <span class="membership-card__badge">Популярний</span>
         {% endif %}
         <span class="membership-card__label">{{ plan.name }}</span>
-        <p class="membership-card__price">{{ plan.price }} грн<span class="membership-card__period">/міс</span></p>
+        <p class="membership-card__price">{{ plan.currency_symbol }}{{ plan.price }}<span class="membership-card__period">/міс</span></p>
         {% if plan.description %}
           <p class="membership-card__desc">{{ plan.description }}</p>
         {% endif %}

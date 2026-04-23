@@ -18,7 +18,7 @@
       <span>{{ course.get_level_display }}</span>
     </div>
     <div class="course-card__footer">
-      <span class="course-card__price">€{{ course.price }}</span>
+      <span class="course-card__price">{{ course.currency_symbol }}{{ course.price }}</span>
       <a href="{% url 'courses:detail' course.slug %}" class="btn btn-red btn-sm">Детальніше</a>
     </div>
   </div>

@@ -27,7 +27,7 @@ class Order(models.Model):
     item_id = models.PositiveIntegerField('ID товару')
     item_title = models.CharField('Назва товару', max_length=255, blank=True)
     amount = models.DecimalField('Сума', max_digits=10, decimal_places=2)
-    currency = models.CharField('Валюта', max_length=3, default='UAH')
+    currency = models.CharField('Валюта', max_length=3, default='EUR')
     status = models.CharField(
         'Статус', max_length=20, choices=STATUS_CHOICES, default='pending',
     )
@@ -47,3 +47,7 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return f'#{self.pk} {self.get_order_type_display()} — {self.item_title}'
+
+    @property
+    def currency_symbol(self) -> str:
+        return '€' if self.currency == 'EUR' else 'грн'

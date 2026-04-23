@@ -20,6 +20,7 @@ class Webinar(models.Model):
         'Стара ціна', max_digits=10, decimal_places=2, null=True, blank=True,
         help_text='Ціна до знижки — відображається закресленою поруч із поточною ціною',
     )
+    currency = models.CharField('Валюта', max_length=3, default='EUR')
     date = models.DateTimeField('Дата проведення', null=True, blank=True)
     duration_min = models.PositiveIntegerField('Тривалість (хв)', default=60)
     is_active = models.BooleanField('Активний', default=True)
@@ -65,6 +66,10 @@ class Webinar(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def currency_symbol(self) -> str:
+        return '€' if self.currency == 'EUR' else 'грн'
 
     @property
     def has_recording(self) -> bool:

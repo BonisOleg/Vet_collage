@@ -291,7 +291,7 @@
               <h2 class="hist-card__title">{{ order.item_title }}</h2>
               <p class="hist-card__meta">{{ order.created_at|date:"d.m.Y" }}</p>
               <p class="hist-card__meta">Статус: {{ order.get_status_display }}</p>
-              <p class="hist-card__price">€{{ order.amount }}</p>
+              <p class="hist-card__price">{{ order.currency_symbol }}{{ order.amount }}</p>
               <a href="#" class="hist-card__btn">Дивитися</a>
             </div>
           </div>

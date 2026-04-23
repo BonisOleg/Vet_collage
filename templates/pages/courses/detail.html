@@ -41,7 +41,7 @@
       {% if course.lesson_count %}
         <span class="course-detail__lessons-count">{{ course.lesson_count }} уроків</span>
       {% endif %}
-      <span class="course-detail__price">{{ course.price }} {{ course.currency }}</span>
+      <span class="course-detail__price">{{ course.currency_symbol }}{{ course.price }}</span>
       {% if course.materials_access_note %}
         <span class="course-detail__access-note">Доступ: {{ course.materials_access_note }}</span>
       {% endif %}
@@ -184,7 +184,7 @@
           data-checkout
           data-order-type="course"
           data-item-id="{{ course.pk }}"
-        >Придбати курс — {{ course.price }} {{ course.currency }}</button>
+        >Придбати курс — {{ course.currency_symbol }}{{ course.price }}</button>
       {% else %}
         <button type="button" class="btn btn-red" data-modal-open="modal-login">
           Увійдіть, щоб придбати

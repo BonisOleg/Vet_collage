@@ -127,9 +127,9 @@
                 <span class="wbn-card__price wbn-card__price--free">Безкоштовно</span>
               {% else %}
                 {% if webinar.original_price %}
-                  <span class="wbn-card__price-old">{{ webinar.original_price }} грн</span>
+                  <span class="wbn-card__price-old">{{ webinar.currency_symbol }}{{ webinar.original_price }}</span>
                 {% endif %}
-                <span class="wbn-card__price">{{ webinar.price }} грн</span>
+                <span class="wbn-card__price">{{ webinar.currency_symbol }}{{ webinar.price }}</span>
               {% endif %}
             </div>
             <div class="wbn-card__actions">
@@ -154,8 +154,8 @@
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">100 грн</span>
-              <span class="wbn-card__price">80 грн</span>
+              <span class="wbn-card__price-old">€100</span>
+              <span class="wbn-card__price">€80</span>
             </div>
             <div class="wbn-card__actions">
               <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
@@ -176,8 +176,8 @@
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">100 грн</span>
-              <span class="wbn-card__price">80 грн</span>
+              <span class="wbn-card__price-old">€100</span>
+              <span class="wbn-card__price">€80</span>
             </div>
             <div class="wbn-card__actions">
               <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
@@ -198,8 +198,8 @@
             <h2 class="wbn-card__title">Нутриціологія</h2>
             <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
             <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">100 грн</span>
-              <span class="wbn-card__price">80 грн</span>
+              <span class="wbn-card__price-old">€100</span>
+              <span class="wbn-card__price">€80</span>
             </div>
             <div class="wbn-card__actions">
               <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>

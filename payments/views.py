@@ -37,7 +37,7 @@ def create_checkout_view(request: HttpRequest) -> HttpResponse:
     except (ValueError, TypeError):
         return JsonResponse({'error': 'Invalid item ID'}, status=400)
 
-    item_title, amount = _resolve_item(order_type, item_id_int)
+    item_title, amount, currency = _resolve_item(order_type, item_id_int)
     if amount is None:
         return JsonResponse({'error': 'Item not found'}, status=404)
 
@@ -47,6 +47,7 @@ def create_checkout_view(request: HttpRequest) -> HttpResponse:
         item_id=item_id_int,
         item_title=item_title,
         amount=amount,
+        currency=currency,
     )
 
     success_url = request.build_absolute_uri(
@@ -83,29 +84,29 @@ def stripe_webhook_view(request: HttpRequest) -> HttpResponse:
 
 
 def _resolve_item(order_type: str, item_id: int):
-    """Return (title, price) for the given item or (None, None)."""
+    """Return (title, price, currency) for the given item or (None, None, None)."""
     if order_type == 'course':
         from courses.models import Course
         try:
             c = Course.objects.get(pk=item_id, is_active=True)
-            return c.title, c.price
+            return c.title, c.price, c.currency
         except Course.DoesNotExist:
-            return None, None
+            return None, None, None
 
     elif order_type == 'webinar':
         from webinars.models import Webinar
         try:
             w = Webinar.objects.get(pk=item_id, is_active=True)
-            return w.title, w.price
+            return w.title, w.price, w.currency
         except Webinar.DoesNotExist:
-            return None, None
+            return None, None, None
 
     elif order_type == 'membership':
         from membership.models import MembershipPlan
         try:
             p = MembershipPlan.objects.get(pk=item_id)
-            return p.name, p.price
+            return p.name, p.price, p.currency
         except MembershipPlan.DoesNotExist:
-            return None, None
+            return None, None, None
 
-    return None, None
+    return None, None, None

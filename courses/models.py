@@ -34,7 +34,7 @@ class Course(models.Model):
     description = models.TextField('Опис')
     cover = models.ImageField('Обкладинка', upload_to='courses/covers/', blank=True)
     price = models.DecimalField('Ціна', max_digits=10, decimal_places=2)
-    currency = models.CharField('Валюта', max_length=3, default='UAH')
+    currency = models.CharField('Валюта', max_length=3, default='EUR')
     duration_hours = models.PositiveIntegerField('Тривалість (год)', default=0)
     level = models.CharField(
         'Рівень', max_length=20, choices=LEVEL_CHOICES, default='beginner',
@@ -76,6 +76,10 @@ class Course(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def currency_symbol(self) -> str:
+        return '€' if self.currency == 'EUR' else 'грн'
 
     @property
     def total_duration_seconds(self) -> int:
