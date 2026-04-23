@@ -143,72 +143,7 @@
             </div>
           </article>
         {% empty %}
-          <!-- Figma mock data — shown when no webinars exist in DB -->
-          <article class="wbn-card">
-            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
-              <div class="wbn-card__photo">
-                <img src="{% static 'images/webinars-figma-photo-1.png' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-            </a>
-            <p class="wbn-card__type">Вебінар</p>
-            <h2 class="wbn-card__title">Нутриціологія</h2>
-            <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
-            <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
-            </div>
-            <div class="wbn-card__actions">
-              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
-              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
-                Купити
-                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
-              </a>
-            </div>
-          </article>
-
-          <article class="wbn-card">
-            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
-              <div class="wbn-card__photo">
-                <img src="{% static 'images/webinars-figma-photo-2.jpg' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-            </a>
-            <p class="wbn-card__type">Вебінар</p>
-            <h2 class="wbn-card__title">Нутриціологія</h2>
-            <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
-            <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
-            </div>
-            <div class="wbn-card__actions">
-              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
-              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
-                Купити
-                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
-              </a>
-            </div>
-          </article>
-
-          <article class="wbn-card">
-            <a href="{% url 'webinars:list' %}" class="wbn-card__photo-link" aria-label="Деталі вебінару: Нутриціологія">
-              <div class="wbn-card__photo">
-                <img src="{% static 'images/webinars-figma-photo-3.png' %}" alt="Нутриціологія" loading="lazy">
-              </div>
-            </a>
-            <p class="wbn-card__type">Вебінар</p>
-            <h2 class="wbn-card__title">Нутриціологія</h2>
-            <p class="wbn-card__desc">Вебінар призначений для тих, які хочуть освоїти основи та розуміти, як харчування впливає на тварин.</p>
-            <div class="wbn-card__prices">
-              <span class="wbn-card__price-old">€100</span>
-              <span class="wbn-card__price">€80</span>
-            </div>
-            <div class="wbn-card__actions">
-              <a href="{% url 'membership:index' %}" class="wbn-card__btn wbn-card__btn--member">Стати членом</a>
-              <a href="{% url 'webinars:list' %}" class="wbn-card__btn wbn-card__btn--buy">
-                Купити
-                <img src="{% static 'images/courses-lock-icon.svg' %}" alt="" width="15" height="19" aria-hidden="true">
-              </a>
-            </div>
-          </article>
+          <p class="listing-empty">Вебінарів за вашим запитом не знайдено.</p>
         {% endfor %}
 
       </div><!-- /#webinars-grid -->

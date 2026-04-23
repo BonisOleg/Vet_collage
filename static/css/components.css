@@ -959,6 +959,16 @@ body.page-cabinet .site-header {
   gap: 47px;
 }
 
+/* ─── Empty state message inside listing grid ─── */
+.listing-empty {
+  grid-column: 1 / -1;
+  font-family: var(--font-body, sans-serif);
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 48px 0;
+  text-align: center;
+}
+
 /* ─── Sidebar filter separator ─── */
 .csb-line {
   height: 1.5px;

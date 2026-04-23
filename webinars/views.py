@@ -21,9 +21,7 @@ class WebinarListView(ListView):
             qs = qs.filter(title__icontains=search)
 
         membership = self.request.GET.get('membership')
-        if membership == 'members':
-            qs = qs.filter(requires_membership=True)
-        elif membership == 'all':
+        if membership == 'all':
             qs = qs.filter(requires_membership=False)
 
         topic = self.request.GET.get('topic', '').strip()
