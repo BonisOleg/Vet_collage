@@ -83,6 +83,26 @@ class Webinar(models.Model):
         return bool(self.bunny_embed_url or self.bunny_video_id)
 
 
+class WebinarInstructor(models.Model):
+    webinar = models.ForeignKey(
+        Webinar, on_delete=models.CASCADE, related_name='instructors',
+        verbose_name='Вебінар',
+    )
+    name = models.CharField('ПІБ', max_length=255)
+    role = models.CharField('Роль/посада', max_length=255, blank=True)
+    bio = models.TextField('Біографія', blank=True)
+    photo = models.ImageField('Фото', upload_to='webinar_instructors/', blank=True)
+    order = models.PositiveSmallIntegerField('Порядок', default=0)
+
+    class Meta:
+        verbose_name = 'Спікер вебінару'
+        verbose_name_plural = 'Спікери вебінарів'
+        ordering = ['order']
+
+    def __str__(self) -> str:
+        return f'{self.name} ({self.webinar.title})'
+
+
 class WebinarRegistration(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='webinar_registrations',

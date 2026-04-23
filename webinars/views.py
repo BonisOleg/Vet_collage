@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 
 from core.services.bunny import BunnyNetService
-from .models import Webinar, WebinarRegistration
+from .models import Webinar, WebinarInstructor, WebinarRegistration
 
 
 class WebinarListView(ListView):
@@ -65,7 +65,7 @@ class WebinarDetailView(DetailView):
     context_object_name = 'webinar'
 
     def get_queryset(self):
-        return Webinar.objects.filter(is_active=True)
+        return Webinar.objects.filter(is_active=True).prefetch_related('instructors')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -74,6 +74,7 @@ class WebinarDetailView(DetailView):
 
         ctx['is_registered'] = False
         ctx['stripe_key'] = settings.STRIPE_PUBLISHABLE_KEY
+        ctx['instructors'] = webinar.instructors.all()
 
         if user.is_authenticated:
             ctx['is_registered'] = WebinarRegistration.objects.filter(

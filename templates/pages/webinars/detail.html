@@ -62,17 +62,34 @@
       {{ webinar.description|linebreaks }}
     </div>
 
-    {% if webinar.speaker %}
+    {% if instructors %}
     <div class="webinar-detail__speakers">
-      <h2 class="webinar-detail__speakers-title">Про спікера</h2>
+      <h2 class="webinar-detail__speakers-title">Про спікерів</h2>
+      {% for speaker in instructors %}
       <div class="webinar-detail__speaker">
-        <div class="webinar-detail__speaker-avatar" aria-hidden="true">
-          {{ webinar.speaker.get_full_name|default:webinar.speaker.username|slice:":1" }}
-        </div>
+        {% if speaker.photo %}
+        <img
+          class="webinar-detail__speaker-photo"
+          src="{{ speaker.photo.url }}"
+          alt="{{ speaker.name }}"
+          loading="lazy"
+          width="80"
+          height="80"
+        >
+        {% else %}
+        <div class="webinar-detail__speaker-photo webinar-detail__speaker-photo--placeholder" aria-hidden="true"></div>
+        {% endif %}
         <div class="webinar-detail__speaker-info">
-          <p class="webinar-detail__speaker-name">{{ webinar.speaker.get_full_name|default:webinar.speaker.username }}</p>
+          <p class="webinar-detail__speaker-name">{{ speaker.name }}</p>
+          {% if speaker.role %}
+            <p class="webinar-detail__speaker-role">{{ speaker.role }}</p>
+          {% endif %}
+          {% if speaker.bio %}
+            <div class="webinar-detail__speaker-bio">{{ speaker.bio|linebreaks }}</div>
+          {% endif %}
         </div>
       </div>
+      {% endfor %}
     </div>
     {% endif %}
 

@@ -1,21 +1,28 @@
 from django.contrib import admin
-from .models import Webinar, WebinarRegistration
+from .models import Webinar, WebinarInstructor, WebinarRegistration
+
+
+class WebinarInstructorInline(admin.TabularInline):
+    model = WebinarInstructor
+    extra = 1
+    fields = ('order', 'name', 'role', 'bio', 'photo')
 
 
 @admin.register(Webinar)
 class WebinarAdmin(admin.ModelAdmin):
     list_display = [
-        'title', 'date', 'price', 'is_free',
+        'title', 'date', 'price', 'original_price', 'is_free',
         'is_active', 'has_recording', 'registration_count', 'created_at',
     ]
     list_filter = ['is_active', 'is_free', 'requires_membership', 'audience', 'date']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ('title',)}
     list_per_page = 25
+    inlines = [WebinarInstructorInline]
     fieldsets = (
         (None, {
             'fields': (
-                'title', 'slug', 'speaker', 'description',
+                'title', 'slug', 'description',
                 'cover', 'price', 'original_price', 'is_free', 'currency',
             ),
         }),
@@ -24,7 +31,6 @@ class WebinarAdmin(admin.ModelAdmin):
         }),
         ('Контент', {
             'fields': ('what_you_learn', 'materials_access_note'),
-            'description': 'Наповнення, як у курсах',
         }),
         ('Параметри', {
             'fields': ('is_active', 'requires_membership', 'audience'),

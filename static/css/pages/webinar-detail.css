@@ -158,29 +158,22 @@
   border-bottom: 1px solid var(--color-border, #e0e0e0);
 }
 
-/* Monogram avatar — CSS circle with initial letter */
-.webinar-detail__speaker-avatar {
-  width: 64px;
-  height: 64px;
+.webinar-detail__speaker-photo {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: var(--color-cream, #f5f0ea);
+  object-fit: cover;
+  object-position: top center;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: var(--fw-regular);
-  color: var(--color-dark);
-  text-transform: uppercase;
-  user-select: none;
+  display: block;
+}
+
+.webinar-detail__speaker-photo--placeholder {
+  background: var(--color-cream, #f5f0ea);
 }
 
 .webinar-detail__speaker-info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .webinar-detail__speaker-name {
@@ -188,7 +181,26 @@
   font-size: var(--fs-body);
   font-weight: var(--fw-semi);
   color: var(--color-dark);
-  margin: 0;
+  margin-bottom: var(--sp-1);
+}
+
+.webinar-detail__speaker-role {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-red);
+  font-weight: var(--fw-semi);
+  margin-bottom: var(--sp-3);
+}
+
+.webinar-detail__speaker-bio {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-loose);
+  color: var(--color-text);
+}
+
+.webinar-detail__speaker-bio p {
+  margin-bottom: var(--sp-2);
 }
 
 /* ─── Learn section (what you will learn) ─── */
