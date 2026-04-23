@@ -193,7 +193,15 @@ class CabinetView(LoginRequiredMixin, TemplateView):
         registrations = WebinarRegistration.objects.filter(
             user=user,
         ).select_related('webinar')
-        ctx['user_webinars'] = [r.webinar for r in registrations]
+        user_webinars = [r.webinar for r in registrations]
+        ctx['user_webinars'] = user_webinars
+
+        if not user_webinars:
+            ctx['recommended_webinars'] = list(
+                Webinar.objects.filter(is_active=True).order_by('-created_at')[:2]
+            )
+        else:
+            ctx['recommended_webinars'] = []
 
         ctx['user_membership'] = None
         if hasattr(user, 'membership'):
