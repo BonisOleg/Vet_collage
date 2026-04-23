@@ -7,5 +7,6 @@ gunicorn
 psycopg2-binary
 dj-database-url
 whitenoise[brotli]
-cloudinary>=1.36.0
-django-cloudinary-storage>=0.3.0
+django-bunny
+# cloudinary>=1.36.0              # резерв: розкоментувати для Cloudinary
+# django-cloudinary-storage>=0.3.0  # резерв: розкоментувати для Cloudinary

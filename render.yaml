@@ -36,15 +36,17 @@ services:
         sync: false
       - key: BUNNY_TOKEN_AUTH_KEY
         sync: false
+      - key: BUNNY_USERNAME
+        sync: false
+      - key: BUNNY_PASSWORD
+        sync: false
+      - key: BUNNY_REGION
+        sync: false
+      - key: BUNNY_HOSTNAME
+        sync: false
       - key: EMAIL_HOST_USER
         sync: false
       - key: EMAIL_HOST_PASSWORD
-        sync: false
-      - key: CLOUDINARY_CLOUD_NAME
-        sync: false
-      - key: CLOUDINARY_API_KEY
-        sync: false
-      - key: CLOUDINARY_API_SECRET
         sync: false
       - key: DJANGO_SUPERUSER_USERNAME
         sync: false

@@ -27,9 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # external
-    'cloudinary_storage',
-    'cloudinary',
+    # external (резерв: розкоментувати для Cloudinary)
+    # 'cloudinary_storage',
+    # 'cloudinary',
     # project apps
     'core',
     'courses',
@@ -98,35 +98,41 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# --- Cloudinary Configuration ---
-if not DEBUG:
-    import cloudinary
-    
-    cloudinary.config(
-        cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', ''),
-        api_key=os.environ.get('CLOUDINARY_API_KEY', ''),
-        api_secret=os.environ.get('CLOUDINARY_API_SECRET', ''),
-    )
-    
-    MEDIA_URL = f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME', '')}/image/upload/"
-    
+_bunny_configured = bool(os.environ.get('BUNNY_PASSWORD'))
+
+if _bunny_configured:
+    MEDIA_URL = f"https://{os.environ.get('BUNNY_HOSTNAME', '')}/"
     STORAGES = {
         "default": {
-            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+            "BACKEND": "django_bunny.storage.BunnyStorage",
+            "OPTIONS": {
+                "username": os.environ.get("BUNNY_USERNAME", ""),
+                "password": os.environ.get("BUNNY_PASSWORD", ""),
+                "region": os.environ.get("BUNNY_REGION", "de"),
+                "hostname": os.environ.get("BUNNY_HOSTNAME", ""),
+            },
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
-else:
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
+
+# --- резерв: Cloudinary storage (розкоментувати і видалити Bunny блок щоб повернутись) ---
+# _cloudinary_configured = bool(os.environ.get('CLOUDINARY_API_SECRET'))
+# if _cloudinary_configured:
+#     import cloudinary
+#     cloudinary.config(
+#         cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', ''),
+#         api_key=os.environ.get('CLOUDINARY_API_KEY', ''),
+#         api_secret=os.environ.get('CLOUDINARY_API_SECRET', ''),
+#     )
+#     MEDIA_URL = (
+#         f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME', '')}/image/upload/"
+#     )
+#     STORAGES = {
+#         "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
+#         "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+#     }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -150,10 +156,16 @@ BUNNY_LIBRARY_ID = os.environ.get('BUNNY_LIBRARY_ID', '')
 BUNNY_CDN_HOSTNAME = os.environ.get('BUNNY_CDN_HOSTNAME', '')
 BUNNY_TOKEN_AUTH_KEY = os.environ.get('BUNNY_TOKEN_AUTH_KEY', '')
 
-# --- Cloudinary (image uploads) ---
-CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '')
-CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY', '')
-CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET', '')
+# --- Bunny.net Storage (image uploads) ---
+BUNNY_USERNAME = os.environ.get('BUNNY_USERNAME', '')
+BUNNY_PASSWORD = os.environ.get('BUNNY_PASSWORD', '')
+BUNNY_REGION = os.environ.get('BUNNY_REGION', '')
+BUNNY_HOSTNAME = os.environ.get('BUNNY_HOSTNAME', '')
+
+# --- резерв: Cloudinary змінні (розкоментувати для Cloudinary) ---
+# CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '')
+# CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY', '')
+# CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET', '')
 
 # --- Email (Gmail SMTP) ---
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
