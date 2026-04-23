@@ -191,6 +191,48 @@
   margin: 0;
 }
 
+/* ─── Learn section (what you will learn) ─── */
+.webinar-detail__learn {
+  margin-bottom: var(--sp-10);
+}
+
+.webinar-detail__learn-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-4);
+  color: var(--color-dark);
+}
+
+.webinar-detail__learn-list {
+  list-style: none;
+  padding: 0;
+}
+
+.webinar-detail__learn-list li {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  padding: var(--sp-3) 0;
+  padding-left: var(--sp-6);
+  position: relative;
+  color: var(--color-text);
+}
+
+.webinar-detail__learn-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-red);
+  font-weight: var(--fw-bold);
+}
+
+/* ─── Access Note ─── */
+.webinar-detail__access-note {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-gray-mid);
+}
+
 /* ─── Description ─── */
 .webinar-detail__description {
   font-family: var(--font-body);

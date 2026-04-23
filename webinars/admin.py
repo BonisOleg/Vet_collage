@@ -16,11 +16,15 @@ class WebinarAdmin(admin.ModelAdmin):
         (None, {
             'fields': (
                 'title', 'slug', 'speaker', 'description',
-                'cover', 'price', 'original_price', 'is_free',
+                'cover', 'price', 'original_price', 'is_free', 'currency',
             ),
         }),
         ('Розклад', {
             'fields': ('date', 'duration_min'),
+        }),
+        ('Контент', {
+            'fields': ('what_you_learn', 'materials_access_note'),
+            'description': 'Наповнення, як у курсах',
         }),
         ('Параметри', {
             'fields': ('is_active', 'requires_membership', 'audience'),

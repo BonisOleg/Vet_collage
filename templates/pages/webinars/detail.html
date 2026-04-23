@@ -53,11 +53,18 @@
       {% else %}
         <span class="webinar-detail__price webinar-detail__price--free">Безкоштовно</span>
       {% endif %}
+      {% if webinar.materials_access_note %}
+        <span class="webinar-detail__access-note">Доступ: {{ webinar.materials_access_note }}</span>
+      {% endif %}
+    </div>
+
+    <div class="webinar-detail__description">
+      {{ webinar.description|linebreaks }}
     </div>
 
     {% if webinar.speaker %}
     <div class="webinar-detail__speakers">
-      <h2 class="webinar-detail__speakers-title">Спікер</h2>
+      <h2 class="webinar-detail__speakers-title">Про спікера</h2>
       <div class="webinar-detail__speaker">
         <div class="webinar-detail__speaker-avatar" aria-hidden="true">
           {{ webinar.speaker.get_full_name|default:webinar.speaker.username|slice:":1" }}
@@ -69,9 +76,16 @@
     </div>
     {% endif %}
 
-    <div class="webinar-detail__description">
-      {{ webinar.description|linebreaks }}
+    {% if webinar.what_you_learn %}
+    <div class="webinar-detail__learn">
+      <h2 class="webinar-detail__learn-title">Чому ви навчитесь</h2>
+      <ul class="webinar-detail__learn-list">
+        {% for item in webinar.what_you_learn %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
     </div>
+    {% endif %}
 
     <div class="webinar-detail__actions">
       {% if is_registered %}

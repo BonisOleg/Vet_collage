@@ -53,6 +53,13 @@ class Webinar(models.Model):
             'Якщо заповнено — використовується замість Library ID + Video ID.'
         ),
     )
+    what_you_learn = models.JSONField(
+        'Чому навчитесь', default=list, blank=True,
+        help_text='Список пунктів, напр. ["Основи нутріціології", "Розрахунок раціонів"]',
+    )
+    materials_access_note = models.TextField(
+        'Умови доступу до матеріалів', default='', blank=True,
+    )
 
     class Meta:
         verbose_name = 'Вебінар'
